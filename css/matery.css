@@ -225,6 +225,12 @@ mark {
     padding: .2em;
 }
 
+.reprint__type{
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+
 .bg-color {
     background-image: linear-gradient(to right, #7371BC 0%, #284D95 100%);
     opacity: 0.8  /* 透明效果 */
