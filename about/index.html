@@ -474,7 +474,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Docker","value":3},{"name":"k8s","value":10},{"name":"K8s","value":2},{"name":"Mysql","value":13}],
+                data: [{"name":"Docker","value":3},{"name":"K8s","value":2},{"name":"k8s","value":10},{"name":"Mysql","value":13}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -498,7 +498,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Mysql","Linux","k8s","Docker","Ingress","开源项目","lnmp","K8s","kubeadm","ingress"]
+                data: ["Mysql","Linux","k8s","Docker","Ingress","开源项目","lnmp","K8s","ingress","kubeadm"]
             }
         ],
         yAxis: [
@@ -717,14 +717,14 @@
             
             
             
-            <a href="/tags/kubeadm/">
-                <span class="chip center-align waves-effect waves-light chip-default">kubeadm</span>
+            <a href="/tags/ingress/">
+                <span class="chip center-align waves-effect waves-light chip-default">ingress</span>
             </a>
             
             
             
-            <a href="/tags/ingress/">
-                <span class="chip center-align waves-effect waves-light chip-default">ingress</span>
+            <a href="/tags/kubeadm/">
+                <span class="chip center-align waves-effect waves-light chip-default">kubeadm</span>
             </a>
             
             
@@ -877,7 +877,19 @@
             
             
             
+                
             
+            
+                <span id="busuanzi_value_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_value_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
             
             <br>
 
@@ -940,7 +952,7 @@
             <br>
             
         </div>
-        <div class="col s12 m4 l4 social-link ">
+        <div class="col s12 m4 l4 social-link social-statis">
 
 
 
@@ -1129,6 +1141,8 @@ $(function () {
     
     <script src="/libs/others/clicklove.js" async="async"></script>
     
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     

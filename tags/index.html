@@ -319,19 +319,19 @@
                 </a>
                 
                 
-                <a href="/tags/kubeadm/" title="kubeadm: 1">
+                <a href="/tags/ingress/" title="ingress: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="kubeadm" style="background-color: #82E0AA;">kubeadm
+                            data-tagname="ingress" style="background-color: #82E0AA;">ingress
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/ingress/" title="ingress: 1">
+                <a href="/tags/kubeadm/" title="kubeadm: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="ingress" style="background-color: #D7BDE2;">ingress
+                            data-tagname="kubeadm" style="background-color: #D7BDE2;">kubeadm
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -387,7 +387,7 @@
 <script type="text/javascript">
     
 
-    $('#tag-wordcloud').jQCloud([{"text":"Docker","weight":3,"link":"/tags/Docker/"},{"text":"开源项目","weight":2,"link":"/tags/开源项目/"},{"text":"k8s","weight":12,"link":"/tags/k8s/"},{"text":"Ingress","weight":3,"link":"/tags/Ingress/"},{"text":"lnmp","weight":1,"link":"/tags/lnmp/"},{"text":"K8s","weight":1,"link":"/tags/K8s/"},{"text":"kubeadm","weight":1,"link":"/tags/kubeadm/"},{"text":"ingress","weight":1,"link":"/tags/ingress/"},{"text":"Mysql","weight":13,"link":"/tags/Mysql/"},{"text":"Linux","weight":13,"link":"/tags/Linux/"},{"text":"Operator","weight":1,"link":"/tags/Operator/"}], {
+    $('#tag-wordcloud').jQCloud([{"text":"Docker","weight":3,"link":"/tags/Docker/"},{"text":"开源项目","weight":2,"link":"/tags/开源项目/"},{"text":"k8s","weight":12,"link":"/tags/k8s/"},{"text":"Ingress","weight":3,"link":"/tags/Ingress/"},{"text":"lnmp","weight":1,"link":"/tags/lnmp/"},{"text":"K8s","weight":1,"link":"/tags/K8s/"},{"text":"ingress","weight":1,"link":"/tags/ingress/"},{"text":"kubeadm","weight":1,"link":"/tags/kubeadm/"},{"text":"Mysql","weight":13,"link":"/tags/Mysql/"},{"text":"Linux","weight":13,"link":"/tags/Linux/"},{"text":"Operator","weight":1,"link":"/tags/Operator/"}], {
         autoResize: true
     });
 </script>
@@ -468,7 +468,19 @@
             
             
             
+                
             
+            
+                <span id="busuanzi_value_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_value_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
             
             <br>
 
@@ -531,7 +543,7 @@
             <br>
             
         </div>
-        <div class="col s12 m4 l4 social-link ">
+        <div class="col s12 m4 l4 social-link social-statis">
 
 
 
@@ -720,6 +732,8 @@ $(function () {
     
     <script src="/libs/others/clicklove.js" async="async"></script>
     
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     

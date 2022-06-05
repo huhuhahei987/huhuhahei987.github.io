@@ -275,20 +275,20 @@
                 </a>
                 
                 
-                <a href="/categories/k8s/" title="k8s: 10">
+                <a href="/categories/K8s/" title="K8s: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">k8s
-                        <span class="tag-length">10</span>
+                            style="background-color: #F5EEF8;">K8s
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/K8s/" title="K8s: 2">
+                <a href="/categories/k8s/" title="k8s: 10">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">K8s
-                        <span class="tag-length">2</span>
+                            style="background-color: #D5F5E3;">k8s
+                        <span class="tag-length">10</span>
                     </span>
                 </a>
                 
@@ -344,7 +344,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"Docker","max":15},{"name":"k8s","max":15},{"name":"K8s","max":15},{"name":"Mysql","max":15}],
+            indicator: [{"name":"Docker","max":15},{"name":"K8s","max":15},{"name":"k8s","max":15},{"name":"Mysql","max":15}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -355,7 +355,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [3,10,2,13],
+                    value : [3,2,10,13],
                     name : '文章分类数量'
                 }
             ]
@@ -441,7 +441,19 @@
             
             
             
+                
             
+            
+                <span id="busuanzi_value_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_value_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
             
             <br>
 
@@ -504,7 +516,7 @@
             <br>
             
         </div>
-        <div class="col s12 m4 l4 social-link ">
+        <div class="col s12 m4 l4 social-link social-statis">
 
 
 
@@ -693,6 +705,8 @@ $(function () {
     
     <script src="/libs/others/clicklove.js" async="async"></script>
     
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
