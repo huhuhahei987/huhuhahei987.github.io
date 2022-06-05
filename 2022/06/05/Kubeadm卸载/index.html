@@ -361,7 +361,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    902
+                    872
                 </div>
                 
 
@@ -385,93 +385,93 @@
             <div id="articleContent">
                 <h1 id="删除kubeadm构建的Kubernetes集群"><a href="#删除kubeadm构建的Kubernetes集群" class="headerlink" title="删除kubeadm构建的Kubernetes集群"></a>删除kubeadm构建的Kubernetes集群</h1><p>所有通过 <a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh_CN/latest/kubernetes/deployment/bootstrap_kubernetes_single/kubeadm.html#kubeadm">kubeadm</a> 工具构建的Kubernetes集群以及节点，都可以通过 <code>kubeadm</code> 工具反向卸载(删除)，这是一个非常方便的操作。我的实践是因为在开发测试环境， <a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh_CN/latest/kubernetes/administer/kubeadm_administer/upgrade_kubeadm_cluster.html#upgrade-kubeadm-cluster">升级kubeadm集群</a> 失败，为了快速开始下一阶段测试工作，所以准备重建Kubernetes集群。</p>
 <p><code>kubeadm reset</code> 命令执行会提示:</p>
-<pre><code>[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.
-[reset] Are you sure you want to proceed? [y/N]:
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>reset<span class="token punctuation">]</span> WARNING: Changes made to this host by <span class="token string">'kubeadm init'</span> or <span class="token string">'kubeadm join'</span> will be reverted.
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Are you sure you want to proceed? <span class="token punctuation">[</span>y/N<span class="token punctuation">]</span>:
 </code></pre>
 <p>也就是说，不管是加入集群的工作节点，还是初始化的管控节点，都可以用这个工具反向操作</p>
 <p>检查集群:</p>
-<pre><code>kubectl get nodes
+<pre class=" language-bash"><code class="language-bash">kubectl get nodes
 </code></pre>
 <p>当前节点:</p>
-<pre><code>NAME         STATUS   ROLES    AGE    VERSION
+<pre class=" language-bash"><code class="language-bash">NAME         STATUS   ROLES    AGE    VERSION
 pi-master1   Ready    master   241d   v1.20.9
-pi-worker1   Ready    &lt;none&gt;   237d   v1.20.9
-pi-worker2   Ready    &lt;none&gt;   237d   v1.21.3
-zcloud       Ready    &lt;none&gt;   127d   v1.21.3
+pi-worker1   Ready    <span class="token operator">&lt;</span>none<span class="token operator">></span>   237d   v1.20.9
+pi-worker2   Ready    <span class="token operator">&lt;</span>none<span class="token operator">></span>   237d   v1.21.3
+zcloud       Ready    <span class="token operator">&lt;</span>none<span class="token operator">></span>   127d   v1.21.3
 </code></pre>
 <p>首先在 <code>zcloud</code> 上执行节点清理:</p>
-<pre><code>kubeadm reset
-[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.
-[reset] Are you sure you want to proceed? [y/N]: y
+<pre class=" language-bash"><code class="language-bash">kubeadm reset
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> WARNING: Changes made to this host by <span class="token string">'kubeadm init'</span> or <span class="token string">'kubeadm join'</span> will be reverted.
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Are you sure you want to proceed? <span class="token punctuation">[</span>y/N<span class="token punctuation">]</span>: y
 </code></pre>
 <p>提示信息:</p>
-<pre><code>[preflight] Running pre-flight checks
-W0728 23:50:09.914348 3734557 removeetcdmember.go:79] [reset] No kubeadm config, using etcd pod spec to get data directory
-[reset] No etcd config found. Assuming external etcd
-[reset] Please, manually reset etcd to prevent further issues
-[reset] Stopping the kubelet service
-[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
-[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
-[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
-[reset] Deleting contents of stateful directories: [/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Running pre-flight checks
+W0728 23:50:09.914348 3734557 removeetcdmember.go:79<span class="token punctuation">]</span> <span class="token punctuation">[</span>reset<span class="token punctuation">]</span> No kubeadm config, using etcd pod spec to get data directory
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> No etcd config found. Assuming external etcd
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Please, manually reset etcd to prevent further issues
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Stopping the kubelet <span class="token function">service</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Unmounting mounted directories <span class="token keyword">in</span> <span class="token string">"/var/lib/kubelet"</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting contents of config directories: <span class="token punctuation">[</span>/etc/kubernetes/manifests /etc/kubernetes/pki<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting files: <span class="token punctuation">[</span>/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting contents of stateful directories: <span class="token punctuation">[</span>/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni<span class="token punctuation">]</span>
 
-The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+The reset process does not clean CNI configuration. To <span class="token keyword">do</span> so, you must remove /etc/cni/net.d
 
 The reset process does not reset or clean up iptables rules or IPVS tables.
-If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+If you wish to reset iptables, you must <span class="token keyword">do</span> so manually by using the <span class="token string">"iptables"</span> command.
 
-If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
-to reset your system&#39;s IPVS tables.
+If your cluster was setup to utilize IPVS, run ipvsadm --clear <span class="token punctuation">(</span>or similar<span class="token punctuation">)</span>
+to reset your system's IPVS tables.
 
 The reset process does not clean your kubeconfig files and you must remove them manually.
-Please, check the contents of the $HOME/.kube/config file.
+Please, check the contents of the <span class="token variable">$HOME</span>/.kube/config file.
 </code></pre>
 <p>可以看到 <code>reset</code> 过程不会清理CNI配置，也不会清理iptables规则，两者需要手工处理</p>
 <p>完成以后，在管控服务器上检查，可以看到该工作节点已经 <code>NotReady</code></p>
-<pre><code>kubectl get nodes
+<pre class=" language-bash"><code class="language-bash">kubectl get nodes
 </code></pre>
 <p>显示:</p>
-<pre><code>NAME         STATUS     ROLES    AGE    VERSION
+<pre class=" language-bash"><code class="language-bash">NAME         STATUS     ROLES    AGE    VERSION
 pi-master1   Ready      master   241d   v1.20.9
-pi-worker1   Ready      &lt;none&gt;   237d   v1.20.9
-pi-worker2   Ready      &lt;none&gt;   237d   v1.21.3
-zcloud       NotReady   &lt;none&gt;   127d   v1.21.3
+pi-worker1   Ready      <span class="token operator">&lt;</span>none<span class="token operator">></span>   237d   v1.20.9
+pi-worker2   Ready      <span class="token operator">&lt;</span>none<span class="token operator">></span>   237d   v1.21.3
+zcloud       NotReady   <span class="token operator">&lt;</span>none<span class="token operator">></span>   127d   v1.21.3
 </code></pre>
 <p>删除节点:</p>
-<pre><code>kubectl delete node zcloud
+<pre class=" language-bash"><code class="language-bash">kubectl delete node zcloud
 </code></pre>
 <p>在工作节点上再执行一次清理 <code>iptables</code> 和 <code>cni</code></p>
-<pre><code>rm -rf /etc/cni/net.d
+<pre class=" language-bash"><code class="language-bash"><span class="token function">rm</span> -rf /etc/cni/net.d
 iptables -F
 </code></pre>
 <p>所有工作节点清理以后，最后执行管控节点卸载:</p>
-<pre><code>kubeadm reset
+<pre class=" language-bash"><code class="language-bash">kubeadm reset
 </code></pre>
 <p>输出信息:</p>
-<pre><code>[preflight] Running pre-flight checks
-[reset] Removing info for node &quot;pi-master1&quot; from the ConfigMap &quot;kubeadm-config&quot; in the &quot;kube-system&quot; Namespace
-W0729 00:23:55.555252 3406560 removeetcdmember.go:61] [reset] failed to remove etcd member: error syncing endpoints with etcd: context deadline exceeded, please manually remove this etcd member using etcdctl
-[reset] Stopping the kubelet service
-[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
-[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
-[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
-[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Running pre-flight checks
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Removing info <span class="token keyword">for</span> node <span class="token string">"pi-master1"</span> from the ConfigMap <span class="token string">"kubeadm-config"</span> <span class="token keyword">in</span> the <span class="token string">"kube-system"</span> Namespace
+W0729 00:23:55.555252 3406560 removeetcdmember.go:61<span class="token punctuation">]</span> <span class="token punctuation">[</span>reset<span class="token punctuation">]</span> failed to remove etcd member: error syncing endpoints with etcd: context deadline exceeded, please manually remove this etcd member using etcdctl
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Stopping the kubelet <span class="token function">service</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Unmounting mounted directories <span class="token keyword">in</span> <span class="token string">"/var/lib/kubelet"</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting contents of config directories: <span class="token punctuation">[</span>/etc/kubernetes/manifests /etc/kubernetes/pki<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting files: <span class="token punctuation">[</span>/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>reset<span class="token punctuation">]</span> Deleting contents of stateful directories: <span class="token punctuation">[</span>/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni<span class="token punctuation">]</span>
 
-The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+The reset process does not clean CNI configuration. To <span class="token keyword">do</span> so, you must remove /etc/cni/net.d
 
 The reset process does not reset or clean up iptables rules or IPVS tables.
-If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+If you wish to reset iptables, you must <span class="token keyword">do</span> so manually by using the <span class="token string">"iptables"</span> command.
 
-If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
-to reset your system&#39;s IPVS tables.
+If your cluster was setup to utilize IPVS, run ipvsadm --clear <span class="token punctuation">(</span>or similar<span class="token punctuation">)</span>
+to reset your system's IPVS tables.
 
 The reset process does not clean your kubeconfig files and you must remove them manually.
-Please, check the contents of the $HOME/.kube/config file.
+Please, check the contents of the <span class="token variable">$HOME</span>/.kube/config file.
 </code></pre>
 <p>清理完好干净:</p>
-<pre><code>root@pi-master1:~# docker ps
+<pre class=" language-bash"><code class="language-bash">root@pi-master1:~<span class="token comment" spellcheck="true"># docker ps</span>
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
-root@pi-master1:~# docker ps --all
+root@pi-master1:~<span class="token comment" spellcheck="true"># docker ps --all</span>
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 </code></pre>
 
