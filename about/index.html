@@ -474,7 +474,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Docker","value":3},{"name":"K8s","value":2},{"name":"k8s","value":10},{"name":"Mysql","value":13}],
+                data: [{"name":"Docker","value":3},{"name":"k8s","value":10},{"name":"K8s","value":2},{"name":"Mysql","value":13}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -1094,6 +1094,15 @@ $(function () {
 
     
 
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
     
 
     <!-- 雪花特效 -->
