@@ -4,12 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ingress高级配置, huhuhahei">
-    <meta name="description" content="一.配置ingress路径重写若后端路径是&amp;#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-">
+    <meta name="keywords" content="K8s中配置lnmp环境, huhuhahei">
+    <meta name="description" content="一、配置用于存储的NFS服务1.1服务端配置 nfs#yum安装
+[root@k8smaster lnmp]# yum -y install nfs-utils
+#编辑 配置文件 （确保目录存在）
+[root@k8smaster lnmp]">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +22,7 @@ metadata:
 
     
 
-    <title>Ingress高级配置 | huhuhahei</title>
+    <title>K8s中配置lnmp环境 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -206,12 +205,12 @@ metadata:
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ingress高级配置</h1>
+                    <h1 class="description center-align post-title">K8s中配置lnmp环境</h1>
                 </div>
             </div>
         </div>
@@ -331,8 +330,8 @@ metadata:
                                 <span class="chip bg-color">k8s</span>
                             </a>
                         
-                            <a href="/tags/Ingress/">
-                                <span class="chip bg-color">Ingress</span>
+                            <a href="/tags/lnmp/">
+                                <span class="chip bg-color">lnmp</span>
                             </a>
                         
                     </div>
@@ -365,7 +364,7 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    408
+                    883
                 </div>
                 
 
@@ -387,122 +386,219 @@ metadata:
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-配置ingress路径重写"><a href="#一-配置ingress路径重写" class="headerlink" title="一.配置ingress路径重写"></a>一.配置ingress路径重写</h1><p>若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+                <h1 id="一、配置用于存储的NFS服务"><a href="#一、配置用于存储的NFS服务" class="headerlink" title="一、配置用于存储的NFS服务"></a>一、配置用于存储的NFS服务</h1><h3 id="1-1服务端配置-nfs"><a href="#1-1服务端配置-nfs" class="headerlink" title="1.1服务端配置 nfs"></a>1.1服务端配置 nfs</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#yum安装</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># yum -y install nfs-utils</span>
+<span class="token comment" spellcheck="true">#编辑 配置文件 （确保目录存在）</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># vim /etc/exports</span>
+/data/lnmp 10.7.0.0/16(rw<span class="token punctuation">,</span>no_root_squash)
+<span class="token comment" spellcheck="true">#启动服务</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># systemctl start nfs</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># systemctl status  nfs</span>
+● nfs<span class="token punctuation">-</span>server.service <span class="token punctuation">-</span> NFS server and services
+   <span class="token key atrule">Loaded</span><span class="token punctuation">:</span> loaded (/usr/lib/systemd/system/nfs<span class="token punctuation">-</span>server.service; disabled; vendor preset<span class="token punctuation">:</span> disabled)
+  <span class="token key atrule">Drop-In</span><span class="token punctuation">:</span> /run/systemd/generator/nfs<span class="token punctuation">-</span>server.service.d
+           └─order<span class="token punctuation">-</span>with<span class="token punctuation">-</span>mounts.conf
+   <span class="token key atrule">Active</span><span class="token punctuation">:</span> active (exited) since Sat 2021<span class="token punctuation">-</span>09<span class="token punctuation">-</span>11 17<span class="token punctuation">:</span>32<span class="token punctuation">:</span>16 HKT; 1 weeks 0 days ago
+ Main PID<span class="token punctuation">:</span> 21698 (code=exited<span class="token punctuation">,</span> status=0/SUCCESS)
+    <span class="token key atrule">Tasks</span><span class="token punctuation">:</span> <span class="token number">0</span>
+   <span class="token key atrule">Memory</span><span class="token punctuation">:</span> 0B
+   <span class="token key atrule">CGroup</span><span class="token punctuation">:</span> /system.slice/nfs<span class="token punctuation">-</span>server.service
+<span class="token comment" spellcheck="true">#showmount确认</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># showmount -e</span>
+Export list for k8smaster<span class="token punctuation">:</span>
+/data/lnmp 10.7.0.0/16
+</code></pre>
+<h3 id="1-2客户端挂载服务"><a href="#1-2客户端挂载服务" class="headerlink" title="1.2客户端挂载服务"></a>1.2客户端挂载服务</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#安装nfs客户端 </span>
+<span class="token punctuation">[</span>root@k8snode ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># yum -y install nfs-utils.x86_64</span>
+<span class="token comment" spellcheck="true">#showmount -e查看</span>
+<span class="token punctuation">[</span>root@k8snode ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># showmount -e 10.7.48.223</span>
+Export list for 10.7.48.223<span class="token punctuation">:</span>
+/data/lnmp 10.7.0.0/16
+<span class="token comment" spellcheck="true">#创建挂载点挂载</span>
+<span class="token punctuation">[</span>root@k8snode data<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># mkdir /data</span>
+<span class="token punctuation">[</span>root@k8snode data<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># mount -t nfs 10.7.48.223/data/lnmp /data</span>
+</code></pre>
+<h1 id="二-、配置LNMP环境"><a href="#二-、配置LNMP环境" class="headerlink" title="二 、配置LNMP环境"></a>二 、配置LNMP环境</h1><h3 id="2-1mysql配置清单"><a href="#2-1mysql配置清单" class="headerlink" title="2.1mysql配置清单"></a>2.1mysql配置清单</h3><p>配置前先创建需要的命名空间</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl create ns  lnmp</span>
+</code></pre>
+<p>mysql清单配置如下</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/app-root</span><span class="token punctuation">:</span> /nacos
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>discovery<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> port<span class="token punctuation">-</span>forward
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nacos.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> nacos
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /nacos
-</code></pre>
-<hr>
-<h1 id="二-配置ingress白名单访问"><a href="#二-配置ingress白名单访问" class="headerlink" title="二.配置ingress白名单访问"></a>二.配置ingress白名单访问</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> mysql
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_ROOT_PASSWORD
+          <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+            <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+              <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql<span class="token punctuation">-</span>pass
+              <span class="token key atrule">key</span><span class="token punctuation">:</span> password
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">3306</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> lnmp<span class="token punctuation">-</span>mysql
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/lib/mysql
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> lnmp<span class="token punctuation">-</span>mysql
+        <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+         <span class="token key atrule">server</span><span class="token punctuation">:</span> 10.7.48.223  <span class="token comment" spellcheck="true">#nfs server服务器IP</span>
+         <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/data/lnmp/mysql"</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/whitelist-source-range</span><span class="token punctuation">:</span> 117.50.34.153
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> mysql
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> prometheus.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>k8s
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">9090</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3306</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">3306</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> mysql
 </code></pre>
-<p>其他ip访问测试</p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>I prometheus.huhuhahei.cn
-HTTP/1.1 403 Forbidden
-<span class="token key atrule">Date</span><span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> 04 Mar 2022 03<span class="token punctuation">:</span>08<span class="token punctuation">:</span>38 GMT
-<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> text/html
-<span class="token key atrule">Content-Length</span><span class="token punctuation">:</span> <span class="token number">146</span>
-<span class="token key atrule">Connection</span><span class="token punctuation">:</span> keep<span class="token punctuation">-</span>alive
+<p>这里面mysql 密码是通过环境 变量的方式导入的密码配置参考下面方法</p>
+<pre class=" language-yaml"><code class="language-yaml">kubectl create secret generic mysql<span class="token punctuation">-</span>pass <span class="token punctuation">-</span><span class="token punctuation">-</span>from<span class="token punctuation">-</span>literal=password=123456 <span class="token punctuation">-</span>n lnmp
 </code></pre>
-<p>白名单访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I prometheus.huhuhahei.cn
-HTTP/1.1 405 Method Not Allowed
-Date: Fri, 04 Mar 2022 03:10:19 GMT
-Content-Type: text/plain<span class="token punctuation">;</span> charset<span class="token operator">=</span>utf-8
-Content-Length: 19
-Connection: keep-alive
-Allow: GET, OPTIONS
-X-Content-Type-Options: nosniff
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#启动</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f mysql.yaml -n lnmp</span>
+deployment.apps/mysql created
+service/mysql unchanged
+<span class="token comment" spellcheck="true">#查看pod状态</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get po  -n lnmp</span>
+NAME                        READY   STATUS    RESTARTS   AGE
+mysql<span class="token punctuation">-</span>6cc8488986<span class="token punctuation">-</span>2wf62      1/1     Running   0          13m
+<span class="token comment" spellcheck="true">#查看svc地址并确认端口连通性</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get svc  -n lnmp</span>
+NAME        TYPE        CLUSTER<span class="token punctuation">-</span>IP      EXTERNAL<span class="token punctuation">-</span>IP   PORT(S)        AGE
+mysql       ClusterIP   10.97.108.119   &lt;none<span class="token punctuation">></span>        3306/TCP       2d20h
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># telnet  10.97.108.119  3306</span>
+Trying 10.97.108.119<span class="token punctuation">...</span>
+Connected to 10.97.108.119.
+Escape character is '^<span class="token punctuation">]</span>'
+<span class="token comment" spellcheck="true">#端口可以正常访问mysql的配置就是正常的</span>
 </code></pre>
-<hr>
-<h1 id="三-配置登录验证"><a href="#三-配置登录验证" class="headerlink" title="三. 配置登录验证"></a>三. 配置登录验证</h1><p>首先需要创建密码文件</p>
-<pre class=" language-bash"><code class="language-bash">htpasswd -c auth admin
-New password: 
-Re-type new password: 
-Adding password <span class="token keyword">for</span> user admin
-</code></pre>
-<p>创建secret</p>
-<pre class=" language-bash"><code class="language-bash">kubectl create secret generic  kibana-auth --from-file<span class="token operator">=</span>auth -n logs
-secret/kibana-auth created
-</code></pre>
-<p>配置ingress</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<h3 id="2-2-nginx-php配置清单"><a href="#2-2-nginx-php配置清单" class="headerlink" title="2.2 nginx+php配置清单"></a>2.2 nginx+php配置清单</h3><p>清单文件如下</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-realm</span><span class="token punctuation">:</span> Need to longin
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-secret</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>auth
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-type</span><span class="token punctuation">:</span> basic
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> kibana.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-</code></pre>
-<p>登录测试</p>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2022/03/1537476990.png" alt="AB6F7373-335A-4ea6-9330-DC55E8895879.png"></p>
-<hr>
-<h1 id="四-配置域名重定向"><a href="#四-配置域名重定向" class="headerlink" title="四.配置域名重定向"></a>四.配置域名重定向</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> php
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.cn<span class="token punctuation">-</span>shenzhen.aliyuncs.com/user<span class="token punctuation">-</span>sum/php
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">9000</span>
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>data
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/www/html/
+ 
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.cn<span class="token punctuation">-</span>shenzhen.aliyuncs.com/user<span class="token punctuation">-</span>sum/alpine<span class="token punctuation">:</span>nginx1.18.0
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>data
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /usr/share/nginx/html
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>conf
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /etc/nginx/conf.d/
+ 
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>data
+        <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+         <span class="token key atrule">server</span><span class="token punctuation">:</span> 10.7.48.223  <span class="token comment" spellcheck="true">#nfs server服务器IP</span>
+         <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/data/lnmp/app"</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>conf
+        <span class="token key atrule">configMap</span><span class="token punctuation">:</span>
+         <span class="token key atrule">name</span><span class="token punctuation">:</span> ngin<span class="token punctuation">-</span>conf
+         <span class="token key atrule">items</span><span class="token punctuation">:</span>
+         <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> default.conf
+           <span class="token key atrule">path</span><span class="token punctuation">:</span> add.conf
+ 
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/permanent-redirect</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> web.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">30010</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
 </code></pre>
-<p>测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I web.huhuhahei.cn
-HTTP/1.1 301 Moved Permanently
-Date: Fri, 04 Mar 2022 03:30:07 GMT
-Content-Type: text/html
-Content-Length: 162
-Connection: keep-alive
-Location: https://www.huhuhahei.cn
+<p>nginx服务配置文件</p>
+<pre class=" language-yaml"><code class="language-yaml">server &amp;<span class="token comment" spellcheck="true">#123;</span>
+    listen       80;
+    server_name  localhost;
+    location / &amp;<span class="token comment" spellcheck="true">#123;</span>
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    &amp;<span class="token comment" spellcheck="true">#125;</span>
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html &amp;<span class="token comment" spellcheck="true">#123;</span>
+        root   /usr/share/nginx/html;
+    &amp;<span class="token comment" spellcheck="true">#125;</span>
+    location ~ \.php$ &amp;<span class="token comment" spellcheck="true">#123;</span>
+        fastcgi_pass   127.0.0.1<span class="token punctuation">:</span>9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /var/www/html/$fastcgi_script_name;
+        include        fastcgi_params;
+    &amp;<span class="token comment" spellcheck="true">#125;</span>
+&amp;<span class="token comment" spellcheck="true">#125;</span>
 </code></pre>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#创建configmap</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl create cm ngin-conf --from-file=default.conf -n lnmp</span>
+<span class="token comment" spellcheck="true">#启动</span>
+<span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f nginx-php.yaml -n lnmp</span>
+</code></pre>
+<h3 id="2-3测试"><a href="#2-3测试" class="headerlink" title="2.3测试"></a>2.3测试</h3><p>测试 php连通性</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#创建测试文件测试</span>
+<span class="token punctuation">[</span>root@k8snode app<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># cat test.php </span>
+&lt;<span class="token punctuation">?</span>php phpinfo(); <span class="token punctuation">?</span><span class="token punctuation">></span>
+</code></pre>
+<p><img src="http://www.huhuhahei.cn/usr/uploads/2021/09/3394303815.png" alt="企业微信截图_16320409578191.png"></p>
+<p>测试 mysql连通性</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8snode app<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># cat mysql.php </span>
+&lt;h1<span class="token punctuation">></span>Test php<span class="token punctuation">-</span>mysql &lt;/h1<span class="token punctuation">></span>
+&lt;<span class="token punctuation">?</span>php
+mysqli_connect('10.97.108.119'<span class="token punctuation">,</span><span class="token string">'root'</span><span class="token punctuation">,</span>'123456') or die('failed');
+echo 'success';
+phpinfo();
+<span class="token punctuation">?</span><span class="token punctuation">></span>
+</code></pre>
+<p><img src="http://www.huhuhahei.cn/usr/uploads/2021/09/3128067845.png" alt="企业微信截图_16320411749468.png"><br>至此配置完成后面就可以吧自己的项目放到nginx工作目录愉快的玩耍了(๑•̀ㅁ•́ฅ)</p>
 
                 
             </div>
@@ -529,7 +625,7 @@ Location: https://www.huhuhahei.cn
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/">https://huhuhahei987.github.io/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -571,8 +667,8 @@ Location: https://www.huhuhahei.cn
                                     <span class="chip bg-color">k8s</span>
                                 </a>
                             
-                                <a href="/tags/Ingress/">
-                                    <span class="chip bg-color">Ingress</span>
+                                <a href="/tags/lnmp/">
+                                    <span class="chip bg-color">lnmp</span>
                                 </a>
                             
                         </div>
@@ -750,13 +846,13 @@ Location: https://www.huhuhahei.cn
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/05/K8s%E5%9F%BA%E7%A1%80yaml%E6%96%87%E4%BB%B6/">
+                <a href="/2022/06/05/Kubeadm%E5%8D%B8%E8%BD%BD/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Kubeadm卸载">
                         
-                        <span class="card-title">K8s基础yaml文件</span>
+                        <span class="card-title">Kubeadm卸载</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -788,6 +884,10 @@ Location: https://www.huhuhahei.cn
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
+                    <a href="/tags/kubeadm/">
+                        <span class="chip bg-color">kubeadm</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -799,13 +899,13 @@ Location: https://www.huhuhahei.cn
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                <a href="/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="K8s数据持久化StorageClass">
                         
-                        <span class="card-title">Ingress-nginx配置 https访问</span>
+                        <span class="card-title">K8s数据持久化StorageClass</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -822,8 +922,8 @@ Location: https://www.huhuhahei.cn
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                             
                             
@@ -835,10 +935,6 @@ Location: https://www.huhuhahei.cn
                     
                     <a href="/tags/k8s/">
                         <span class="chip bg-color">k8s</span>
-                    </a>
-                    
-                    <a href="/tags/Ingress/">
-                        <span class="chip bg-color">Ingress</span>
                     </a>
                     
                 </div>

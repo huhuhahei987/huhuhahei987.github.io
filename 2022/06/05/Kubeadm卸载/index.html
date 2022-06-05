@@ -4,12 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ingress高级配置, huhuhahei">
-    <meta name="description" content="一.配置ingress路径重写若后端路径是&amp;#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-">
+    <meta name="keywords" content="Kubeadm卸载, huhuhahei">
+    <meta name="description" content="删除kubeadm构建的Kubernetes集群所有通过 kubeadm 工具构建的Kubernetes集群以及节点，都可以通过 kubeadm 工具反向卸载(删除)，这是一个非常方便的操作。我的实践是因为在开发测试环境， 升级kubead">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +19,7 @@ metadata:
 
     
 
-    <title>Ingress高级配置 | huhuhahei</title>
+    <title>Kubeadm卸载 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -206,12 +202,12 @@ metadata:
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ingress高级配置</h1>
+                    <h1 class="description center-align post-title">Kubeadm卸载</h1>
                 </div>
             </div>
         </div>
@@ -331,8 +327,8 @@ metadata:
                                 <span class="chip bg-color">k8s</span>
                             </a>
                         
-                            <a href="/tags/Ingress/">
-                                <span class="chip bg-color">Ingress</span>
+                            <a href="/tags/kubeadm/">
+                                <span class="chip bg-color">kubeadm</span>
                             </a>
                         
                     </div>
@@ -365,7 +361,7 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    408
+                    902
                 </div>
                 
 
@@ -387,122 +383,117 @@ metadata:
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-配置ingress路径重写"><a href="#一-配置ingress路径重写" class="headerlink" title="一.配置ingress路径重写"></a>一.配置ingress路径重写</h1><p>若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/app-root</span><span class="token punctuation">:</span> /nacos
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>discovery<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> port<span class="token punctuation">-</span>forward
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nacos.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> nacos
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /nacos
+                <h1 id="删除kubeadm构建的Kubernetes集群"><a href="#删除kubeadm构建的Kubernetes集群" class="headerlink" title="删除kubeadm构建的Kubernetes集群"></a>删除kubeadm构建的Kubernetes集群</h1><p>所有通过 <a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh_CN/latest/kubernetes/deployment/bootstrap_kubernetes_single/kubeadm.html#kubeadm">kubeadm</a> 工具构建的Kubernetes集群以及节点，都可以通过 <code>kubeadm</code> 工具反向卸载(删除)，这是一个非常方便的操作。我的实践是因为在开发测试环境， <a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh_CN/latest/kubernetes/administer/kubeadm_administer/upgrade_kubeadm_cluster.html#upgrade-kubeadm-cluster">升级kubeadm集群</a> 失败，为了快速开始下一阶段测试工作，所以准备重建Kubernetes集群。</p>
+<ul>
+<li><p><code>kubeadm reset</code> 命令执行会提示:</p>
+<pre><code>[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.
+[reset] Are you sure you want to proceed? [y/N]:
 </code></pre>
-<hr>
-<h1 id="二-配置ingress白名单访问"><a href="#二-配置ingress白名单访问" class="headerlink" title="二.配置ingress白名单访问"></a>二.配置ingress白名单访问</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/whitelist-source-range</span><span class="token punctuation">:</span> 117.50.34.153
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> prometheus.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>k8s
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">9090</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
+</li>
+</ul>
+<p>也就是说，不管是加入集群的工作节点，还是初始化的管控节点，都可以用这个工具反向操作</p>
+<ul>
+<li><p>检查集群:</p>
+<pre><code>kubectl get nodes
 </code></pre>
-<p>其他ip访问测试</p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>I prometheus.huhuhahei.cn
-HTTP/1.1 403 Forbidden
-<span class="token key atrule">Date</span><span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> 04 Mar 2022 03<span class="token punctuation">:</span>08<span class="token punctuation">:</span>38 GMT
-<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> text/html
-<span class="token key atrule">Content-Length</span><span class="token punctuation">:</span> <span class="token number">146</span>
-<span class="token key atrule">Connection</span><span class="token punctuation">:</span> keep<span class="token punctuation">-</span>alive
+</li>
+</ul>
+<p>当前节点:</p>
+<pre><code>NAME         STATUS   ROLES    AGE    VERSION
+pi-master1   Ready    master   241d   v1.20.9
+pi-worker1   Ready    &lt;none&gt;   237d   v1.20.9
+pi-worker2   Ready    &lt;none&gt;   237d   v1.21.3
+zcloud       Ready    &lt;none&gt;   127d   v1.21.3
 </code></pre>
-<p>白名单访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I prometheus.huhuhahei.cn
-HTTP/1.1 405 Method Not Allowed
-Date: Fri, 04 Mar 2022 03:10:19 GMT
-Content-Type: text/plain<span class="token punctuation">;</span> charset<span class="token operator">=</span>utf-8
-Content-Length: 19
-Connection: keep-alive
-Allow: GET, OPTIONS
-X-Content-Type-Options: nosniff
+<ul>
+<li><p>首先在 <code>zcloud</code> 上执行节点清理:</p>
+<pre><code>kubeadm reset
+[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
 </code></pre>
-<hr>
-<h1 id="三-配置登录验证"><a href="#三-配置登录验证" class="headerlink" title="三. 配置登录验证"></a>三. 配置登录验证</h1><p>首先需要创建密码文件</p>
-<pre class=" language-bash"><code class="language-bash">htpasswd -c auth admin
-New password: 
-Re-type new password: 
-Adding password <span class="token keyword">for</span> user admin
+</li>
+</ul>
+<p>提示信息:</p>
+<pre><code>[preflight] Running pre-flight checks
+W0728 23:50:09.914348 3734557 removeetcdmember.go:79] [reset] No kubeadm config, using etcd pod spec to get data directory
+[reset] No etcd config found. Assuming external etcd
+[reset] Please, manually reset etcd to prevent further issues
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
+[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system&#39;s IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
 </code></pre>
-<p>创建secret</p>
-<pre class=" language-bash"><code class="language-bash">kubectl create secret generic  kibana-auth --from-file<span class="token operator">=</span>auth -n logs
-secret/kibana-auth created
+<p>可以看到 <code>reset</code> 过程不会清理CNI配置，也不会清理iptables规则，两者需要手工处理</p>
+<ul>
+<li><p>完成以后，在管控服务器上检查，可以看到该工作节点已经 <code>NotReady</code></p>
+<pre><code>kubectl get nodes
 </code></pre>
-<p>配置ingress</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-realm</span><span class="token punctuation">:</span> Need to longin
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-secret</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>auth
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-type</span><span class="token punctuation">:</span> basic
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> kibana.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+</li>
+</ul>
+<p>显示:</p>
+<pre><code>NAME         STATUS     ROLES    AGE    VERSION
+pi-master1   Ready      master   241d   v1.20.9
+pi-worker1   Ready      &lt;none&gt;   237d   v1.20.9
+pi-worker2   Ready      &lt;none&gt;   237d   v1.21.3
+zcloud       NotReady   &lt;none&gt;   127d   v1.21.3
 </code></pre>
-<p>登录测试</p>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2022/03/1537476990.png" alt="AB6F7373-335A-4ea6-9330-DC55E8895879.png"></p>
-<hr>
-<h1 id="四-配置域名重定向"><a href="#四-配置域名重定向" class="headerlink" title="四.配置域名重定向"></a>四.配置域名重定向</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/permanent-redirect</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> web.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+<ul>
+<li><p>删除节点:</p>
+<pre><code>kubectl delete node zcloud
 </code></pre>
-<p>测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I web.huhuhahei.cn
-HTTP/1.1 301 Moved Permanently
-Date: Fri, 04 Mar 2022 03:30:07 GMT
-Content-Type: text/html
-Content-Length: 162
-Connection: keep-alive
-Location: https://www.huhuhahei.cn
+</li>
+<li><p>在工作节点上再执行一次清理 <code>iptables</code> 和 <code>cni</code></p>
+<pre><code>rm -rf /etc/cni/net.d
+iptables -F
 </code></pre>
+</li>
+<li><p>所有工作节点清理以后，最后执行管控节点卸载:</p>
+<pre><code>kubeadm reset
+</code></pre>
+</li>
+</ul>
+<p>输出信息:</p>
+<pre><code>[preflight] Running pre-flight checks
+[reset] Removing info for node &quot;pi-master1&quot; from the ConfigMap &quot;kubeadm-config&quot; in the &quot;kube-system&quot; Namespace
+W0729 00:23:55.555252 3406560 removeetcdmember.go:61] [reset] failed to remove etcd member: error syncing endpoints with etcd: context deadline exceeded, please manually remove this etcd member using etcdctl
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
+[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system&#39;s IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+</code></pre>
+<ul>
+<li><p>清理完好干净:</p>
+<pre><code>root@pi-master1:~# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@pi-master1:~# docker ps --all
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre>
+</li>
+</ul>
 
                 
             </div>
@@ -529,7 +520,7 @@ Location: https://www.huhuhahei.cn
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/Kubeadm%E5%8D%B8%E8%BD%BD/">https://huhuhahei987.github.io/2022/06/05/Kubeadm%E5%8D%B8%E8%BD%BD/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -571,8 +562,8 @@ Location: https://www.huhuhahei.cn
                                     <span class="chip bg-color">k8s</span>
                                 </a>
                             
-                                <a href="/tags/Ingress/">
-                                    <span class="chip bg-color">Ingress</span>
+                                <a href="/tags/kubeadm/">
+                                    <span class="chip bg-color">kubeadm</span>
                                 </a>
                             
                         </div>
@@ -750,13 +741,13 @@ Location: https://www.huhuhahei.cn
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/05/K8s%E5%9F%BA%E7%A1%80yaml%E6%96%87%E4%BB%B6/">
+                <a href="/2022/06/05/Operator-%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Operator 部署服务数据持久化">
                         
-                        <span class="card-title">K8s基础yaml文件</span>
+                        <span class="card-title">Operator 部署服务数据持久化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -788,6 +779,10 @@ Location: https://www.huhuhahei.cn
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
+                    <a href="/tags/Operator/">
+                        <span class="chip bg-color">Operator</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -799,13 +794,13 @@ Location: https://www.huhuhahei.cn
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                <a href="/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="K8s中配置lnmp环境">
                         
-                        <span class="card-title">Ingress-nginx配置 https访问</span>
+                        <span class="card-title">K8s中配置lnmp环境</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -822,8 +817,8 @@ Location: https://www.huhuhahei.cn
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                             
                             
@@ -837,8 +832,8 @@ Location: https://www.huhuhahei.cn
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
-                    <a href="/tags/Ingress/">
-                        <span class="chip bg-color">Ingress</span>
+                    <a href="/tags/lnmp/">
+                        <span class="chip bg-color">lnmp</span>
                     </a>
                     
                 </div>

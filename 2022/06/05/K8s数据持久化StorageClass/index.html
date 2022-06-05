@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ingress高级配置, huhuhahei">
-    <meta name="description" content="一.配置ingress路径重写若后端路径是&amp;#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-">
+    <meta name="keywords" content="K8s数据持久化StorageClass, huhuhahei">
+    <meta name="description" content="一、简介1.1什么是StorageClassKubernetes提供了一套可以自动创建PV的机制，即：Dynamic Provisioning。而这个机制的核心在于StorageClass这个API对象。
+StorageClass对象会定义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +20,7 @@ metadata:
 
     
 
-    <title>Ingress高级配置 | huhuhahei</title>
+    <title>K8s数据持久化StorageClass | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -206,12 +203,12 @@ metadata:
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ingress高级配置</h1>
+                    <h1 class="description center-align post-title">K8s数据持久化StorageClass</h1>
                 </div>
             </div>
         </div>
@@ -331,10 +328,6 @@ metadata:
                                 <span class="chip bg-color">k8s</span>
                             </a>
                         
-                            <a href="/tags/Ingress/">
-                                <span class="chip bg-color">Ingress</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -365,7 +358,7 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    408
+                    874
                 </div>
                 
 
@@ -387,121 +380,181 @@ metadata:
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-配置ingress路径重写"><a href="#一-配置ingress路径重写" class="headerlink" title="一.配置ingress路径重写"></a>一.配置ingress路径重写</h1><p>若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+                <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a><strong>一、简介</strong></h1><h3 id="1-1什么是StorageClass"><a href="#1-1什么是StorageClass" class="headerlink" title="1.1什么是StorageClass"></a><strong>1.1什么是StorageClass</strong></h3><p>Kubernetes提供了一套可以自动创建PV的机制，即：Dynamic Provisioning。而这个机制的核心在于StorageClass这个API对象。</p>
+<p>StorageClass对象会定义下面两部分内容:</p>
+<ul>
+<li>PV的属性。比如，存储类型，Volume的大小等。</li>
+<li>创建这种PV需要用到的存储插件，即存储制备器。<br>有了这两个信息之后，Kubernetes就能够根据用户提交的PVC，找到一个对应的StorageClass，之后Kubernetes就会调用该StorageClass声明的存储插件，进而创建出需要的PV。</li>
+</ul>
+<p>但是其实使用起来是一件很简单的事情，你只需要根据自己的需求，编写YAML文件即可，然后使用kubectl create命令执行即可。</p>
+<hr>
+<h3 id="1-2StorageClass架构"><a href="#1-2StorageClass架构" class="headerlink" title="1.2StorageClass架构"></a><strong>1.2StorageClass架构</strong></h3><p>在动态资源供应模式下，通过StorageClass和PVC完成资源动态绑定（系统自动生成PV），并供Pod使用的存储管理机制。<br><img src="https://www.huhuhahei.cn/usr/uploads/2021/10/3784991912.png" alt="企业微信截图_16345341913159.png"></p>
+<hr>
+<h1 id="二、创建"><a href="#二、创建" class="headerlink" title="二、创建"></a><strong>二、创建</strong></h1><h3 id="2-1创建StorageClass存储服务"><a href="#2-1创建StorageClass存储服务" class="headerlink" title="2.1创建StorageClass存储服务"></a><strong>2.1创建StorageClass存储服务</strong></h3><p>利用nfs-client-provisioner来生成一个基于nfs的StorageClass，部署配置yaml配置如下，保持为nfs-sc.yaml：</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/app-root</span><span class="token punctuation">:</span> /nacos
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>discovery<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> port<span class="token punctuation">-</span>forward
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span>runner
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"persistentvolumes"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"delete"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"persistentvolumeclaims"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"storage.k8s.io"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"storageclasses"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"events"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">,</span> <span class="token string">"patch"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"endpoints"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">,</span> <span class="token string">"patch"</span><span class="token punctuation">]</span>
+
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> run<span class="token punctuation">-</span>nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span>runner
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nacos.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> nacos
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /nacos
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">strategy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> Recreate
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span><span class="token number">01</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+          <span class="token key atrule">image</span><span class="token punctuation">:</span> jmgao1983/nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner<span class="token punctuation">:</span>latest
+          <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+          <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>root
+              <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /persistentvolumes
+          <span class="token key atrule">env</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROVISIONER_NAME
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span><span class="token number">01  </span><span class="token comment" spellcheck="true"># 此处供应者名字供storageclass调用</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> NFS_SERVER
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> 10.7.48.223   <span class="token comment" spellcheck="true"># 填入NFS的地址</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> NFS_PATH
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> /data/lnmp/test  <span class="token comment" spellcheck="true"># 填入NFS挂载的目录</span>
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>root
+          <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+            <span class="token key atrule">server</span><span class="token punctuation">:</span> 10.7.48.223   <span class="token comment" spellcheck="true"># 填入NFS的地址</span>
+            <span class="token key atrule">path</span><span class="token punctuation">:</span> /data/lnmp/test   <span class="token comment" spellcheck="true"># 填入NFS挂载的目录</span>
+
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>test
+<span class="token key atrule">provisioner</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span><span class="token number">01</span>
+<span class="token comment" spellcheck="true"># Supported policies: Delete、 Retain ， default is Delete</span>
+<span class="token key atrule">reclaimPolicy</span><span class="token punctuation">:</span> Retain
+</code></pre>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#部署服务</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f nfs-sc.yaml</span>
+<span class="token comment" spellcheck="true">#因为是偏向系统层面的服务所以放到了kube-system命名空间</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl -n kube-system get pod</span>
+<span class="token comment" spellcheck="true">#查看sc状态</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get sc</span>
+NAME       PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+nfs<span class="token punctuation">-</span>test   nfs<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span>01   Retain          Immediate           false             2m43s
 </code></pre>
 <hr>
-<h1 id="二-配置ingress白名单访问"><a href="#二-配置ingress白名单访问" class="headerlink" title="二.配置ingress白名单访问"></a>二.配置ingress白名单访问</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<h3 id="2-2-基于SC创建PVC测试"><a href="#2-2-基于SC创建PVC测试" class="headerlink" title="2.2 基于SC创建PVC测试"></a><strong>2.2 基于SC创建PVC测试</strong></h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/whitelist-source-range</span><span class="token punctuation">:</span> 117.50.34.153
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pvc<span class="token punctuation">-</span>sc
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> prometheus.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>k8s
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">9090</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>test
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteMany
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Mi
 </code></pre>
-<p>其他ip访问测试</p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>I prometheus.huhuhahei.cn
-HTTP/1.1 403 Forbidden
-<span class="token key atrule">Date</span><span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> 04 Mar 2022 03<span class="token punctuation">:</span>08<span class="token punctuation">:</span>38 GMT
-<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> text/html
-<span class="token key atrule">Content-Length</span><span class="token punctuation">:</span> <span class="token number">146</span>
-<span class="token key atrule">Connection</span><span class="token punctuation">:</span> keep<span class="token punctuation">-</span>alive
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f pvc-sc.yaml</span>
+persistentvolumeclaim/pvc<span class="token punctuation">-</span>sc created
+<span class="token comment" spellcheck="true">#查看pv和pvc</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get pv</span>
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                                           STORAGECLASS   REASON   AGE
+pvc<span class="token punctuation">-</span>bc40c73b<span class="token punctuation">-</span>cf4a<span class="token punctuation">-</span>4c2d<span class="token punctuation">-</span>a551<span class="token punctuation">-</span>c2fdbd7e245a   1Mi        RWX            Retain        Bound      default/pvc<span class="token punctuation">-</span>sc                                  nfs<span class="token punctuation">-</span>test             52s
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get pvc</span>
+NAME     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pvc<span class="token punctuation">-</span>sc   Bound    pvc<span class="token punctuation">-</span>bc40c73b<span class="token punctuation">-</span>cf4a<span class="token punctuation">-</span>4c2d<span class="token punctuation">-</span>a551<span class="token punctuation">-</span>c2fdbd7e245a   1Mi        RWX         nfs<span class="token punctuation">-</span>test       2m31s
 </code></pre>
-<p>白名单访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I prometheus.huhuhahei.cn
-HTTP/1.1 405 Method Not Allowed
-Date: Fri, 04 Mar 2022 03:10:19 GMT
-Content-Type: text/plain<span class="token punctuation">;</span> charset<span class="token operator">=</span>utf-8
-Content-Length: 19
-Connection: keep-alive
-Allow: GET, OPTIONS
-X-Content-Type-Options: nosniff
-</code></pre>
-<hr>
-<h1 id="三-配置登录验证"><a href="#三-配置登录验证" class="headerlink" title="三. 配置登录验证"></a>三. 配置登录验证</h1><p>首先需要创建密码文件</p>
-<pre class=" language-bash"><code class="language-bash">htpasswd -c auth admin
-New password: 
-Re-type new password: 
-Adding password <span class="token keyword">for</span> user admin
-</code></pre>
-<p>创建secret</p>
-<pre class=" language-bash"><code class="language-bash">kubectl create secret generic  kibana-auth --from-file<span class="token operator">=</span>auth -n logs
-secret/kibana-auth created
-</code></pre>
-<p>配置ingress</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<p>使用nginx测试</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-realm</span><span class="token punctuation">:</span> Need to longin
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-secret</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>auth
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-type</span><span class="token punctuation">:</span> basic
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> kibana.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># 我们这里将nginx容器默认的页面目录挂载</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> html<span class="token punctuation">-</span>files
+            <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> <span class="token string">"/usr/share/nginx/html"</span>
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> html<span class="token punctuation">-</span>files
+          <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+            <span class="token key atrule">claimName</span><span class="token punctuation">:</span> pvc<span class="token punctuation">-</span>sc
 </code></pre>
-<p>登录测试</p>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2022/03/1537476990.png" alt="AB6F7373-335A-4ea6-9330-DC55E8895879.png"></p>
-<hr>
-<h1 id="四-配置域名重定向"><a href="#四-配置域名重定向" class="headerlink" title="四.配置域名重定向"></a>四.配置域名重定向</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/permanent-redirect</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> web.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-</code></pre>
-<p>测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I web.huhuhahei.cn
-HTTP/1.1 301 Moved Permanently
-Date: Fri, 04 Mar 2022 03:30:07 GMT
-Content-Type: text/html
-Content-Length: 162
-Connection: keep-alive
-Location: https://www.huhuhahei.cn
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f nginx.yaml</span>
+deployment.apps/nginx created
+<span class="token comment" spellcheck="true">#查看pod是否运行</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get po</span>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx<span class="token punctuation">-</span>76f5df5fcf<span class="token punctuation">-</span>f8x9m   1/1     Running   0          46s
+<span class="token comment" spellcheck="true">#进入pod测试是否设置成功</span>
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl exec -it nginx-76f5df5fcf-f8x9m -- bash</span>
+root@nginx<span class="token punctuation">-</span>76f5df5fcf<span class="token punctuation">-</span>f8x9m<span class="token punctuation">:</span>/<span class="token comment" spellcheck="true"># echo 'test' > /usr/share/nginx/html/index.html</span>
+root@nginx<span class="token punctuation">-</span>76f5df5fcf<span class="token punctuation">-</span>f8x9m<span class="token punctuation">:</span>/<span class="token comment" spellcheck="true"># exit</span>
+exit
+<span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># cat /data/lnmp/test/default-pvc-sc-pvc-bc40c73b-cf4a-4c2d-a551-c2fdbd7e245a/index.html</span>
+test
 </code></pre>
 
                 
@@ -529,7 +582,7 @@ Location: https://www.huhuhahei.cn
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/">https://huhuhahei987.github.io/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -569,10 +622,6 @@ Location: https://www.huhuhahei.cn
                             
                                 <a href="/tags/k8s/">
                                     <span class="chip bg-color">k8s</span>
-                                </a>
-                            
-                                <a href="/tags/Ingress/">
-                                    <span class="chip bg-color">Ingress</span>
                                 </a>
                             
                         </div>
@@ -750,13 +799,13 @@ Location: https://www.huhuhahei.cn
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/05/K8s%E5%9F%BA%E7%A1%80yaml%E6%96%87%E4%BB%B6/">
+                <a href="/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="K8s中配置lnmp环境">
                         
-                        <span class="card-title">K8s基础yaml文件</span>
+                        <span class="card-title">K8s中配置lnmp环境</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -788,6 +837,10 @@ Location: https://www.huhuhahei.cn
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
+                    <a href="/tags/lnmp/">
+                        <span class="chip bg-color">lnmp</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -799,13 +852,13 @@ Location: https://www.huhuhahei.cn
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                <a href="/2022/06/05/K8s%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4Terminating%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="K8s强制删除Terminating的命名空间">
                         
-                        <span class="card-title">Ingress-nginx配置 https访问</span>
+                        <span class="card-title">K8s强制删除Terminating的命名空间</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -822,8 +875,8 @@ Location: https://www.huhuhahei.cn
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                             
                             
@@ -835,10 +888,6 @@ Location: https://www.huhuhahei.cn
                     
                     <a href="/tags/k8s/">
                         <span class="chip bg-color">k8s</span>
-                    </a>
-                    
-                    <a href="/tags/Ingress/">
-                        <span class="chip bg-color">Ingress</span>
                     </a>
                     
                 </div>

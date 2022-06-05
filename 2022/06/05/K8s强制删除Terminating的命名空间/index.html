@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ingress高级配置, huhuhahei">
-    <meta name="description" content="一.配置ingress路径重写若后端路径是&amp;#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-">
+    <meta name="keywords" content="K8s强制删除Terminating的命名空间, huhuhahei">
+    <meta name="description" content="我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法
+1.1 将ns资源保存为json文件kubectl get ns istio-system -o jso">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +20,7 @@ metadata:
 
     
 
-    <title>Ingress高级配置 | huhuhahei</title>
+    <title>K8s强制删除Terminating的命名空间 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -206,12 +203,12 @@ metadata:
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ingress高级配置</h1>
+                    <h1 class="description center-align post-title">K8s强制删除Terminating的命名空间</h1>
                 </div>
             </div>
         </div>
@@ -331,10 +328,6 @@ metadata:
                                 <span class="chip bg-color">k8s</span>
                             </a>
                         
-                            <a href="/tags/Ingress/">
-                                <span class="chip bg-color">Ingress</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -365,7 +358,7 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    408
+                    148
                 </div>
                 
 
@@ -387,122 +380,21 @@ metadata:
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-配置ingress路径重写"><a href="#一-配置ingress路径重写" class="headerlink" title="一.配置ingress路径重写"></a>一.配置ingress路径重写</h1><p>若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/app-root</span><span class="token punctuation">:</span> /nacos
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>discovery<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> port<span class="token punctuation">-</span>forward
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nacos.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> nacos
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /nacos
+                <p>我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法</p>
+<h3 id="1-1-将ns资源保存为json文件"><a href="#1-1-将ns资源保存为json文件" class="headerlink" title="1.1 将ns资源保存为json文件"></a>1.1 将ns资源保存为json文件</h3><pre class=" language-bash"><code class="language-bash">kubectl get ns istio-system -o json <span class="token operator">></span>istis.json
 </code></pre>
-<hr>
-<h1 id="二-配置ingress白名单访问"><a href="#二-配置ingress白名单访问" class="headerlink" title="二.配置ingress白名单访问"></a>二.配置ingress白名单访问</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/whitelist-source-range</span><span class="token punctuation">:</span> 117.50.34.153
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> prometheus.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>k8s
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">9090</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
+<h3 id="2-1-删除json文件finalizers字段"><a href="#2-1-删除json文件finalizers字段" class="headerlink" title="2.1 删除json文件finalizers字段"></a>2.1 删除json文件finalizers字段</h3><pre class=" language-json"><code class="language-json"><span class="token property">"spec"</span><span class="token operator">:</span> &amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token property">"finalizers"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"kubernetes"</span>
+        <span class="token punctuation">]</span>
+    &amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
 </code></pre>
-<p>其他ip访问测试</p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>I prometheus.huhuhahei.cn
-HTTP/1.1 403 Forbidden
-<span class="token key atrule">Date</span><span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> 04 Mar 2022 03<span class="token punctuation">:</span>08<span class="token punctuation">:</span>38 GMT
-<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> text/html
-<span class="token key atrule">Content-Length</span><span class="token punctuation">:</span> <span class="token number">146</span>
-<span class="token key atrule">Connection</span><span class="token punctuation">:</span> keep<span class="token punctuation">-</span>alive
+<h3 id="3-1启动一个kube-proxy"><a href="#3-1启动一个kube-proxy" class="headerlink" title="3.1启动一个kube proxy"></a>3.1启动一个kube proxy</h3><pre class=" language-bash"><code class="language-bash">kubectl proxy --port<span class="token operator">=</span>8081
 </code></pre>
-<p>白名单访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I prometheus.huhuhahei.cn
-HTTP/1.1 405 Method Not Allowed
-Date: Fri, 04 Mar 2022 03:10:19 GMT
-Content-Type: text/plain<span class="token punctuation">;</span> charset<span class="token operator">=</span>utf-8
-Content-Length: 19
-Connection: keep-alive
-Allow: GET, OPTIONS
-X-Content-Type-Options: nosniff
+<p>在启动一个终端并执行下面命令</p>
+<pre class=" language-bash"><code class="language-bash">curl -k -H <span class="token string">"Content-Type: application/json"</span> -X PUT --data-binary @istis.json http://127.0.0.1:8081/api/v1/namespaces/istio-system/finalize
 </code></pre>
-<hr>
-<h1 id="三-配置登录验证"><a href="#三-配置登录验证" class="headerlink" title="三. 配置登录验证"></a>三. 配置登录验证</h1><p>首先需要创建密码文件</p>
-<pre class=" language-bash"><code class="language-bash">htpasswd -c auth admin
-New password: 
-Re-type new password: 
-Adding password <span class="token keyword">for</span> user admin
-</code></pre>
-<p>创建secret</p>
-<pre class=" language-bash"><code class="language-bash">kubectl create secret generic  kibana-auth --from-file<span class="token operator">=</span>auth -n logs
-secret/kibana-auth created
-</code></pre>
-<p>配置ingress</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-realm</span><span class="token punctuation">:</span> Need to longin
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-secret</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>auth
-    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-type</span><span class="token punctuation">:</span> basic
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> kibana.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-</code></pre>
-<p>登录测试</p>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2022/03/1537476990.png" alt="AB6F7373-335A-4ea6-9330-DC55E8895879.png"></p>
-<hr>
-<h1 id="四-配置域名重定向"><a href="#四-配置域名重定向" class="headerlink" title="四.配置域名重定向"></a>四.配置域名重定向</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/permanent-redirect</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> web.huhuhahei.cn
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-</code></pre>
-<p>测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I web.huhuhahei.cn
-HTTP/1.1 301 Moved Permanently
-Date: Fri, 04 Mar 2022 03:30:07 GMT
-Content-Type: text/html
-Content-Length: 162
-Connection: keep-alive
-Location: https://www.huhuhahei.cn
-</code></pre>
+<p>再次查看就发现已经正常删除这个ns了::(滑稽)</p>
 
                 
             </div>
@@ -529,7 +421,7 @@ Location: https://www.huhuhahei.cn
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/K8s%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4Terminating%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">https://huhuhahei987.github.io/2022/06/05/K8s%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4Terminating%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -569,10 +461,6 @@ Location: https://www.huhuhahei.cn
                             
                                 <a href="/tags/k8s/">
                                     <span class="chip bg-color">k8s</span>
-                                </a>
-                            
-                                <a href="/tags/Ingress/">
-                                    <span class="chip bg-color">Ingress</span>
                                 </a>
                             
                         </div>
@@ -750,13 +638,13 @@ Location: https://www.huhuhahei.cn
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/05/K8s%E5%9F%BA%E7%A1%80yaml%E6%96%87%E4%BB%B6/">
+                <a href="/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="K8s数据持久化StorageClass">
                         
-                        <span class="card-title">K8s基础yaml文件</span>
+                        <span class="card-title">K8s数据持久化StorageClass</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -799,13 +687,13 @@ Location: https://www.huhuhahei.cn
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                <a href="/2022/06/05/K8s%E9%85%8D%E7%BD%AEingress-nginx%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="K8s配置ingress-nginx暴露服务">
                         
-                        <span class="card-title">Ingress-nginx配置 https访问</span>
+                        <span class="card-title">K8s配置ingress-nginx暴露服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -822,8 +710,8 @@ Location: https://www.huhuhahei.cn
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                             
                             
@@ -837,8 +725,8 @@ Location: https://www.huhuhahei.cn
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
-                    <a href="/tags/Ingress/">
-                        <span class="chip bg-color">Ingress</span>
+                    <a href="/tags/ingress/">
+                        <span class="chip bg-color">ingress</span>
                     </a>
                     
                 </div>
