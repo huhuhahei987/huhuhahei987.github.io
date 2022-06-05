@@ -4,8 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="卡死导致K8sNode节点NotReady, huhuhahei">
-    <meta name="description" content="某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)现象是这样的describe查看是这样的初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了结果这样一排查 发现都没问题:@(">
+    <meta name="keywords" content="Ingress高级配置, huhuhahei">
+    <meta name="description" content="一.配置ingress路径重写若后端路径是&amp;#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +23,7 @@
 
     
 
-    <title>卡死导致K8sNode节点NotReady | huhuhahei</title>
+    <title>Ingress高级配置 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +206,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">卡死导致K8sNode节点NotReady</h1>
+                    <h1 class="description center-align post-title">Ingress高级配置</h1>
                 </div>
             </div>
         </div>
@@ -323,12 +327,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
-                            </a>
-                        
                             <a href="/tags/k8s/">
                                 <span class="chip bg-color">k8s</span>
+                            </a>
+                        
+                            <a href="/tags/Ingress/">
+                                <span class="chip bg-color">Ingress</span>
                             </a>
                         
                     </div>
@@ -339,8 +343,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Docker/" class="post-category">
-                                Docker
+                            <a href="/categories/k8s/" class="post-category">
+                                k8s
                             </a>
                         
                     </div>
@@ -361,7 +365,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    486
+                    408
                 </div>
                 
 
@@ -383,35 +387,122 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)<br>现象是这样的<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/4059467715.png" alt="5BE9C01C-080C-4fe5-B384-ECBBCB784F9A.png"><br>describe查看是这样的<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/3548693712.png" alt="B3ECBCD8-0721-4007-8223-4A354D6BAC2D.png"><br>初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了<br>结果这样一排查 发现都没问题:@(喷血)<br>下面只能看下kubelet和docker的状态和日志<br>kubelet</p>
-<pre class=" language-bash"><code class="language-bash">systemctl status kubelet
-● kubelet.service - Kubernetes Kubelet
-Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/kubelet.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: disabled<span class="token punctuation">)</span>
-Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon 2022-02-14 11:04:52 CST<span class="token punctuation">;</span> 3min 28s ago
-Docs: https://github.com/GoogleCloudPlatform/kubernetes
-Process: 24722 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/systemd/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24719 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/pids/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24716 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/memory/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24713 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/hugetlb/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24710 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/cpuset/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24707 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/cpuacct/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
+                <h1 id="一-配置ingress路径重写"><a href="#一-配置ingress路径重写" class="headerlink" title="一.配置ingress路径重写"></a>一.配置ingress路径重写</h1><p>若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/app-root</span><span class="token punctuation">:</span> /nacos
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>discovery<span class="token punctuation">-</span>ingress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> port<span class="token punctuation">-</span>forward
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> nacos.huhuhahei.cn
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> nacos
+          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /nacos
 </code></pre>
-<p>docker</p>
-<pre class=" language-bash"><code class="language-bash">systemctl status docker
-● docker.service - Docker Application Container Engine
-Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/docker.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: disabled<span class="token punctuation">)</span>
-Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon 2022-02-14 11:04:42 CST<span class="token punctuation">;</span> 6s ago
-Docs: http://docs.docker.io
-Process: 24482 ExecStartPost<span class="token operator">=</span>/sbin/iptables -I FORWARD -s 0.0.0.0/0 -j ACCEPT <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Main PID: 24480 <span class="token punctuation">(</span>dockerd<span class="token punctuation">)</span>
-Tasks: 123
-Memory: 946.6M
-CGroup: /system.slice/docker.service
+<hr>
+<h1 id="二-配置ingress白名单访问"><a href="#二-配置ingress白名单访问" class="headerlink" title="二.配置ingress白名单访问"></a>二.配置ingress白名单访问</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/whitelist-source-range</span><span class="token punctuation">:</span> 117.50.34.153
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>ingress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> prometheus.huhuhahei.cn
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> prometheus<span class="token punctuation">-</span>k8s
+          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">9090</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
 </code></pre>
-<p>两个状态都是running状态 只能看下日志信息了<br>查看kubelet日志信息<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/1507988096.png" alt="F12D2C89-8FD0-4713-9686-7E1705516DF1.png"></p>
-<p>可以看到kubelet连接docker有问题 一直在重启</p>
-<p>只能在看下docker日志信息了</p>
-<p><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/3767755695.png" alt="3D68EEAD-13A8-49b2-97C2-61283CCAE8E3.png"><br>看这个报错在网上搜索没什么发现 于是我好奇docker ps了下 发现一直卡死没有输出<br>这就很奇怪 docker服务正常 不应该没有输出呀 于是又是一番百度找到一个类似的<br><a target="_blank" rel="noopener" href="https://www.bianchengquan.com/article/155669.html">https://www.bianchengquan.com/article/155669.html</a><br>发现应该是docker版本过低触发的版本不兼容 临时先kill掉runc进程后重启kubelet和docker就恢复了 后面还是要时常关注服务的版本</p>
+<p>其他ip访问测试</p>
+<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>I prometheus.huhuhahei.cn
+HTTP/1.1 403 Forbidden
+<span class="token key atrule">Date</span><span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> 04 Mar 2022 03<span class="token punctuation">:</span>08<span class="token punctuation">:</span>38 GMT
+<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> text/html
+<span class="token key atrule">Content-Length</span><span class="token punctuation">:</span> <span class="token number">146</span>
+<span class="token key atrule">Connection</span><span class="token punctuation">:</span> keep<span class="token punctuation">-</span>alive
+</code></pre>
+<p>白名单访问测试</p>
+<pre class=" language-bash"><code class="language-bash">curl -I prometheus.huhuhahei.cn
+HTTP/1.1 405 Method Not Allowed
+Date: Fri, 04 Mar 2022 03:10:19 GMT
+Content-Type: text/plain<span class="token punctuation">;</span> charset<span class="token operator">=</span>utf-8
+Content-Length: 19
+Connection: keep-alive
+Allow: GET, OPTIONS
+X-Content-Type-Options: nosniff
+</code></pre>
+<hr>
+<h1 id="三-配置登录验证"><a href="#三-配置登录验证" class="headerlink" title="三. 配置登录验证"></a>三. 配置登录验证</h1><p>首先需要创建密码文件</p>
+<pre class=" language-bash"><code class="language-bash">htpasswd -c auth admin
+New password: 
+Re-type new password: 
+Adding password <span class="token keyword">for</span> user admin
+</code></pre>
+<p>创建secret</p>
+<pre class=" language-bash"><code class="language-bash">kubectl create secret generic  kibana-auth --from-file<span class="token operator">=</span>auth -n logs
+secret/kibana-auth created
+</code></pre>
+<p>配置ingress</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-realm</span><span class="token punctuation">:</span> Need to longin
+    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-secret</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>auth
+    <span class="token key atrule">nginx.ingress.kubernetes.io/auth-type</span><span class="token punctuation">:</span> basic
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> kibana<span class="token punctuation">-</span>ingress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> kibana.huhuhahei.cn
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
+          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+</code></pre>
+<p>登录测试</p>
+<p><img src="https://www.huhuhahei.cn/usr/uploads/2022/03/1537476990.png" alt="AB6F7373-335A-4ea6-9330-DC55E8895879.png"></p>
+<hr>
+<h1 id="四-配置域名重定向"><a href="#四-配置域名重定向" class="headerlink" title="四.配置域名重定向"></a>四.配置域名重定向</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/permanent-redirect</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>ingress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> logs
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> web.huhuhahei.cn
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> kibana
+          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">5601</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+</code></pre>
+<p>测试</p>
+<pre class=" language-bash"><code class="language-bash">curl -I web.huhuhahei.cn
+HTTP/1.1 301 Moved Permanently
+Date: Fri, 04 Mar 2022 03:30:07 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+Location: https://www.huhuhahei.cn
+</code></pre>
 
                 
             </div>
@@ -438,7 +529,7 @@ CGroup: /system.slice/docker.service
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/%E5%8D%A1%E6%AD%BB%E5%AF%BC%E8%87%B4K8sNode%E8%8A%82%E7%82%B9NotReady/">https://huhuhahei987.github.io/2022/06/05/%E5%8D%A1%E6%AD%BB%E5%AF%BC%E8%87%B4K8sNode%E8%8A%82%E7%82%B9NotReady/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">https://huhuhahei987.github.io/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -476,12 +567,12 @@ CGroup: /system.slice/docker.service
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
-                                </a>
-                            
                                 <a href="/tags/k8s/">
                                     <span class="chip bg-color">k8s</span>
+                                </a>
+                            
+                                <a href="/tags/Ingress/">
+                                    <span class="chip bg-color">Ingress</span>
                                 </a>
                             
                         </div>
@@ -655,17 +746,18 @@ CGroup: /system.slice/docker.service
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/06/05/Docker%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E9%95%9C%E5%83%8F%E5%8F%8A%E5%8D%B7%E7%BB%84%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A9%BA%E9%97%B4/">
+                <a href="/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Docker清理无用镜像及卷组占用的空间">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Ingress高级配置">
                         
-                        <span class="card-title">Docker清理无用镜像及卷组占用的空间</span>
+                        <span class="card-title">Ingress高级配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -675,26 +767,31 @@ CGroup: /system.slice/docker.service
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Docker/" class="post-category">
-                                    Docker
+                            <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
+                    </a>
+                    
+                    <a href="/tags/Ingress/">
+                        <span class="chip bg-color">Ingress</span>
                     </a>
                     
                 </div>
@@ -708,13 +805,13 @@ CGroup: /system.slice/docker.service
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/03/NACOS%E9%83%A8%E7%BD%B2/">
+                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="NACOS部署">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
                         
-                        <span class="card-title">NACOS部署</span>
+                        <span class="card-title">Ingress-nginx配置 https访问</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -725,7 +822,7 @@ CGroup: /system.slice/docker.service
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
                             </span>
                         <span class="publish-author">
                             
@@ -746,8 +843,8 @@ CGroup: /system.slice/docker.service
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
+                    <a href="/tags/Ingress/">
+                        <span class="chip bg-color">Ingress</span>
                     </a>
                     
                 </div>

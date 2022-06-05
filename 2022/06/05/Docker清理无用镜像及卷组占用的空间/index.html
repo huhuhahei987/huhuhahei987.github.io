@@ -4,8 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="卡死导致K8sNode节点NotReady, huhuhahei">
-    <meta name="description" content="某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)现象是这样的describe查看是这样的初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了结果这样一排查 发现都没问题:@(">
+    <meta name="keywords" content="Docker清理无用镜像及卷组占用的空间, huhuhahei">
+    <meta name="description" content="生产过程中，总是会遇到服务器磁盘被docker占满的情况比如这样也就跑了几个容器，莫名其妙磁盘就没了::(泪)于是上网找方案
+[root@node01 docker]# docker system df 
+TYPE            T">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +21,7 @@
 
     
 
-    <title>卡死导致K8sNode节点NotReady | huhuhahei</title>
+    <title>Docker清理无用镜像及卷组占用的空间 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">卡死导致K8sNode节点NotReady</h1>
+                    <h1 class="description center-align post-title">Docker清理无用镜像及卷组占用的空间</h1>
                 </div>
             </div>
         </div>
@@ -327,10 +329,6 @@
                                 <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/tags/k8s/">
-                                <span class="chip bg-color">k8s</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -361,7 +359,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    486
+                    444
                 </div>
                 
 
@@ -383,35 +381,68 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)<br>现象是这样的<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/4059467715.png" alt="5BE9C01C-080C-4fe5-B384-ECBBCB784F9A.png"><br>describe查看是这样的<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/3548693712.png" alt="B3ECBCD8-0721-4007-8223-4A354D6BAC2D.png"><br>初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了<br>结果这样一排查 发现都没问题:@(喷血)<br>下面只能看下kubelet和docker的状态和日志<br>kubelet</p>
-<pre class=" language-bash"><code class="language-bash">systemctl status kubelet
-● kubelet.service - Kubernetes Kubelet
-Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/kubelet.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: disabled<span class="token punctuation">)</span>
-Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon 2022-02-14 11:04:52 CST<span class="token punctuation">;</span> 3min 28s ago
-Docs: https://github.com/GoogleCloudPlatform/kubernetes
-Process: 24722 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/systemd/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24719 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/pids/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24716 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/memory/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24713 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/hugetlb/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24710 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/cpuset/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Process: 24707 ExecStartPre<span class="token operator">=</span>/bin/mkdir -p /sys/fs/cgroup/cpuacct/system.slice <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
+                <p>生产过程中，总是会遇到服务器磁盘被docker占满的情况<br>比如这样<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/03/479329848.jpg" alt="1648304987(1).jpg"><br>也就跑了几个容器，莫名其妙磁盘就没了::(泪)<br>于是上网找方案</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system df </span>
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          46        46        14.44GB   435MB <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>
+Containers      121       108       1.359GB   3.478kB <span class="token punctuation">(</span>0%<span class="token punctuation">)</span>
+Local Volumes   32        2         5.273GB   5.273GB <span class="token punctuation">(</span>100%<span class="token punctuation">)</span>
 </code></pre>
-<p>docker</p>
-<pre class=" language-bash"><code class="language-bash">systemctl status docker
-● docker.service - Docker Application Container Engine
-Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/docker.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: disabled<span class="token punctuation">)</span>
-Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon 2022-02-14 11:04:42 CST<span class="token punctuation">;</span> 6s ago
-Docs: http://docs.docker.io
-Process: 24482 ExecStartPost<span class="token operator">=</span>/sbin/iptables -I FORWARD -s 0.0.0.0/0 -j ACCEPT <span class="token punctuation">(</span>code<span class="token operator">=</span>exited, status<span class="token operator">=</span>0/SUCCESS<span class="token punctuation">)</span>
-Main PID: 24480 <span class="token punctuation">(</span>dockerd<span class="token punctuation">)</span>
-Tasks: 123
-Memory: 946.6M
-CGroup: /system.slice/docker.service
+<p>这个命令可以查看目前我们可以清理的docker缓存，分别为镜像，容器，数据卷</p>
+<p>可以执行下面的命令清理</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@master ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system prune -a</span>
+WARNING<span class="token operator">!</span> This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - all dangling build cache
+
+Are you sure you want to continue? <span class="token punctuation">[</span>y/N<span class="token punctuation">]</span> y
 </code></pre>
-<p>两个状态都是running状态 只能看下日志信息了<br>查看kubelet日志信息<br><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/1507988096.png" alt="F12D2C89-8FD0-4713-9686-7E1705516DF1.png"></p>
-<p>可以看到kubelet连接docker有问题 一直在重启</p>
-<p>只能在看下docker日志信息了</p>
-<p><img src="http://www.huhuhahei.cn/usr/uploads/2022/02/3767755695.png" alt="3D68EEAD-13A8-49b2-97C2-61283CCAE8E3.png"><br>看这个报错在网上搜索没什么发现 于是我好奇docker ps了下 发现一直卡死没有输出<br>这就很奇怪 docker服务正常 不应该没有输出呀 于是又是一番百度找到一个类似的<br><a target="_blank" rel="noopener" href="https://www.bianchengquan.com/article/155669.html">https://www.bianchengquan.com/article/155669.html</a><br>发现应该是docker版本过低触发的版本不兼容 临时先kill掉runc进程后重启kubelet和docker就恢复了 后面还是要时常关注服务的版本</p>
+<p>-a 参数清理的更加彻底 可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了……所以使用之前一定要想清楚吶。</p>
+<p>清理后发现空间并没有减少 仔细查看发现是32磁盘 但是只有2个再用 在执行这个命令看看</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker volume ls -qf dangling=true</span>
+0d322472e941707dc9cdf72ae21647ace2e866d061781c1b3102f026454ff1bb
+0fd37de5d1b7e9a7b047ef7564dc2f7cff9a430e091afaf8b3bce80d96716079
+5cf16842c76f2b5ac32a37bb4cff4b1b691a1323b59db01adcf0569966746d91
+9cb673514123500c7f6f0c0c777d99813c6489832638c261bfaffb9cea01c30f
+23e3eb4e2c4ce36b484278c882a4ff77b8b73a0afcb42f9d4fb4bbd9da04b305
+51a3a18fe7339d97627c894d636a07503244f15f05a945f8ba0e326e53bac4fd
+61bc3ad6461da6f126e6191509e7964a34c8b9514a2c488462e9b2a465ddd541
+89c4921a2c858db86534e0924f5f64786dfcb193b95d98bb468eb2b4e401443c
+146ee0f6e0a42cdfa112a69780637f6a28120fdd56d129e3f697c68a01e6791b
+176b4fa0c65897c355aafff690bf7a97b419ecf9877b1d518b8574cf86b88971
+517bd77537b86937ec43778a171b027ed3200f9ba4405740343dc748a366103b
+540c32012f161afee2abab0ea62f9621612c99392d51bbb266c4e8953f8e3302
+976d1335e32ea78551c0b8ebf96cd626d5cdae78379a4e3b685672ff30911628
+····
+</code></pre>
+<p>可以看到有很多没有挂载的磁盘</p>
+<p>可以使用这个命令清理</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker volume rm $(docker volume ls -qf dangling=true)</span>
+0d322472e941707dc9cdf72ae21647ace2e866d061781c1b3102f026454ff1bb
+0fd37de5d1b7e9a7b047ef7564dc2f7cff9a430e091afaf8b3bce80d96716079
+5cf16842c76f2b5ac32a37bb4cff4b1b691a1323b59db01adcf0569966746d91
+9cb673514123500c7f6f0c0c777d99813c6489832638c261bfaffb9cea01c30f
+23e3eb4e2c4ce36b484278c882a4ff77b8b73a0afcb42f9d4fb4bbd9da04b305
+51a3a18fe7339d97627c894d636a07503244f15f05a945f8ba0e326e53bac4fd
+61bc3ad6461da6f126e6191509e7964a34c8b9514a2c488462e9b2a465ddd541
+</code></pre>
+<p>清理完成再次查看</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system df </span>
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          46        46        14.44GB   435MB <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>
+Containers      121       108       1.359GB   3.478kB <span class="token punctuation">(</span>0%<span class="token punctuation">)</span>
+Local Volumes   2         2         0B        0B
+Build Cache     0         0         0B        0B
+</code></pre>
+<p>当然也可以手动清理无tag的镜像</p>
+<pre class=" language-bash"><code class="language-bash">docker rmi <span class="token punctuation">$(</span>docker images <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"^&lt;none>"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">"&amp;#123;print <span class="token variable">$3</span>&amp;#125;"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>手动清理关闭的容器</p>
+<pre class=" language-bash"><code class="language-bash">docker <span class="token function">ps</span> -a <span class="token operator">|</span> <span class="token function">grep</span> Exit <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">' '</span> -f 1 <span class="token operator">|</span> <span class="token function">xargs</span> docker <span class="token function">rm</span>
+</code></pre>
+<p>空间已经下来了 ::(酷)</p>
 
                 
             </div>
@@ -438,7 +469,7 @@ CGroup: /system.slice/docker.service
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2022/06/05/%E5%8D%A1%E6%AD%BB%E5%AF%BC%E8%87%B4K8sNode%E8%8A%82%E7%82%B9NotReady/">https://huhuhahei987.github.io/2022/06/05/%E5%8D%A1%E6%AD%BB%E5%AF%BC%E8%87%B4K8sNode%E8%8A%82%E7%82%B9NotReady/</a>
+                    <a href="https://huhuhahei987.github.io/2022/06/05/Docker%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E9%95%9C%E5%83%8F%E5%8F%8A%E5%8D%B7%E7%BB%84%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A9%BA%E9%97%B4/">https://huhuhahei987.github.io/2022/06/05/Docker%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E9%95%9C%E5%83%8F%E5%8F%8A%E5%8D%B7%E7%BB%84%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A9%BA%E9%97%B4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -478,10 +509,6 @@ CGroup: /system.slice/docker.service
                             
                                 <a href="/tags/Docker/">
                                     <span class="chip bg-color">Docker</span>
-                                </a>
-                            
-                                <a href="/tags/k8s/">
-                                    <span class="chip bg-color">k8s</span>
                                 </a>
                             
                         </div>
@@ -659,13 +686,13 @@ CGroup: /system.slice/docker.service
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/05/Docker%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E9%95%9C%E5%83%8F%E5%8F%8A%E5%8D%B7%E7%BB%84%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A9%BA%E9%97%B4/">
+                <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Docker清理无用镜像及卷组占用的空间">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
                         
-                        <span class="card-title">Docker清理无用镜像及卷组占用的空间</span>
+                        <span class="card-title">Ingress-nginx配置 https访问</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -678,55 +705,6 @@ CGroup: /system.slice/docker.service
                         <span class="publish-date">
                             <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Docker/" class="post-category">
-                                    Docker
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/06/03/NACOS%E9%83%A8%E7%BD%B2/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="NACOS部署">
-                        
-                        <span class="card-title">NACOS部署</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -746,8 +724,61 @@ CGroup: /system.slice/docker.service
                         <span class="chip bg-color">k8s</span>
                     </a>
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
+                    <a href="/tags/Ingress/">
+                        <span class="chip bg-color">Ingress</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/05/%E5%8D%A1%E6%AD%BB%E5%AF%BC%E8%87%B4K8sNode%E8%8A%82%E7%82%B9NotReady/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="卡死导致K8sNode节点NotReady">
+                        
+                        <span class="card-title">卡死导致K8sNode节点NotReady</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>
