@@ -16,6 +16,17 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
 
     
 
@@ -474,7 +485,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Docker","value":3},{"name":"k8s","value":10},{"name":"K8s","value":2},{"name":"Mysql","value":13}],
+                data: [{"name":"Docker","value":3},{"name":"K8s","value":2},{"name":"k8s","value":10},{"name":"Mysql","value":13}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -687,12 +698,6 @@
             
             
             
-            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                <span class="chip center-align waves-effect waves-light chip-default">开源项目</span>
-            </a>
-            
-            
-            
             <a href="/tags/k8s/">
                 <span class="chip center-align waves-effect waves-light chip-default">k8s</span>
             </a>
@@ -737,6 +742,12 @@
             
             <a href="/tags/Linux/">
                 <span class="chip center-align waves-effect waves-light chip-default">Linux</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                <span class="chip center-align waves-effect waves-light chip-default">开源项目</span>
             </a>
             
             
@@ -1094,15 +1105,6 @@ $(function () {
 
     
 
-    
-        
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
-            }
-        </script>
     
 
     <!-- 雪花特效 -->
