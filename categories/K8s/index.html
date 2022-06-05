@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: K8s, huhuhahei">
+    <meta name="keywords" content="分类: k8s, huhuhahei">
     <meta name="description" content="huhuhahei">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +19,7 @@
 
     
 
-    <title>分类: K8s | huhuhahei</title>
+    <title>分类: k8s | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -268,7 +268,7 @@
                 
                 <a href="/categories/K8s/" title="K8s: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #F9EBEA;">K8s
                         <span class="tag-length">2</span>
                     </span>
@@ -286,9 +286,18 @@
                 
                 <a href="/categories/k8s/" title="k8s: 10">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #D5F5E3;">k8s
                         <span class="tag-length">10</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/Mysql/" title="Mysql: 13">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #E8F8F5;">Mysql
+                        <span class="tag-length">13</span>
                     </span>
                 </a>
                 
@@ -306,19 +315,20 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                    <a href="/2022/06/05/Operator-%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Operator 部署服务数据持久化">
                             
-                            <span class="card-title">Ingress-nginx配置 https访问</span>
+                            <span class="card-title">Operator 部署服务数据持久化</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、配置证书1.1 创建证书secret[root@k8smaster TSL]# kubectl create secret  tls huhuhahei  --key=private.key --cert=public.pem  -n 
+                                一、前言1.1默认使用Operator部署的prometheus和grafana存储数据都是使用的emptyDir格式的，所以服务重启后数据就会清空，生产环境肯定是不行的所以需要将数据持久化到磁盘
+二、配置2.1 Prometheus持久化
                             
                         </div>
                         <div class="publish-info">
@@ -329,8 +339,8 @@
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -345,8 +355,8 @@
                             <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
+                        <a href="/tags/Operator/">
+                            <span class="chip bg-color">Operator</span>
                         </a>
                         
                     </div>
@@ -356,31 +366,31 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/06/03/NACOS%E9%83%A8%E7%BD%B2/">
+                    <a href="/2022/06/05/Kubeadm%E5%8D%B8%E8%BD%BD/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="NACOS部署">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Kubeadm卸载">
                             
-                            <span class="card-title">NACOS部署</span>
+                            <span class="card-title">Kubeadm卸载</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一.前言1.1简介Nacos是阿里巴巴开源的一款支持服务注册与发现，配置管理以及微服务管理的组件。用来取代以前常用的注册中心（zookeeper , eureka等等），以及配置中心（spring cloud config等等）。Nacos
+                                删除kubeadm构建的Kubernetes集群所有通过 kubeadm 工具构建的Kubernetes集群以及节点，都可以通过 kubeadm 工具反向卸载(删除)，这是一个非常方便的操作。我的实践是因为在开发测试环境， 升级kubead
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -395,8 +405,8 @@
                             <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                            <span class="chip bg-color">开源项目</span>
+                        <a href="/tags/kubeadm/">
+                            <span class="chip bg-color">kubeadm</span>
                         </a>
                         
                     </div>
@@ -404,384 +414,302 @@
                 </div>
             </div>
             
-        </div>
-    </article>
-</main>
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="K8s中配置lnmp环境">
+                            
+                            <span class="card-title">K8s中配置lnmp环境</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、配置用于存储的NFS服务1.1服务端配置 nfs#yum安装
+[root@k8smaster lnmp]# yum -y install nfs-utils
+#编辑 配置文件 （确保目录存在）
+[root@k8smaster lnmp]
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
-
-    <div class="container row center-align"
-         style="margin-bottom: 15px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/lnmp/">
+                            <span class="chip bg-color">lnmp</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
-                <span id="year">2022</span>
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="K8s数据持久化StorageClass">
+                            
+                            <span class="card-title">K8s数据持久化StorageClass</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、简介1.1什么是StorageClassKubernetes提供了一套可以自动创建PV的机制，即：Dynamic Provisioning。而这个机制的核心在于StorageClass这个API对象。
+StorageClass对象会定义
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
-            <a href="/about" target="_blank">huhuhahei</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4Terminating%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="K8s强制删除Terminating的命名空间">
+                            
+                            <span class="card-title">K8s强制删除Terminating的命名空间</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法
+1.1 将ns资源保存为json文件kubectl get ns istio-system -o jso
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E9%85%8D%E7%BD%AEingress-nginx%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="K8s配置ingress-nginx暴露服务">
+                            
+                            <span class="card-title">K8s配置ingress-nginx暴露服务</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、简介1.1 介绍在kubernetes中，POD，SVC的IP地址只能集群内部使用，集群外部是无法访问的。
+为了能让外部的应用访问进来，kubernetes提供了如下几种方案：
+
+NodePort
+LoadBalancer
+Ingres
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/ingress/">
+                            <span class="chip bg-color">ingress</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E9%85%8D%E7%BD%AE4%E5%B1%82%E8%BD%AC%E5%8F%91nginx/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="K8s配置4层转发nginx">
+                            
+                            <span class="card-title">K8s配置4层转发nginx</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一 四层转发和七层转发1.1四层负载均衡四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP&#x2F;UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Ingress/">
+                            <span class="chip bg-color">Ingress</span>
+                        </a>
+                        
+                        <a href="/tags/K8s/">
+                            <span class="chip bg-color">K8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             
-                
-            
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
-            
-            <br>
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/k8s%E9%9B%86%E7%BE%A4%E5%86%85%E9%85%8D%E7%BD%AEcoredns%E8%A7%A3%E6%9E%90/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="k8s集群内配置coredns解析">
+                            
+                            <span class="card-title">k8s集群内配置coredns解析</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                编辑coredns的confmap
+kubectl -n kube-system edit configmaps coredns
 
-            <!-- 运行天数提醒. -->
-            
-                <span id="sitetime"> Loading ...</span>
-                <script>
-                    var calcSiteTime = function () {
-                        var seconds = 1000;
-                        var minutes = seconds * 60;
-                        var hours = minutes * 60;
-                        var days = hours * 24;
-                        var years = days * 365;
-                        var today = new Date();
-                        var startYear = "2022";
-                        var startMonth = "6";
-                        var startDate = "3";
-                        var startHour = "11";
-                        var startMinute = "0";
-                        var startSecond = "0";
-                        var todayYear = today.getFullYear();
-                        var todayMonth = today.getMonth() + 1;
-                        var todayDate = today.getDate();
-                        var todayHour = today.getHours();
-                        var todayMinute = today.getMinutes();
-                        var todaySecond = today.getSeconds();
-                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
-                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-                        var diff = t2 - t1;
-                        var diffYears = Math.floor(diff / years);
-                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 &amp;#123;
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-                        // 区分是否有年份.
-                        var language = 'zh-Hans';
-                        if (startYear === String(todayYear)) {
-                            document.getElementById("year").innerHTML = todayYear;
-                            var daysTip = 'This site has been running for ' + diffDays + ' days';
-                            if (language === 'zh-Hans') {
-                                daysTip = '本站已运行 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                daysTip = '本站已運行 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = daysTip;
-                        } else {
-                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
-                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
-                                + diffDays + ' days';
-                            if (language === 'zh-Hans') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
-                        }
-                    }
-
-                    calcSiteTime();
-                </script>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
-                    }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
-                        }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
-                });
-            }
-        });
-    };
-
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
-
-
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
-    <script type="text/javascript">
-        //只在桌面版网页启用特效
-        var windowWidth = $(window).width();
-        if (windowWidth > 768) {
-            document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
-        }
-        </script>
-
-    
-
-    
-
-    <!-- 雪花特效 -->
-    
-
-    <!-- 鼠标星星特效 -->
-    
-
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
-    
-
-    <!-- Baidu Analytics -->
-
-    <!-- Baidu Push -->
-
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
-
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
-
-    
-
-    
-
-    <!--腾讯兔小巢-->
-    
-    
-
-    
-
-    
-
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
-
-</html>
-  <a href="/tags/k8s/">
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
                             <span class="chip bg-color">k8s</span>
                         </a>
                         
