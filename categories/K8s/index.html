@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: K8s, huhuhahei">
+    <meta name="keywords" content="分类: k8s, huhuhahei">
     <meta name="description" content="huhuhahei">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +19,7 @@
 
     
 
-    <title>分类: K8s | huhuhahei</title>
+    <title>分类: k8s | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -277,7 +277,7 @@
                 
                 <a href="/categories/K8s/" title="K8s: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #F5EEF8;">K8s
                         <span class="tag-length">2</span>
                     </span>
@@ -286,7 +286,7 @@
                 
                 <a href="/categories/k8s/" title="k8s: 10">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #D5F5E3;">k8s
                         <span class="tag-length">10</span>
                     </span>
@@ -315,19 +315,20 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/06/05/Ingress-nginx%E9%85%8D%E7%BD%AE-https%E8%AE%BF%E9%97%AE/">
+                    <a href="/2022/06/05/Operator-%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Operator 部署服务数据持久化">
                             
-                            <span class="card-title">Ingress-nginx配置 https访问</span>
+                            <span class="card-title">Operator 部署服务数据持久化</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、配置证书1.1 创建证书secret[root@k8smaster TSL]# kubectl create secret  tls huhuhahei  --key=private.key --cert=public.pem  -n 
+                                一、前言1.1默认使用Operator部署的prometheus和grafana存储数据都是使用的emptyDir格式的，所以服务重启后数据就会清空，生产环境肯定是不行的所以需要将数据持久化到磁盘
+二、配置2.1 Prometheus持久化
                             
                         </div>
                         <div class="publish-info">
@@ -338,8 +339,470 @@
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/Operator/">
+                            <span class="chip bg-color">Operator</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/Kubeadm%E5%8D%B8%E8%BD%BD/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Kubeadm卸载">
+                            
+                            <span class="card-title">Kubeadm卸载</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                删除kubeadm构建的Kubernetes集群所有通过 kubeadm 工具构建的Kubernetes集群以及节点，都可以通过 kubeadm 工具反向卸载(删除)，这是一个非常方便的操作。我的实践是因为在开发测试环境， 升级kubead
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/kubeadm/">
+                            <span class="chip bg-color">kubeadm</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E4%B8%AD%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="K8s中配置lnmp环境">
+                            
+                            <span class="card-title">K8s中配置lnmp环境</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、配置用于存储的NFS服务1.1服务端配置 nfs#yum安装
+[root@k8smaster lnmp]# yum -y install nfs-utils
+#编辑 配置文件 （确保目录存在）
+[root@k8smaster lnmp]
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/lnmp/">
+                            <span class="chip bg-color">lnmp</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96StorageClass/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="K8s数据持久化StorageClass">
+                            
+                            <span class="card-title">K8s数据持久化StorageClass</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、简介1.1什么是StorageClassKubernetes提供了一套可以自动创建PV的机制，即：Dynamic Provisioning。而这个机制的核心在于StorageClass这个API对象。
+StorageClass对象会定义
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4Terminating%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="K8s强制删除Terminating的命名空间">
+                            
+                            <span class="card-title">K8s强制删除Terminating的命名空间</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法
+1.1 将ns资源保存为json文件kubectl get ns istio-system -o jso
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E9%85%8D%E7%BD%AEingress-nginx%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="K8s配置ingress-nginx暴露服务">
+                            
+                            <span class="card-title">K8s配置ingress-nginx暴露服务</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、简介1.1 介绍在kubernetes中，POD，SVC的IP地址只能集群内部使用，集群外部是无法访问的。
+为了能让外部的应用访问进来，kubernetes提供了如下几种方案：
+
+NodePort
+LoadBalancer
+Ingres
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                        <a href="/tags/ingress/">
+                            <span class="chip bg-color">ingress</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E9%85%8D%E7%BD%AE4%E5%B1%82%E8%BD%AC%E5%8F%91nginx/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="K8s配置4层转发nginx">
+                            
+                            <span class="card-title">K8s配置4层转发nginx</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一 四层转发和七层转发1.1四层负载均衡四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP&#x2F;UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Ingress/">
+                            <span class="chip bg-color">Ingress</span>
+                        </a>
+                        
+                        <a href="/tags/K8s/">
+                            <span class="chip bg-color">K8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/k8s%E9%9B%86%E7%BE%A4%E5%86%85%E9%85%8D%E7%BD%AEcoredns%E8%A7%A3%E6%9E%90/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="k8s集群内配置coredns解析">
+                            
+                            <span class="card-title">k8s集群内配置coredns解析</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                编辑coredns的confmap
+kubectl -n kube-system edit configmaps coredns
+
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 &amp;#123;
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/K8s%E5%9F%BA%E7%A1%80yaml%E6%96%87%E4%BB%B6/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                            
+                            <span class="card-title">K8s基础yaml文件</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、基础Pod配置nginx：
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-port
+  namespace: default
+  labels:
+    app: myapp
+    
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/06/05/Ingress%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Ingress高级配置">
+                            
+                            <span class="card-title">Ingress高级配置</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一.配置ingress路径重写若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -356,56 +819,6 @@
                         
                         <a href="/tags/Ingress/">
                             <span class="chip bg-color">Ingress</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/06/03/NACOS%E9%83%A8%E7%BD%B2/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="NACOS部署">
-                            
-                            <span class="card-title">NACOS部署</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.前言1.1简介Nacos是阿里巴巴开源的一款支持服务注册与发现，配置管理以及微服务管理的组件。用来取代以前常用的注册中心（zookeeper , eureka等等），以及配置中心（spring cloud config等等）。Nacos
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                            <span class="chip bg-color">开源项目</span>
-                        </a>
-                        
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
                         </a>
                         
                     </div>
