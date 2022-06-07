@@ -389,7 +389,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="一-四层转发和七层转发"><a href="#一-四层转发和七层转发" class="headerlink" title="一 四层转发和七层转发"></a>一 四层转发和七层转发</h1><h3 id="1-1四层负载均衡"><a href="#1-1四层负载均衡" class="headerlink" title="1.1四层负载均衡"></a>1.1四层负载均衡</h3><p>四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP&#x2F;UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后通过修改数据包的地址信息（IP+端口号）将流量转发到应用服务器。</p>
-<h3 id="1-2七层负载均衡"><a href="#1-2七层负载均衡" class="headerlink" title="1.2七层负载均衡"></a>1.2七层负载均衡</h3><p>七层负载均衡工作在OSI模型的应用层，应用层协议较多，常用http、radius、dns等。七层负载就可以基于这些协议来负载。这些应用层协议中会包含很多有意义的内容。比如同一个Web服务器的负载均衡，除了根据IP加端口进行负载外，还可根据七层的URL、浏览器类别、语言来决定是否要进行负载均衡。<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/03/1508471474.jpeg" alt="xcdkyuw83o.jpeg"></p>
+<h3 id="1-2七层负载均衡"><a href="#1-2七层负载均衡" class="headerlink" title="1.2七层负载均衡"></a>1.2七层负载均衡</h3><p>七层负载均衡工作在OSI模型的应用层，应用层协议较多，常用http、radius、dns等。七层负载就可以基于这些协议来负载。这些应用层协议中会包含很多有意义的内容。比如同一个Web服务器的负载均衡，除了根据IP加端口进行负载外，还可根据七层的URL、浏览器类别、语言来决定是否要进行负载均衡。<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/03/1508471474.jpeg"></p>
 <h1 id="二-Nginx4层转发的配置"><a href="#二-Nginx4层转发的配置" class="headerlink" title="二 Nginx4层转发的配置"></a>二 Nginx4层转发的配置</h1><p>生产业务中很多端口只能使用tcp连接 比如mysql ssh 这些端口是无法使用普通的7层代理进行转发的 因此需要我们配置nginx的四层转发</p>
 <h3 id="2-1-Nginx-Dockerfile配置"><a href="#2-1-Nginx-Dockerfile配置" class="headerlink" title="2.1 Nginx Dockerfile配置"></a>2.1 Nginx Dockerfile配置</h3><p>创建Nginx Dockerfile nginx编译需要–with-stream 模块 否则无法配置</p>
 <pre class=" language-bash"><code class="language-bash">FROM centos:7.8.2003

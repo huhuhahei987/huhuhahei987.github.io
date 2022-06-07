@@ -393,7 +393,7 @@ StorageClass对象会定义">
 </ul>
 <p>但是其实使用起来是一件很简单的事情，你只需要根据自己的需求，编写YAML文件即可，然后使用kubectl create命令执行即可。</p>
 <hr>
-<h3 id="1-2StorageClass架构"><a href="#1-2StorageClass架构" class="headerlink" title="1.2StorageClass架构"></a><strong>1.2StorageClass架构</strong></h3><p>在动态资源供应模式下，通过StorageClass和PVC完成资源动态绑定（系统自动生成PV），并供Pod使用的存储管理机制。<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/10/3784991912.png" alt="企业微信截图_16345341913159.png"></p>
+<h3 id="1-2StorageClass架构"><a href="#1-2StorageClass架构" class="headerlink" title="1.2StorageClass架构"></a><strong>1.2StorageClass架构</strong></h3><p>在动态资源供应模式下，通过StorageClass和PVC完成资源动态绑定（系统自动生成PV），并供Pod使用的存储管理机制。<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/10/3784991912.png"></p>
 <hr>
 <h1 id="二、创建"><a href="#二、创建" class="headerlink" title="二、创建"></a><strong>二、创建</strong></h1><h3 id="2-1创建StorageClass存储服务"><a href="#2-1创建StorageClass存储服务" class="headerlink" title="2.1创建StorageClass存储服务"></a><strong>2.1创建StorageClass存储服务</strong></h3><p>利用nfs-client-provisioner来生成一个基于nfs的StorageClass，部署配置yaml配置如下，保持为nfs-sc.yaml：</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1

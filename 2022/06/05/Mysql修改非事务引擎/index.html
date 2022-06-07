@@ -392,14 +392,14 @@ SELECT table_schema database_name,table_name,engine FROM information_schema.tabl
                 <p>1.Mysql获取非事务引擎的命令</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> table_schema database_name<span class="token punctuation">,</span>table_name<span class="token punctuation">,</span><span class="token keyword">engine</span> <span class="token keyword">FROM</span> information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span> <span class="token keyword">WHERE</span> table_schema <span class="token operator">NOT</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">'mysql'</span><span class="token punctuation">,</span><span class="token string">'information_schema'</span><span class="token punctuation">,</span><span class="token string">'performance_schema'</span><span class="token punctuation">,</span><span class="token string">'sys'</span><span class="token punctuation">)</span> <span class="token operator">AND</span> <span class="token keyword">engine</span> <span class="token operator">&lt;></span> <span class="token string">'InnoDB'</span><span class="token punctuation">;</span>
 </code></pre>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/248870415.png" alt="16217476131.png"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/248870415.png"></p>
 <hr>
 <p>2.获取修改存储引擎的脚本（执行表中的语句即可修改非事务引擎）</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> CONCAT<span class="token punctuation">(</span><span class="token string">'ALTER TABLE'</span><span class="token punctuation">,</span>table_schema<span class="token punctuation">,</span><span class="token string">'.'</span><span class="token punctuation">,</span>table_name<span class="token punctuation">,</span><span class="token string">'ENGINE=InnoDB;'</span><span class="token punctuation">)</span> sql_text <span class="token keyword">FROM</span> information_schema<span class="token punctuation">.</span><span class="token keyword">TABLES</span> <span class="token keyword">WHERE</span> table_schema <span class="token operator">NOT</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">'mysql'</span><span class="token punctuation">,</span><span class="token string">'information_schema'</span><span class="token punctuation">,</span><span class="token string">'performance_schema'</span><span class="token punctuation">,</span><span class="token string">'sys'</span><span class="token punctuation">)</span><span class="token operator">AND</span> <span class="token keyword">engine</span> <span class="token operator">&lt;></span> <span class="token string">'InnoDB'</span><span class="token punctuation">;</span>
 </code></pre>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/473742447.png" alt="16217476801.png"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/473742447.png"></p>
 <hr>
-<p>3.执行语句修改<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2944975847.png" alt="16217477721.png"></p>
+<p>3.执行语句修改<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2944975847.png"></p>
 
                 
             </div>

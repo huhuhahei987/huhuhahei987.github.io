@@ -389,14 +389,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、数据修改后没有commit-也没有记录redo-log"><a href="#一、数据修改后没有commit-也没有记录redo-log" class="headerlink" title="一、数据修改后没有commit 也没有记录redo.log"></a>一、数据修改后没有commit 也没有记录redo.log</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1584144069.jpg" alt="未命名文件.jpg"><br><strong>数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘</strong></p>
+                <h1 id="一、数据修改后没有commit-也没有记录redo-log"><a href="#一、数据修改后没有commit-也没有记录redo-log" class="headerlink" title="一、数据修改后没有commit 也没有记录redo.log"></a>一、数据修改后没有commit 也没有记录redo.log</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1584144069.jpg"><br><strong>数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘</strong></p>
 <h1 id="二、数据没有commit-但是写入了redo-log"><a href="#二、数据没有commit-但是写入了redo-log" class="headerlink" title="二、数据没有commit,但是写入了redo.log"></a>二、数据没有commit,但是写入了redo.log</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/447963019.png" alt="未命名文件.png"><br><strong>redo buffer根据参数定时写入redo.log，但实际事务并未真正提交。此时设备断电，服务启动后加载数据到内存。</strong></p>
 <ul>
 <li>首先根据redo.log记录变更信息修改data buffer数据 将id 1修改为2</li>
 <li>在根据undo buffer信息 发现没有commit 再次将数据进行回滚 将id 2修改为1</li>
 <li>最后将id&#x3D;1 lsn&#x3D;100 txid&#x3D;100 写入磁盘</li>
 </ul>
-<h1 id="三、事务成功commit"><a href="#三、事务成功commit" class="headerlink" title="三、事务成功commit"></a>三、事务成功commit</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/39761923.png" alt="未命名文件 (1).png"><br>事务成功提交，变更写入redo.log 并且undo.log记录commit</p>
+<h1 id="三、事务成功commit"><a href="#三、事务成功commit" class="headerlink" title="三、事务成功commit"></a>三、事务成功commit</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/39761923.png"><br>事务成功提交，变更写入redo.log 并且undo.log记录commit</p>
 <ul>
 <li>首先根据redo.log记录变更信息修改data buffer数据 将id 1修改为2</li>
 <li>undo.log有记录commit因此数据不会发生回滚</li>

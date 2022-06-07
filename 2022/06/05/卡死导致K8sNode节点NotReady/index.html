@@ -388,7 +388,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)<br>现象是这样的<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/4059467715.png" alt="5BE9C01C-080C-4fe5-B384-ECBBCB784F9A.png"><br>describe查看是这样的<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/3548693712.png" alt="B3ECBCD8-0721-4007-8223-4A354D6BAC2D.png"><br>初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了<br>结果这样一排查 发现都没问题:@(喷血)<br>下面只能看下kubelet和docker的状态和日志<br>kubelet</p>
+                <p>某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)<br>现象是这样的<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/4059467715.png"><br>describe查看是这样的<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/3548693712.png"><br>初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了<br>结果这样一排查 发现都没问题:@(喷血)<br>下面只能看下kubelet和docker的状态和日志<br>kubelet</p>
 <pre class=" language-bash"><code class="language-bash">systemctl status kubelet
 ● kubelet.service - Kubernetes Kubelet
 Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/kubelet.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: disabled<span class="token punctuation">)</span>
@@ -413,10 +413,10 @@ Tasks: 123
 Memory: 946.6M
 CGroup: /system.slice/docker.service
 </code></pre>
-<p>两个状态都是running状态 只能看下日志信息了<br>查看kubelet日志信息<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/1507988096.png" alt="F12D2C89-8FD0-4713-9686-7E1705516DF1.png"></p>
+<p>两个状态都是running状态 只能看下日志信息了<br>查看kubelet日志信息<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/1507988096.png"></p>
 <p>可以看到kubelet连接docker有问题 一直在重启</p>
 <p>只能在看下docker日志信息了</p>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/3767755695.png" alt="3D68EEAD-13A8-49b2-97C2-61283CCAE8E3.png"><br>看这个报错在网上搜索没什么发现 于是我好奇docker ps了下 发现一直卡死没有输出<br>这就很奇怪 docker服务正常 不应该没有输出呀 于是又是一番百度找到一个类似的<br><a target="_blank" rel="noopener" href="https://www.bianchengquan.com/article/155669.html">https://www.bianchengquan.com/article/155669.html</a><br>发现应该是docker版本过低触发的版本不兼容 临时先kill掉runc进程后重启kubelet和docker就恢复了 后面还是要时常关注服务的版本</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/02/3767755695.png"><br>看这个报错在网上搜索没什么发现 于是我好奇docker ps了下 发现一直卡死没有输出<br>这就很奇怪 docker服务正常 不应该没有输出呀 于是又是一番百度找到一个类似的<br><a target="_blank" rel="noopener" href="https://www.bianchengquan.com/article/155669.html">https://www.bianchengquan.com/article/155669.html</a><br>发现应该是docker版本过低触发的版本不兼容 临时先kill掉runc进程后重启kubelet和docker就恢复了 后面还是要时常关注服务的版本</p>
 
                 
             </div>
