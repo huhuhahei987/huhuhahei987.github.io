@@ -399,24 +399,24 @@ mysqladmin ">
 <p>1.使用set password 方式修改</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">set</span> password <span class="token keyword">for</span> root<span class="token variable">@localhost</span> <span class="token operator">=</span> password<span class="token punctuation">(</span><span class="token string">'123456'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2021/07/3836760803.png" alt="企业微信截图_16211484851202.png"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3836760803.png" alt="企业微信截图_16211484851202.png"></p>
 <hr>
 <p>2.使用mysqladmin修改</p>
 <pre class=" language-sql"><code class="language-sql">mysqladmin <span class="token operator">-</span>u root <span class="token operator">-</span>p123456 password <span class="token number">12345678</span>
 </code></pre>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2021/07/3822327575.png" alt="企业微信截图_16211492357105.png"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3822327575.png" alt="企业微信截图_16211492357105.png"></p>
 <hr>
 <p>3.使用update user表的方式来修改</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">UPDATE</span> mysql<span class="token punctuation">.</span><span class="token keyword">user</span> <span class="token keyword">SET</span> authentication_string<span class="token operator">=</span>PASSWORD<span class="token punctuation">(</span><span class="token string">'123'</span><span class="token punctuation">)</span> <span class="token keyword">WHERE</span> <span class="token keyword">user</span><span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">;</span>
 
 flush <span class="token keyword">privileges</span><span class="token punctuation">;</span>
 </code></pre>
-<p><img src="https://www.huhuhahei.cn/usr/uploads/2021/07/4000690710.png" alt="企业微信截图_16211511479626.png"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/4000690710.png" alt="企业微信截图_16211511479626.png"></p>
 <p>注：mysql5.7以下 应该需要把authentication_string替换为password</p>
 <hr>
 <p>4.忘记密码可以选择这个方法</p>
-<p>修改mysl配置文件添加skip-grant-tables（启动MySQL服务的时候跳过权限表认证）<br><img src="https://www.huhuhahei.cn/usr/uploads/2021/07/2702070504.png" alt="企业微信截图_16211503376642.png"></p>
-<p>重启mysqld 并使用mysql -uroot -p 直接回车登陆<br><img src="https://www.huhuhahei.cn/usr/uploads/2021/07/297340355.png" alt="企业微信截图_1621150394721.png"></p>
+<p>修改mysl配置文件添加skip-grant-tables（启动MySQL服务的时候跳过权限表认证）<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2702070504.png" alt="企业微信截图_16211503376642.png"></p>
+<p>重启mysqld 并使用mysql -uroot -p 直接回车登陆<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/297340355.png" alt="企业微信截图_1621150394721.png"></p>
 <p>使用第三种方法来修改密码</p>
 
                 
