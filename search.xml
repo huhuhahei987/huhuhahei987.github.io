@@ -4,6 +4,85 @@
   
     
     <entry>
+      <title>记录一个nacos部署报错处理过程</title>
+      <link href="/5d7d0bc/"/>
+      <url>/5d7d0bc/</url>
+      
+        <content type="html"><![CDATA[<p>K8s默认只有ready的pod才能被作为svc的后端,但有时希望即使pod没有准备就绪，服务发现机制也能够发现所有匹配服务标签选择器的pod<br>针对这个需求可以配置一个注释</p><pre class=" language-bash"><code class="language-bash">service.alpha.kubernetes.io/tolerate-unready-endpoints：true</code></pre><p>表示允许将未就绪的pod作为后端服务<br>Nacos的svc就需要这个配置</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Service<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>headless  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> nacos  <span class="token key atrule">labels</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> nacos  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>    <span class="token key atrule">service.alpha.kubernetes.io/tolerate-unready-endpoints</span><span class="token punctuation">:</span> <span class="token string">'true'</span><span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">ports</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> server      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8848</span>      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">8848</span>    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> client<span class="token punctuation">-</span>rpc      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9848</span>      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9848</span>    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> raft<span class="token punctuation">-</span>rpc      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9849</span>      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9849</span>    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> old<span class="token punctuation">-</span>raft<span class="token punctuation">-</span>rpc      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">7848</span>      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">7848</span>  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> nacos  <span class="token key atrule">clusterIP</span><span class="token punctuation">:</span> None  <span class="token key atrule">type</span><span class="token punctuation">:</span> ClusterIP  <span class="token key atrule">sessionAffinity</span><span class="token punctuation">:</span> None</code></pre><p>但是今日部署新的集群发现会出现这个报错</p><pre class=" language-bash"><code class="language-bash">2022/05/10 19:04:03 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:04 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:05 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:06 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:07 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:08 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:09 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:10 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:11 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:12 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:13 lookup nacos-headless on 192.168.0.10:53: no such host2022/05/10 19:04:14 lookup nacos-headless on 192.168.0.10:53: no such host</code></pre><p>看报错是无法解析svc的域名 但是这个域名又不太对 svc的域名不应该是这个呀::(怒)这个报错上网搜索也没有记录 一顿操作后看到新的集群是1.20版本的 忽然想到是不是有地方和新版本不适配呢</p><p>上网一搜还真找到 这个注释可能会在新版本被去掉<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/05/2014853700.png"></p><p>于是添加新的字段<code> publishNotReadyAddresses: true</code><br>再次启动果然启动成功了</p><pre class=" language-bash"><code class="language-bash">NAME      READY   STATUS    RESTARTS   AGEnacos-0   1/1     Running   0          5m31snacos-1   1/1     Running   0          4m9snacos-2   1/1     Running   0          2m10s</code></pre><p>不禁感叹 真的是一个小配置 能让人忙活一下午:@(内伤)<br>记录下 看看是否有人会碰到这个问题</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开源项目 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 开源项目 </tag>
+            
+            <tag> K8s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Fortio压测工具配置</title>
+      <link href="/2d5d1649/"/>
+      <url>/2d5d1649/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一-Fortio简介"><a href="#一-Fortio简介" class="headerlink" title="一.Fortio简介"></a>一.Fortio简介</h1><p>Fortio这个名字来自希腊语φορτίο，意思是负载&#x2F;负担。最初是Istio的负载测试工具，现在为独立的项目。</p><p>Fortio是一个快速，小型（3Mb docker映像，具有最小的依赖性），可重用，可嵌入的go库以及命令行工具和服务器进程，该服务器包括简单的Web UI和结果的图形表示（均为单个延迟图）以及多重结果比较最小，最大，平均，qps和百分位图。</p><h1 id="二-Fortio部署"><a href="#二-Fortio部署" class="headerlink" title="二.Fortio部署"></a>二.Fortio部署</h1><p>yaml文件</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">name</span><span class="token punctuation">:</span> fortio  <span class="token key atrule">labels</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> fortio    <span class="token key atrule">service</span><span class="token punctuation">:</span> fortio<span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">ports</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>    <span class="token key atrule">name</span><span class="token punctuation">:</span> http  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> fortio<span class="token punctuation">---</span><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">name</span><span class="token punctuation">:</span> fortio<span class="token punctuation">-</span>deploy<span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>      <span class="token key atrule">app</span><span class="token punctuation">:</span> fortio  <span class="token key atrule">template</span><span class="token punctuation">:</span>    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>        <span class="token comment" spellcheck="true"># This annotation causes Envoy to serve cluster.outbound statistics via 15000/stats</span>        <span class="token comment" spellcheck="true"># in addition to the stats normally served by Istio. The Circuit Breaking example task</span>        <span class="token comment" spellcheck="true"># gives an example of inspecting Envoy stats via proxy config.</span>        <span class="token key atrule">proxy.istio.io/config</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>          <span class="token key atrule">proxyStatsMatcher</span><span class="token punctuation">:</span>            <span class="token key atrule">inclusionPrefixes</span><span class="token punctuation">:</span>            <span class="token punctuation">-</span> <span class="token string">"cluster.outbound"</span>            <span class="token punctuation">-</span> <span class="token string">"cluster_manager"</span>            <span class="token punctuation">-</span> <span class="token string">"listener_manager"</span>            <span class="token punctuation">-</span> <span class="token string">"server"</span>            <span class="token punctuation">-</span> <span class="token string">"cluster.xds-grpc"</span>      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">app</span><span class="token punctuation">:</span> fortio    <span class="token key atrule">spec</span><span class="token punctuation">:</span>      <span class="token key atrule">containers</span><span class="token punctuation">:</span>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> fortio        <span class="token key atrule">image</span><span class="token punctuation">:</span> fortio/fortio<span class="token punctuation">:</span>latest_release        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> Always        <span class="token key atrule">ports</span><span class="token punctuation">:</span>        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8080</span>          <span class="token key atrule">name</span><span class="token punctuation">:</span> http<span class="token punctuation">-</span>fortio        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8079</span>          <span class="token key atrule">name</span><span class="token punctuation">:</span> grpc<span class="token punctuation">-</span>ping</code></pre><h1 id="三-压力测试"><a href="#三-压力测试" class="headerlink" title="三.压力测试"></a>三.压力测试</h1><h3 id="1-简单访问"><a href="#1-简单访问" class="headerlink" title="1.简单访问"></a>1.简单访问</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> FORTIO_POD<span class="token operator">=</span><span class="token punctuation">$(</span>kubectl get pods -l app<span class="token operator">=</span>fortio -o <span class="token string">'jsonpath=&amp;#123;.items[0].metadata.name&amp;#125;'</span><span class="token punctuation">)</span>kubectl <span class="token function">exec</span> <span class="token string">"<span class="token variable">$FORTIO_POD</span>"</span> -c fortio -- /usr/bin/fortio curl -quiet http://www.huhuhahei.cn</code></pre><h3 id="2-发送并发数为-2-的连接（-c-2），请求-20-次（-n-20）"><a href="#2-发送并发数为-2-的连接（-c-2），请求-20-次（-n-20）" class="headerlink" title="2.发送并发数为 2 的连接（-c 2），请求 20 次（-n 20）"></a>2.发送并发数为 2 的连接（<code>-c 2</code>），请求 20 次（<code>-n 20</code>）</h3><pre class=" language-bash"><code class="language-bash">kubectl <span class="token function">exec</span> <span class="token string">"<span class="token variable">$FORTIO_POD</span>"</span> -c fortio -- /usr/bin/fortio load -c 2 -qps 0 -n 20 -loglevel Warning https://www.huhuhahei.cn</code></pre><blockquote><p>命令解释如下：</p><p>-c 表示并发数</p><p>-n 一共多少请求</p><p>-qps 每秒查询数，0 表示不限制</p><p>-loglevel 指定日志级别</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> K8s </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记录一个Ceph集群数据卷挂载的问题</title>
+      <link href="/7eaaabae/"/>
+      <url>/7eaaabae/</url>
+      
+        <content type="html"><![CDATA[<p>当我们用ceph做k8s的动态存储时,特别是使用rdb存储,在pod重启是总会遇到无法挂载pvc的问题</p><p>关键报错</p><pre class=" language-bash"><code class="language-bash">MountVolume.WaitForAttach failed <span class="token keyword">for</span> volume <span class="token string">"pvc-9bb7c438-2328-47ed-bfbd-c261d111644e"</span> <span class="token keyword">:</span> rbd image k8s-pool/kubernetes-dynamic-pvc-841601fa-f1e8-40a0-b173-77161c03bc47 is still being used</code></pre><p>这里显示pvc已经被其他的pod使用了,根本原因是之前的pod删除但是挂载的rbd文件并没有删除</p><p>解决方法是需要在ceph集群查看这个rbd文件挂载的位置</p><pre class=" language-bash"><code class="language-bash">rbd info k8s-pool/kubernetes-dynamic-pvc-841601fa-f1e8-40a0-b173-77161c03bc47<span class="token comment" spellcheck="true">#通过这个命令可以查看到这个rbd文件的信息</span>rbd image <span class="token string">'kubernetes-dynamic-pvc-841601fa-f1e8-40a0-b173-77161c03bc47'</span><span class="token keyword">:</span>    size 10 GiB <span class="token keyword">in</span> 2560 objects    order 22 <span class="token punctuation">(</span>4 MiB objects<span class="token punctuation">)</span>    snapshot_count: 0    id: 3bfff12997ae2    block_name_prefix: rbd_data.3bfff12997ae2    format: 2    features:    op_features:    flags:    create_timestamp: Sat Dec 25 11:55:16 2021    access_timestamp: Sat Dec 25 11:55:16 2021    modify_timestamp: Sat Dec 25 11:55:16 2021</code></pre><pre class=" language-bash"><code class="language-bash">rados listwatchers -p k8s-pool rbd_header.3bfff12997ae2watcher<span class="token operator">=</span>192.168.0.135:0/1321540337 client.685758 cookie<span class="token operator">=</span>18446462598732840974<span class="token comment" spellcheck="true">#上面的命令可以查看到这个rbd文件挂载的节点</span></code></pre><p>查看到具体的节点到节点上查看rbd文件</p><pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span> /dev/rbd/k8s-pool/kubernetes-dynamic-pvc-841601fa-f1e8-40a0-b173-77161c03bc47 -llrwxrwxrwx 1 root root 10 May 27 15:46 /dev/rbd/k8s-pool/kubernetes-dynamic-pvc-841601fa-f1e8-40a0-b173-77161c03bc47 -<span class="token operator">></span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/rbd7</code></pre><p>可以查看具体的rbd文件,然后卸载掉</p><pre class=" language-bash"><code class="language-bash">rbd unmap -o force /dev/rbd7</code></pre><p>在观察pod就可以正常挂载了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Ceph </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+            <tag> Ceph </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Promethues通过node_export监控linux服务器</title>
       <link href="/93493f88/"/>
       <url>/93493f88/</url>
