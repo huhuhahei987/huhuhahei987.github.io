@@ -99,9 +99,9 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -180,9 +180,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -195,7 +195,7 @@
       <link href="/717770d1/"/>
       <url>/717770d1/</url>
       
-        <content type="html"><![CDATA[<h1 id="一、创建ServiceMonitor"><a href="#一、创建ServiceMonitor" class="headerlink" title="一、创建ServiceMonitor"></a>一、创建ServiceMonitor</h1><p>yaml文件如下</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> monitoring.coreos.com/v1<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceMonitor<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">labels</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx<span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">endpoints</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">interval</span><span class="token punctuation">:</span> 30s    <span class="token key atrule">path</span><span class="token punctuation">:</span> /metrics    <span class="token key atrule">port</span><span class="token punctuation">:</span> metrics  <span class="token key atrule">jobLabel</span><span class="token punctuation">:</span> app  <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchNames</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>      <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx</code></pre><p>创建并查看</p><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f servicemonitor.yaml</span><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get servicemonitor -n ingress-nginx</span>NAME                     AGEnginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping   4h18m</code></pre><h1 id="二、查看Prometheus日志"><a href="#二、查看Prometheus日志" class="headerlink" title="二、查看Prometheus日志"></a>二、查看Prometheus日志</h1><pre class=" language-yaml"><code class="language-yaml">level=error ts=2020<span class="token punctuation">-</span>12<span class="token punctuation">-</span>13T09<span class="token punctuation">:</span>52<span class="token punctuation">:</span>35.565Z caller=klog.go<span class="token punctuation">:</span>96 component=k8s_client_runtime func=ErrorDepth msg="/app/discovery/kubernetes/kubernetes.go<span class="token punctuation">:</span><span class="token key atrule">426</span><span class="token punctuation">:</span> Failed to watch <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> failed to list <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> endpoints is forbidden<span class="token punctuation">:</span> User \"system<span class="token punctuation">:</span>serviceaccount<span class="token punctuation">:</span>monitoring<span class="token punctuation">:</span>prometheus<span class="token punctuation">-</span>k8s\" cannot list resource \"endpoints\" in API group \"\" in the namespace \"ingress<span class="token punctuation">-</span>nginx\""</code></pre><p>可以看到是prometheus权限不足 需要修改下prometheus的clusterrole</p><pre class=" language-yaml"><code class="language-yaml">kubectl edit clusterrole prometheus<span class="token punctuation">-</span>k8s</code></pre><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#rules的内容修改为以下参数</span><span class="token key atrule">rules</span><span class="token punctuation">:</span><span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> nodes  <span class="token punctuation">-</span> services  <span class="token punctuation">-</span> endpoints  <span class="token punctuation">-</span> pods  <span class="token punctuation">-</span> nodes/proxy  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get  <span class="token punctuation">-</span> list  <span class="token punctuation">-</span> watch<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> configmaps  <span class="token punctuation">-</span> nodes/metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get<span class="token punctuation">-</span> <span class="token key atrule">nonResourceURLs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> /metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get</code></pre><p>再次查看prometheus上已经正常了</p><pre><code>[serviceMonitor/ingress-nginx/nginx-ingress-scraping/0 (2/2 up)]</code></pre><h1 id="三、Grafana添加模板"><a href="#三、Grafana添加模板" class="headerlink" title="三、Grafana添加模板"></a>三、Grafana添加模板</h1><p>ingress-nginx模板id <code>9614</code></p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1026964335.png"></p><p>查看监控<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/2909168757.png"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="一、创建ServiceMonitor"><a href="#一、创建ServiceMonitor" class="headerlink" title="一、创建ServiceMonitor"></a>一、创建ServiceMonitor</h1><p>yaml文件如下</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> monitoring.coreos.com/v1<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceMonitor<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">labels</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx<span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">endpoints</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">interval</span><span class="token punctuation">:</span> 30s    <span class="token key atrule">path</span><span class="token punctuation">:</span> /metrics    <span class="token key atrule">port</span><span class="token punctuation">:</span> metrics  <span class="token key atrule">jobLabel</span><span class="token punctuation">:</span> app  <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchNames</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>      <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx</code></pre><p>创建并查看</p><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f servicemonitor.yaml</span><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get servicemonitor -n ingress-nginx</span>NAME                     AGEnginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping   4h18m</code></pre><h1 id="二、查看Prometheus日志"><a href="#二、查看Prometheus日志" class="headerlink" title="二、查看Prometheus日志"></a>二、查看Prometheus日志</h1><pre class=" language-yaml"><code class="language-yaml">level=error ts=2020<span class="token punctuation">-</span>12<span class="token punctuation">-</span>13T09<span class="token punctuation">:</span>52<span class="token punctuation">:</span>35.565Z caller=klog.go<span class="token punctuation">:</span>96 component=k8s_client_runtime func=ErrorDepth msg="/app/discovery/kubernetes/kubernetes.go<span class="token punctuation">:</span><span class="token key atrule">426</span><span class="token punctuation">:</span> Failed to watch <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> failed to list <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> endpoints is forbidden<span class="token punctuation">:</span> User \"system<span class="token punctuation">:</span>serviceaccount<span class="token punctuation">:</span>monitoring<span class="token punctuation">:</span>prometheus<span class="token punctuation">-</span>k8s\" cannot list resource \"endpoints\" in API group \"\" in the namespace \"ingress<span class="token punctuation">-</span>nginx\""</code></pre><p>可以看到是prometheus权限不足 需要修改下prometheus的clusterrole</p><pre class=" language-yaml"><code class="language-yaml">kubectl edit clusterrole prometheus<span class="token punctuation">-</span>k8s</code></pre><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#rules的内容修改为以下参数</span><span class="token key atrule">rules</span><span class="token punctuation">:</span><span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> nodes  <span class="token punctuation">-</span> services  <span class="token punctuation">-</span> endpoints  <span class="token punctuation">-</span> pods  <span class="token punctuation">-</span> nodes/proxy  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get  <span class="token punctuation">-</span> list  <span class="token punctuation">-</span> watch<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> configmaps  <span class="token punctuation">-</span> nodes/metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get<span class="token punctuation">-</span> <span class="token key atrule">nonResourceURLs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> /metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get</code></pre><p>再次查看prometheus上已经正常了</p><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>serviceMonitor/ingress-nginx/nginx-ingress-scraping/0 <span class="token punctuation">(</span>2/2 up<span class="token punctuation">)</span><span class="token punctuation">]</span></code></pre><h1 id="三、Grafana添加模板"><a href="#三、Grafana添加模板" class="headerlink" title="三、Grafana添加模板"></a>三、Grafana添加模板</h1><p>ingress-nginx模板id <code>9614</code></p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1026964335.png"></p><p>查看监控<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/2909168757.png"></p>]]></content>
       
       
       <categories>
@@ -263,9 +263,9 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -290,9 +290,9 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> Linux </tag>
             
             <tag> Alertmanager </tag>
             
@@ -319,9 +319,9 @@
       
         <tags>
             
-            <tag> k8s </tag>
-            
             <tag> Prometheus </tag>
+            
+            <tag> k8s </tag>
             
         </tags>
       
@@ -429,9 +429,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -456,9 +456,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -483,9 +483,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -510,9 +510,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -537,9 +537,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -564,9 +564,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -591,9 +591,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -618,9 +618,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -645,9 +645,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -672,9 +672,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -699,9 +699,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -726,9 +726,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -753,9 +753,9 @@
       
         <tags>
             
-            <tag> Mysql </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Mysql </tag>
             
         </tags>
       
