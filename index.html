@@ -431,37 +431,33 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/ce36882f/">
+                    <a href="/93493f88/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Docker部署smokeping监控网络质量">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Promethues通过node_export监控linux服务器">
                             
-                            <span class="card-title">Docker部署smokeping监控网络质量</span>
+                            <span class="card-title">Promethues通过node_export监控linux服务器</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1.简介
-smokeping是一款监控网络稳定的开源软件，通过它可以监控到本地到各地的网络状况，如延时，丢包，并通过rrdtool制图方式，图形化地展示网络的延时。
-
-2.配置
-
-创建一个目录做数据持久化mkdir -p &#x2F;dat
+                                1.node_export下载这里直接使用wget下载，也可以通过官网下载https://prometheus.io/download/#node_exporter
+wget https://github.com/prometheus/no
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Docker/" class="post-category">
-                                    Docker
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -472,12 +468,12 @@ smokeping是一款监控网络稳定的开源软件，通过它可以监控到�
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Docker/">
-                            <span class="chip bg-color">Docker</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                            <span class="chip bg-color">开源项目</span>
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
                         </a>
                         
                     </div>
@@ -489,33 +485,144 @@ smokeping是一款监控网络稳定的开源软件，通过它可以监控到�
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/1aa41b34/">
+                    <a href="/d4b67256/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql修改非事务引擎">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Prometheus通过Pushgateway监控网络链路">
                             
-                            <span class="card-title">Mysql修改非事务引擎</span>
+                            <span class="card-title">Prometheus通过Pushgateway监控网络链路</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                1.Mysql获取非事务引擎的命令
-SELECT table_schema database_name,table_name,engine FROM information_schema.tables WHERE table_schema 
+                                1.docker启动pushgateway
+docker run -itd --name PushGateway -p 9091:9091 prom/pushgateway
+
+
+2.服务器内编写脚本监控网络并将格式转化为prometheus
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
+                        </a>
+                        
+                        <a href="/tags/Pushgateway/">
+                            <span class="chip bg-color">Pushgateway</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/bd372af0/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="prometheus配置nginx监控">
+                            
+                            <span class="card-title">prometheus配置nginx监控</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本篇主要介绍通过nginx-vts来获取nginx监控情况 1.nginx编译安装需要添加vts模块
+./configure --prefix=/usr/local/nginx --user=nginx --group=nginx --wi
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
+                        </a>
+                        
+                        <a href="/tags/Nginx/">
+                            <span class="chip bg-color">Nginx</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/db43c3bf/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Prometheus监控Mysql">
+                            
+                            <span class="card-title">Prometheus监控Mysql</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1.安装mysql_exporter
+wget  https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -530,8 +637,8 @@ SELECT table_schema database_name,table_name,engine FROM information_schema.tabl
                             <span class="chip bg-color">Mysql</span>
                         </a>
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
                         </a>
                         
                     </div>
@@ -543,34 +650,37 @@ SELECT table_schema database_name,table_name,engine FROM information_schema.tabl
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/ba01084/">
+                    <a href="/717770d1/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Mysql清理binlog日志">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Operator监控Ingress-nginx">
                             
-                            <span class="card-title">Mysql清理binlog日志</span>
+                            <span class="card-title">Operator监控Ingress-nginx</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Mysql 清理binlog日志
-1.MySQL Binlog介绍
-MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定义语言：Create、Drop和Alter)和DML(Data 
+                                一、创建ServiceMonitoryaml文件如下
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: ingres
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -581,12 +691,12 @@ MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/Operator/">
+                            <span class="chip bg-color">Operator</span>
                         </a>
                         
                     </div>
@@ -598,39 +708,32 @@ MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/f3a1699d/">
+                    <a href="/a00be237/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Mysql修改密码">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Operator监控ETCD">
                             
-                            <span class="card-title">Mysql修改密码</span>
+                            <span class="card-title">Operator监控ETCD</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Mysql修改密码的方法
-1.使用set password 方式修改
-set password for root@localhost = password('123456');
-
-
-
-2.使用mysqladmin修改
-mysqladmin 
+                                一、配置etcd证书到prometheus对于 etcd 集群一般情况下，为了安全都会开启 https 证书认证的方式，所以要想让 Prometheus 访问到 etcd 集群的监控数据，就需要提供相应的证书校验。这里配置的是kubeadm
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -641,12 +744,16 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/Operator/">
+                            <span class="chip bg-color">Operator</span>
+                        </a>
+                        
+                        <a href="/tags/ETCD/">
+                            <span class="chip bg-color">ETCD</span>
                         </a>
                         
                     </div>
@@ -658,34 +765,34 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/55893a1f/">
+                    <a href="/7f800f4/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Mysql数据表损坏恢复">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Linux部署process_exporter监控进程情况">
                             
-                            <span class="card-title">Mysql数据表损坏恢复</span>
+                            <span class="card-title">Linux部署process_exporter监控进程情况</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、前言某日登陆发现mysql表损坏，无法启动 ，可以借用如下方法恢复。
-二、恢复启动一个新库[root@db data]# mysqld_safe --defaults-file=/data/3308/my.conf &amp;
-[roo
+                                1.简介 process-exporter主要用来做进程监控，比如某个服务的进程数、消耗了多少CPU、内存、IO资源等
+2.安装配置
+wget http://github.com/ncabatoff/process-exporter/rel
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -696,12 +803,12 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
                         <a href="/tags/Linux/">
                             <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
                         </a>
                         
                     </div>
@@ -713,33 +820,32 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/fa85a72c/">
+                    <a href="/e5fe49d2/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Mysql CSR自动恢复">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Linux部署Alertmanager对prometheus监控进行告警">
                             
-                            <span class="card-title">Mysql CSR自动恢复</span>
+                            <span class="card-title">Linux部署Alertmanager对prometheus监控进行告警</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、数据修改后没有commit 也没有记录redo.log数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘
-二、数据没有commit,但是
+                                1.简介Prometheus发出告警时分为两部分。首先，Prometheus按告警规则(rule_files配置块)向Alertmanager发送告警（即告警规则是在Prometheus上定义的）。然后，由Alertmanager来管理这些
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -750,12 +856,16 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
                         <a href="/tags/Linux/">
                             <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
+                        </a>
+                        
+                        <a href="/tags/Alertmanager/">
+                            <span class="chip bg-color">Alertmanager</span>
                         </a>
                         
                     </div>
@@ -767,36 +877,32 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/a6515af6/">
+                    <a href="/1fd45d82/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Mysql根据binlog恢复数据">
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="K8s Operater部署prometheus">
                             
-                            <span class="card-title">Mysql根据binlog恢复数据</span>
+                            <span class="card-title">K8s Operater部署prometheus</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、准备数据#创建db
-mysql> create database db1;
-Query OK, 1 row affected (0.00 sec)
-mysql> create database db2;
-Query OK, 1 row 
+                                一、简介1.1 Prometheus Operator工作原理从概念上来讲Operator就是针对管理特定应用程序的，在Kubernetes基本的Resource和Controller的概念上，以扩展Kubernetes api的形式。帮助
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -807,122 +913,12 @@ Query OK, 1 row
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/414a2e2c/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Mysql开启慢日志">
-                            
-                            <span class="card-title">Mysql开启慢日志</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、开启慢日志参数#指定是否开启慢查询日志
-slow_query_log = 1
-#指定慢日志文件存放位置（默认在data）
-slow_query_log_file=/application/mysql/data/slow.log
-#设定慢
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/247e674/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Mysql物理备份之Xtrabackup">
-                            
-                            <span class="card-title">Mysql物理备份之Xtrabackup</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、Xtrabackup介绍MySQL冷备、mysqldump、MySQL热拷贝都无法实现对数据库进行增量备份。在实际生产环境中增量备份是非常实用的，如果数据大于50G或100G，存储空间足够的情况下，可以每天进行完整备份，如果每天产生的数
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
                         </a>
                         
                     </div>
@@ -947,7 +943,7 @@ slow_query_log_file=/application/mysql/data/slow.log
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 4</div>
+            <div class="center-align b-text-gray">1 / 5</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1033,7 +1029,7 @@ slow_query_log_file=/application/mysql/data/slow.log
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.4k</span>
+                        class="white-color">24.8k</span>
             
             
             

@@ -4,6 +4,309 @@
   
     
     <entry>
+      <title>Promethues通过node_export监控linux服务器</title>
+      <link href="/93493f88/"/>
+      <url>/93493f88/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.node_export下载</strong><br>这里直接使用wget下载，也可以通过官网下载<a href="https://prometheus.io/download/#node_exporter">https://prometheus.io/download/#node_exporter</a></p><pre class=" language-yaml"><code class="language-yaml">wget https<span class="token punctuation">:</span>//github.com/prometheus/node_exporter/releases/download/v1.2.2/node_exporter<span class="token punctuation">-</span>1.2.2.linux<span class="token punctuation">-</span>amd64.tar.gz</code></pre><hr><p><strong>2.安装</strong></p><pre class=" language-yaml"><code class="language-yaml">tar xf node_exporter<span class="token punctuation">-</span>1.2.2.linux<span class="token punctuation">-</span>amd64.tar.gzmv node_exporter<span class="token punctuation">-</span>1.2.2.linux<span class="token punctuation">-</span>amd64 /usr/local/node_exporterr</code></pre><hr><p><strong>3.启动服务</strong></p><pre class=" language-yaml"><code class="language-yaml">cd /usr/local/node_exporternohup ./node_exporter <span class="token punctuation">></span> node_export.log &amp;</code></pre><hr><p><strong>4.promethues添加job</strong></p><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'Linux'</span>    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>      <span class="token punctuation">-</span> <span class="token string">'106.75.x.x:9100'</span></code></pre><hr><p><strong>5.grafana 添加模板并展示</strong><br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/1224276126.jpg"><br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/2525040169.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Prometheus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Prometheus通过Pushgateway监控网络链路</title>
+      <link href="/d4b67256/"/>
+      <url>/d4b67256/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.docker启动pushgateway</strong></p><pre class=" language-yaml"><code class="language-yaml">docker run <span class="token punctuation">-</span>itd <span class="token punctuation">-</span><span class="token punctuation">-</span>name PushGateway <span class="token punctuation">-</span>p 9091<span class="token punctuation">:</span>9091 prom/pushgateway</code></pre><hr><p><strong>2.服务器内编写脚本监控网络并将格式转化为prometheus支持的</strong></p><p>&#96;&#96;&#96;yaml<br>#!&#x2F;bin&#x2F;bash<br>#<br>#####################################<br>#@brief 功能：监控网路丢包率和延迟 -s 是一个ping包的大小 -W 是延迟timeout -c 是发生多少数据包<br>#@author xiajing<br>#@version 1.0<br>#@date 2021&#x2F;01&#x2F;13<br>#@log no<br>#####################################<br>#shell Env<br>#ping发包数<br>c_times&#x3D;200<br>#IP列表数组<br>ip_arr&#x3D;( 118.193.x.x)<br>for (( i &#x3D; 0; i &lt; $</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> Pushgateway </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>prometheus配置nginx监控</title>
+      <link href="/bd372af0/"/>
+      <url>/bd372af0/</url>
+      
+        <content type="html"><![CDATA[<p>本篇主要介绍通过nginx-vts来获取nginx监控情况 <strong>1.nginx编译安装需要添加vts模块</strong></p><pre><code>./configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_stub_status_module --add-module=../nginx-module-vts/ --with-http_ssl_modulemake &amp;&amp; make install</code></pre><p>nginx -V查看模块是否添加成功 <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/644249520.png"></p><p><strong>2.nginx配置文件添加配置</strong></p><pre><code>http下配置这两个参数vhost_traffic_status_zone;vhost_traffic_status_filter_by_host on;server段server &#123;        listen 8089;        server_name localhost;        root html;        index index.html index.php;    location /status &#123;                        vhost_traffic_status_display;                        vhost_traffic_status_display_format html;      &#125;&#125;</code></pre><p><strong>3.配置完成重启服务 通过ip+prot&#x2F;status访问</strong></p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/462020058.png"></p><p><strong>4.nginx-vts-exporter下载并配置</strong></p><pre><code>wget -c https://github.com/hnlq715/nginx-vts-exporter/releases/download/v0.9.1/nginx-vts-exporter-0.9.1.linux-amd64.tar.gzmkdir /usr/local/nginx-vts-exportertar xf nginx-vts-exporter-0.9.1.linux-amd64.tar.gz -C /usr/local/nginx-vts-exporternohup ./nginx-vts-exporter -nginx.scrape_timeout 10 -nginx.scrape_uri http://172.19.0.3:8082/status/format/json &amp;</code></pre><p><strong>5.promethues添加配置</strong></p><pre><code>- job_name: &#39;Nginx&#39;    static_configs:    - targets:      - &#39;106.75.x.x:9913&#39;</code></pre><p><strong>6.grafana导入模板并查看</strong></p><blockquote><p>导入nginx模板</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/501805390.png"></p><blockquote><p>结果展示</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/3857789207.png"></p><p>[[[<strong>1</strong>]   ]   ]    <a href="https://www.huhuhahei.cn/usr/uploads/2021/08/644249520.png">https://www.huhuhahei.cn/usr/uploads/2021/08/644249520.png</a> </p><p>[[[<strong>2</strong>]   ]   ]    <a href="http://www.huhuhahei.cn/usr/uploads/2021/08/462020058.png">http://www.huhuhahei.cn/usr/uploads/2021/08/462020058.png</a> </p><p>[[[<strong>3</strong>]   ]   ]    <a href="https://www.huhuhahei.cn/usr/uploads/2021/08/501805390.png">https://www.huhuhahei.cn/usr/uploads/2021/08/501805390.png</a> </p><p>[[[<strong>4</strong>]   ]   ]    <a href="https://www.huhuhahei.cn/usr/uploads/2021/08/3857789207.png">https://www.huhuhahei.cn/usr/uploads/2021/08/3857789207.png</a> </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> Nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Prometheus监控Mysql</title>
+      <link href="/db43c3bf/"/>
+      <url>/db43c3bf/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.安装mysql_exporter</strong></p><pre class=" language-yaml"><code class="language-yaml">wget  https<span class="token punctuation">:</span>//github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter<span class="token punctuation">-</span>0.12.1.linux<span class="token punctuation">-</span>amd64.tar.gz</code></pre><p>解压</p><pre class=" language-yaml"><code class="language-yaml">tar zxvf mysqld_exporter<span class="token punctuation">-</span>0.12.1.linux<span class="token punctuation">-</span>amd64.tar.gzmv mysqld_exporter<span class="token punctuation">-</span>0.12.1.linux<span class="token punctuation">-</span>amd64 /usr/local/mysql_exportercd /usr/local/mysql_exporter</code></pre><hr><p><strong>2.在mysql中创建exporter用户并赋予权限</strong></p><pre class=" language-yaml"><code class="language-yaml">CREATE USER 'exporter'@'localhost' IDENTIFIED BY '123456';  GRANT PROCESS<span class="token punctuation">,</span> REPLICATION CLIENT<span class="token punctuation">,</span> SELECT ON *.* TO 'exporter'@'localhost';flush privileges;</code></pre><hr><p><strong>3.创建配置文件</strong></p><pre class=" language-yaml"><code class="language-yaml">vim /usr/local/mysql_exporter/.my.cnf<span class="token punctuation">[</span>client<span class="token punctuation">]</span>user=exporterpassword=000000</code></pre><hr><p><strong>4.启动</strong></p><pre class=" language-yaml"><code class="language-yaml">nohup ./mysqld_exporter <span class="token punctuation">-</span><span class="token punctuation">-</span>config.my<span class="token punctuation">-</span>cnf=.my.cnf &amp;</code></pre><hr><p><strong>5.测试访问ip：9104</strong><br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2077839008.png"></p><hr><p><strong>6.Prometheus添加节点</strong></p><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'Mysql'</span>    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>      <span class="token punctuation">-</span> <span class="token string">'10.7.110.221:9104'</span></code></pre><hr><p><strong>7.Grafana添加模板7362后查看监控</strong></p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2547906164.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+            <tag> Prometheus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Operator监控Ingress-nginx</title>
+      <link href="/717770d1/"/>
+      <url>/717770d1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、创建ServiceMonitor"><a href="#一、创建ServiceMonitor" class="headerlink" title="一、创建ServiceMonitor"></a>一、创建ServiceMonitor</h1><p>yaml文件如下</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> monitoring.coreos.com/v1<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceMonitor<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">labels</span><span class="token punctuation">:</span>    <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx<span class="token key atrule">spec</span><span class="token punctuation">:</span>  <span class="token key atrule">endpoints</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">interval</span><span class="token punctuation">:</span> 30s    <span class="token key atrule">path</span><span class="token punctuation">:</span> /metrics    <span class="token key atrule">port</span><span class="token punctuation">:</span> metrics  <span class="token key atrule">jobLabel</span><span class="token punctuation">:</span> app  <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchNames</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> ingress<span class="token punctuation">-</span>nginx  <span class="token key atrule">selector</span><span class="token punctuation">:</span>    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>      <span class="token key atrule">app</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx</code></pre><p>创建并查看</p><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl apply -f servicemonitor.yaml</span><span class="token punctuation">[</span>root@master servicemonitor<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get servicemonitor -n ingress-nginx</span>NAME                     AGEnginx<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>scraping   4h18m</code></pre><h1 id="二、查看Prometheus日志"><a href="#二、查看Prometheus日志" class="headerlink" title="二、查看Prometheus日志"></a>二、查看Prometheus日志</h1><pre class=" language-yaml"><code class="language-yaml">level=error ts=2020<span class="token punctuation">-</span>12<span class="token punctuation">-</span>13T09<span class="token punctuation">:</span>52<span class="token punctuation">:</span>35.565Z caller=klog.go<span class="token punctuation">:</span>96 component=k8s_client_runtime func=ErrorDepth msg="/app/discovery/kubernetes/kubernetes.go<span class="token punctuation">:</span><span class="token key atrule">426</span><span class="token punctuation">:</span> Failed to watch <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> failed to list <span class="token important">*v1</span>.Endpoints<span class="token punctuation">:</span> endpoints is forbidden<span class="token punctuation">:</span> User \"system<span class="token punctuation">:</span>serviceaccount<span class="token punctuation">:</span>monitoring<span class="token punctuation">:</span>prometheus<span class="token punctuation">-</span>k8s\" cannot list resource \"endpoints\" in API group \"\" in the namespace \"ingress<span class="token punctuation">-</span>nginx\""</code></pre><p>可以看到是prometheus权限不足 需要修改下prometheus的clusterrole</p><pre class=" language-yaml"><code class="language-yaml">kubectl edit clusterrole prometheus<span class="token punctuation">-</span>k8s</code></pre><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#rules的内容修改为以下参数</span><span class="token key atrule">rules</span><span class="token punctuation">:</span><span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> nodes  <span class="token punctuation">-</span> services  <span class="token punctuation">-</span> endpoints  <span class="token punctuation">-</span> pods  <span class="token punctuation">-</span> nodes/proxy  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get  <span class="token punctuation">-</span> list  <span class="token punctuation">-</span> watch<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">""</span>  <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> configmaps  <span class="token punctuation">-</span> nodes/metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get<span class="token punctuation">-</span> <span class="token key atrule">nonResourceURLs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> /metrics  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> get</code></pre><p>再次查看prometheus上已经正常了</p><pre><code>[serviceMonitor/ingress-nginx/nginx-ingress-scraping/0 (2/2 up)]</code></pre><h1 id="三、Grafana添加模板"><a href="#三、Grafana添加模板" class="headerlink" title="三、Grafana添加模板"></a>三、Grafana添加模板</h1><p>ingress-nginx模板id <code>9614</code></p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1026964335.png"></p><p>查看监控<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/2909168757.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> k8s </tag>
+            
+            <tag> Operator </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Operator监控ETCD</title>
+      <link href="/a00be237/"/>
+      <url>/a00be237/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、配置etcd证书到prometheus"><a href="#一、配置etcd证书到prometheus" class="headerlink" title="一、配置etcd证书到prometheus"></a>一、配置etcd证书到prometheus</h1><p>对于 etcd 集群一般情况下，为了安全都会开启 https 证书认证的方式，所以要想让 Prometheus 访问到 etcd 集群的监控数据，就需要提供相应的证书校验。这里配置的是kubeadm</p><p>查看证书文件位置</p><pre><code>[root@master servicemonitor]# kubectl get pod etcd-master -n kube-system -o yaml......volumeMounts:    - mountPath: /var/lib/etcd      name: etcd-data    - mountPath: /etc/kubernetes/pki/etcd      name: etcd-certs</code></pre><p>可以看到etcd-certs挂载路径是&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd</p><p>获取证书文件后生成secret 挂载到pormetheus</p><pre><code>kubectl -n monitoring create secret generic etcd-certs --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.crt --from-file=/etc/kubernetes/pki/etcd/healthcheck-client.key --from-file=/etc/kubernetes/pki/etcd/ca.crt</code></pre><h1 id="二、配置prometheus"><a href="#二、配置prometheus" class="headerlink" title="二、配置prometheus"></a>二、配置prometheus</h1><pre><code>[root@master servicemonitor]# kubectl -n monitoring edit prometheus k8s#spec添加下面字段spec......  secrets:  - etcd-certs#保存退出 进入prometheus确认证书是否配置成功[root@master servicemonitor]# kubectl -n monitoring exec -it prometheus-k8s-0 -c prometheus  -- sh/prometheus $ ls /etc/prometheus/secrets/etcd-certs/ca.crt                  healthcheck-client.crt  healthcheck-client.key#证书已经配置成功</code></pre><h1 id="三、创建ServiceMonitor"><a href="#三、创建ServiceMonitor" class="headerlink" title="三、创建ServiceMonitor"></a>三、创建ServiceMonitor</h1><p>ServiceMonitor</p><pre><code>apiVersion: monitoring.coreos.com/v1kind: ServiceMonitormetadata:  name: etcd-k8s  namespace: monitoring  labels:    k8s-app: etcd-k8sspec:  jobLabel: k8s-app  endpoints:  - port: port    interval: 30s    scheme: https    tlsConfig:      caFile: /etc/prometheus/secrets/etcd-certs/ca.crt      certFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.crt      keyFile: /etc/prometheus/secrets/etcd-certs/healthcheck-client.key      insecureSkipVerify: true  selector:    matchLabels:      k8s-app: etcd  namespaceSelector:    matchNames:    - kube-system</code></pre><p>server</p><pre><code>apiVersion: v1kind: Servicemetadata:  name: etcd-k8s  namespace: kube-system  labels:    k8s-app: etcdspec:  type: ClusterIP  clusterIP: None  ports:  - name: port    port: 2379    protocol: TCP---apiVersion: v1kind: Endpointsmetadata:  name: etcd-k8s  namespace: kube-system  labels:    k8s-app: etcdsubsets:- addresses:  - ip: 10.46.8.18    nodeName: etcd-master  ports:  - name: port    port: 2379    protocol: TCP</code></pre><p>apply</p><pre><code>[root@master servicemonitor]# kubectl apply -f etcd_servicemonitor.yaml[root@master servicemonitor]# kubectl apply -f etcdService.yaml</code></pre><p>可以查看prometheus中监控已经有了 <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1569924190.png"></p><p>grafana添加监控 模板3070 效果如下 <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1217887458.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> k8s </tag>
+            
+            <tag> Operator </tag>
+            
+            <tag> ETCD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux部署process_exporter监控进程情况</title>
+      <link href="/7f800f4/"/>
+      <url>/7f800f4/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.简介</strong> process-exporter主要用来做进程监控，比如某个服务的进程数、消耗了多少CPU、内存、IO资源等</p><p><strong>2.安装配置</strong></p><pre><code>wget http://github.com/ncabatoff/process-exporter/releases/download/v0.7.2/process-exporter-0.7.2.linux-amd64.tar.gztar -xvf process-exporter-0.7.2.linux-amd64.tar.gz  -C /usr/local/cd /usr/local/ln -s process-exporter-0.7.2.linux-amd64 process_exportercd process_exporter/ln -s process-exporter process_exportermkdir logs</code></pre><p><strong>3.添加需要监控的进程配置（需要自己创建）</strong> 配置文件路径<code>/usr/local/process_exporter/config.yaml</code></p><pre><code>process_names:  - name: &quot;&#123;&#123;.Matches&#125;&#125;&quot;    cmdline:    - &#39;elasticsearch&#39;  - name: &quot;&#123;&#123;.Matches&#125;&#125;&quot;    cmdline:    - &#39;logstash&#39;  - name: &quot;&#123;&#123;.Matches&#125;&#125;&quot;    cmdline:    - &#39;kibana&#39;</code></pre><p><strong>4.启动</strong></p><pre><code>nohup ./process-exporter  -config.path=&quot;config.yaml&quot;  -web.listen-address=&quot;:9256&quot;&gt;&gt; logs/process-exporter.log 2&gt;&amp;1 &amp;#-config.path 指定进程配置文件#-web.listen-address 指定监听端口</code></pre><p><strong>5.prometheus添加对应配置</strong></p><pre><code>- job_name: &#39;process&#39;    static_configs:      - targets: [&#39;106.75.x.x:9256&#39;]</code></pre><p><strong>6.grafana添加对应模板</strong> <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/3998995538.png"> 最终展示 <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/2866754558.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Prometheus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux部署Alertmanager对prometheus监控进行告警</title>
+      <link href="/e5fe49d2/"/>
+      <url>/e5fe49d2/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.简介</strong><br>Prometheus发出告警时分为两部分。首先，Prometheus按告警规则(rule_files配置块)向Alertmanager发送告警（即告警规则是在Prometheus上定义的）。然后，由Alertmanager来管理这些告警，包括去重(Deduplicating)、分组(Grouping)、静音(silencing)、抑制(inhibition)、聚合(aggregation )，最终将面要发出的告警通过电子邮件、webhook等方式将告警通知路由(route)给对应的联系人</p><hr><p><strong>2.安装Alertmanager</strong></p><pre class=" language-yaml"><code class="language-yaml">wget http<span class="token punctuation">:</span>//github.com/prometheus/alertmanager/releases/download/v0.20.0/alertmanager<span class="token punctuation">-</span>0.20.0.linux<span class="token punctuation">-</span>amd64.tar.gztar <span class="token punctuation">-</span>xvf alertmanager<span class="token punctuation">-</span>0.20.0.linux<span class="token punctuation">-</span>amd64.tar.gz mv alertmanager<span class="token punctuation">-</span>0.20.0.linux<span class="token punctuation">-</span>amd64 /usr/local/alertmanager</code></pre><hr><p><strong>3.编辑配置文件</strong><br>配置文件路径<code>/usr/local/alertmanager/alertmanager.yml</code></p><p>配置如下</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true">#全局配置</span>  <span class="token key atrule">resolve_timeout</span><span class="token punctuation">:</span> 5m    <span class="token key atrule">smtp_smarthost</span><span class="token punctuation">:</span> <span class="token string">'smtp.163.com:465'</span>  <span class="token comment" spellcheck="true">#smtp服务器的地址 我这里使用的是163的</span>  <span class="token key atrule">smtp_from</span><span class="token punctuation">:</span> <span class="token string">'liyonghui_1997@163.com'</span>  <span class="token comment" spellcheck="true">#发送邮件使用的邮箱</span>  <span class="token key atrule">smtp_auth_username</span><span class="token punctuation">:</span> <span class="token string">'liyonghui_1997@163.com'</span> <span class="token comment" spellcheck="true">#用于发送邮件时登录邮箱服务器的邮箱地址</span>  <span class="token key atrule">smtp_auth_password</span><span class="token punctuation">:</span> <span class="token string">'DRHMxxxxxxxxx'</span> <span class="token comment" spellcheck="true">#邮箱授权码 可以在163的邮箱设置中获取</span>  <span class="token key atrule">smtp_require_tls</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span class="token key atrule">templates</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token string">'/usr/local/alertmanager/template/default.tmpl'</span> <span class="token comment" spellcheck="true">#发送邮件的模板 不需要的话可以不配置的 但是Alertmanager默认模板告警项不直观 且时间是UTC时间查看不方便</span><span class="token key atrule">route</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#默认路由规则</span>  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">]</span>  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s  <span class="token comment" spellcheck="true">#组等待同组告警默认等待30s</span>  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 1m  <span class="token comment" spellcheck="true">#当一个新的告警组被创建时，需要等待'group_wait'后才发送初始通知。这样可以确保在发送等待前能聚合更多具有相同标签的告警，最后合并为一个通知发送</span>  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 5m <span class="token comment" spellcheck="true">#告警发送间隔时间</span>  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'mail'</span><span class="token key atrule">receivers</span><span class="token punctuation">:</span><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'mail'</span> <span class="token comment" spellcheck="true">#发送方式</span>  <span class="token key atrule">email_configs</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#接受方的邮箱</span>  <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token string">'www.2668416023@foxmail.com'</span>    <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true  </span><span class="token comment" spellcheck="true">#是否发送恢复告警</span>    <span class="token key atrule">html</span><span class="token punctuation">:</span> '&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; template "default.html" . &amp;#125;&amp;#125;'  #模板的配置规则 如果不想配置的这里可以忽略</span>    <span class="token key atrule">headers</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123; Subject: "&amp;#123;&amp;#123; .GroupLabels.SortedPairs.Values &amp;#125;&amp;#125; [&amp;#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Firing | len &amp;#125;&amp;#125;]" &amp;#125;</span>  <span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#告警抑制规则</span>  <span class="token punctuation">-</span> <span class="token key atrule">source_match</span><span class="token punctuation">:</span>      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'critical'</span>    <span class="token key atrule">target_match</span><span class="token punctuation">:</span>      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'warning'</span>    <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">,</span> <span class="token string">'dev'</span><span class="token punctuation">,</span> <span class="token string">'instance'</span><span class="token punctuation">]</span></code></pre><p>模板配置<br>路径<code>/usr/local/alertmanager/template/default.tmpl</code></p><pre class=" language-yaml"><code class="language-yaml">&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; define "default.html" &amp;#125;&amp;#125;</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- if gt (len .Alerts.Firing) 0 -&amp;#125;&amp;#125;</span><span class="token punctuation">[</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Firing | len &amp;#125;&amp;#125;]</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; range $i, $alert := .Alerts &amp;#125;&amp;#125;</span>&lt;pre<span class="token punctuation">></span>告警节点：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "instance" &amp;#125;&amp;#125;</span>告警服务：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "alertname" &amp;#125;&amp;#125;</span>报警详情：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Annotations "summary" &amp;#125;&amp;#125;</span>开始时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.StartsAt.Local &amp;#125;&amp;#125;</span>&lt;/pre<span class="token punctuation">></span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- if gt (len .Alerts.Resolved) 0 -&amp;#125;&amp;#125;</span><span class="token punctuation">[</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Resolved | len &amp;#125;&amp;#125;]</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; range $i, $alert := .Alerts &amp;#125;&amp;#125;</span>&lt;pre<span class="token punctuation">></span>恢复节点：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "instance" &amp;#125;&amp;#125;</span>恢复服务：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "alertname" &amp;#125;&amp;#125;</span>状 <span class="token punctuation">?</span> <span class="token punctuation">?</span>态：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Status &amp;#125;&amp;#125;</span>开始时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.StartsAt.Local &amp;#125;&amp;#125;</span>恢复时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.EndsAt.Local &amp;#125;&amp;#125;</span>&lt;/pre<span class="token punctuation">></span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- end &amp;#125;&amp;#125;</span></code></pre><p>配置完成后可以使用自带的工具检查下格式</p><pre class=" language-yaml"><code class="language-yaml">./amtool check<span class="token punctuation">-</span>config alertmanager.ymlChecking 'alertmanager.yml'  SUCCESS<span class="token key atrule">Found</span><span class="token punctuation">:</span> <span class="token punctuation">-</span> global config <span class="token punctuation">-</span> route <span class="token punctuation">-</span> 1 inhibit rules <span class="token punctuation">-</span> 1 receivers <span class="token punctuation">-</span> 1 templates  SUCCESS</code></pre><hr><p><strong>4.启动</strong><br>我是使用的nohup启动的 也可以使用systemctl来启动</p><pre class=" language-yaml"><code class="language-yaml">nohup /usr/local/alertmanager/alertmanager <span class="token punctuation">-</span><span class="token punctuation">-</span>config.file=/usr/local/alertmanager/alertmanager.yml <span class="token punctuation">-</span><span class="token punctuation">-</span>storage.path=/usr/local/alertmanager/data <span class="token punctuation">-</span><span class="token punctuation">-</span>web.listen<span class="token punctuation">-</span>address=0.0.0.0<span class="token punctuation">:</span>9093 <span class="token punctuation">-</span><span class="token punctuation">-</span>data.retention=120h<span class="token punctuation">></span><span class="token punctuation">></span> /usr/local/alertmanager/logs/alertmanager.log 2<span class="token punctuation">></span><span class="token important">&amp;1</span> &amp;</code></pre><p>查看进程是否正常运行</p><pre class=" language-yaml"><code class="language-yaml">ps <span class="token punctuation">-</span>ef <span class="token punctuation">|</span> grep alerroot     16687 30885  0 15<span class="token punctuation">:</span>08 pts/1    00<span class="token punctuation">:</span>00<span class="token punctuation">:</span>00 grep <span class="token punctuation">-</span><span class="token punctuation">-</span>color=auto alerroot     30680     1  0 13<span class="token punctuation">:</span>16 <span class="token punctuation">?</span>        00<span class="token punctuation">:</span>00<span class="token punctuation">:</span>05 /usr/local/alertmanager/alertmanager <span class="token punctuation">-</span><span class="token punctuation">-</span>config.file=/usr/local/alertmanager/alertmanager.yml <span class="token punctuation">-</span><span class="token punctuation">-</span>storage.path=/usr/local/alertmanager/data <span class="token punctuation">-</span><span class="token punctuation">-</span>web.listen<span class="token punctuation">-</span>address=0.0.0.0<span class="token punctuation">:</span>9093 <span class="token punctuation">-</span><span class="token punctuation">-</span>data.retention=120h</code></pre><hr><p><strong>5.prometheus添加配置</strong></p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">alerting</span><span class="token punctuation">:</span>  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>       <span class="token punctuation">-</span> <span class="token string">'118.193.x.x:9093'</span> <span class="token comment" spellcheck="true">#Alertmanager节点</span><span class="token comment" spellcheck="true"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span><span class="token key atrule">rule_files</span><span class="token punctuation">:</span>   <span class="token punctuation">-</span> <span class="token string">"rules/*_rules.yml"</span>   <span class="token comment" spellcheck="true">#告警规则配置文件</span>   <span class="token punctuation">-</span> <span class="token string">"rules/*_alerts.yml"</span>  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'alertmanager'</span>    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>      <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'118.193.37.64:9093'</span><span class="token punctuation">]</span></code></pre><p>重载配置</p><pre class=" language-yaml"><code class="language-yaml">kill <span class="token punctuation">-</span>HUP 18892</code></pre><p>配置没问题的话 就可以在prometheus界面看到Alertmanager<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/939254483.jpg"></p><hr><p><strong>6.配置告警规则</strong><br>分为两个文件：<br><code>node_alerts.yml</code>这个主要配置告警的阈值和发送的文本<br><code>node_rules.yml</code>主要配置告警的规则</p><p>配置如下<br><code>node_rules.yml</code></p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">groups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> node_rules    <span class="token key atrule">rules</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_cpu_usage      <span class="token key atrule">expr</span><span class="token punctuation">:</span> 100 <span class="token punctuation">-</span> avg(irate(node_cpu_seconds_total&amp;<span class="token comment" spellcheck="true">#123;mode="idle"&amp;#125;[1m])) by (instance) * 100</span>      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> CPU_monitor    <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_1m_load      <span class="token key atrule">expr</span><span class="token punctuation">:</span> node_load1      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">metric_yepe</span><span class="token punctuation">:</span> load1m_monitor    <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_mem_usage      <span class="token key atrule">expr</span><span class="token punctuation">:</span> 100 <span class="token punctuation">-</span> (node_memory_MemAvailable_bytes)/(node_memory_MemTotal_bytes) * 100      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> Memory_monitor    <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_root_partition_predit      <span class="token key atrule">expr</span><span class="token punctuation">:</span> node_filesystem_free_bytes&amp;<span class="token comment" spellcheck="true">#123;device="/dev/vda1", mountpoint="/"&amp;#125;/(1024*1024*1024)</span>      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> root_partition_monitor</code></pre><p><code>node_alerts.yml</code></p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">groups</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> node_alerts    <span class="token key atrule">rules</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> CPU使用率      <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_cpu_usage <span class="token punctuation">></span> 80      <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">severity</span><span class="token punctuation">:</span> warning      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 CPU使用率持续1分钟超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125; %</span>        <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 系统一分钟负载      <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_1m_load <span class="token punctuation">></span> 20      <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m      <span class="token key atrule">labels</span><span class="token punctuation">:</span>        <span class="token key atrule">severity</span><span class="token punctuation">:</span> warning      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 1分负载超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125;</span>        <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 内存使用率      <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_mem_usage <span class="token punctuation">></span> 80      <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 内存 使用率持续1分钟超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125; %</span>        <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 系统盘磁盘使用      <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_root_partition_predit &lt; 10      <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 根分区 剩余可用空间只有 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125;GB,，请及时扩容和清理空间!!!!!</span></code></pre><p>配置完成重载<code>kill -HUP 18892</code></p><p>访问prometheus界面即可查看配置的规则<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/1841199424.jpg"><br>告警的状态<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/3354612842.jpg"></p><hr><p><strong>7.测试</strong><br>压测cpu看下是否可以正常收到告警</p><p><code>stress -c 2 -t 100000</code></p><p>prometheus查看告警规则已经变为pending状态 证明已经检测到这个告警<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/1183408278.jpg"><br>根据配置一分钟会如果没有恢复会变为firing状态<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/2775594136.jpg"><br>稍等三十秒即可收到告警<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/2705797334.jpg"><br>取消压测稍后会收到恢复告警<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/2428281774.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> Alertmanager </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>K8s Operater部署prometheus</title>
+      <link href="/1fd45d82/"/>
+      <url>/1fd45d82/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h3 id="1-1-Prometheus-Operator工作原理"><a href="#1-1-Prometheus-Operator工作原理" class="headerlink" title="1.1 Prometheus Operator工作原理"></a>1.1 Prometheus Operator工作原理</h3><p>从概念上来讲Operator就是针对管理特定应用程序的，在Kubernetes基本的Resource和Controller的概念上，以扩展Kubernetes api的形式。帮助用户创建，配置和管理复杂的有状态应用程序。从而实现特定应用程序的常见操作以及运维自动化。</p><p>在Kubernetes中我们使用Deployment、DamenSet，StatefulSet来管理应用Workload，使用Service，Ingress来管理应用的访问方式，使用ConfigMap和Secret来管理应用配置。我们在集群中对这些资源的创建，更新，删除的动作都会被转换为事件(Event)，Kubernetes的Controller Manager负责监听这些事件并触发相应的任务来满足用户的期望。这种方式我们成为声明式，用户只需要关心应用程序的最终状态，其它的都通过Kubernetes来帮助我们完成，通过这种方式可以大大简化应用的配置管理复杂度。</p><p>而除了这些原生的Resource资源以外，Kubernetes还允许用户添加自己的自定义资源(Custom Resource)。并且通过实现自定义Controller来实现对Kubernetes的扩展。</p><p>如下所示，是Prometheus Operator的架构示意图：<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/814160233.png"><br>Prometheus的本质就是一组用户自定义的CRD资源以及Controller的实现，Prometheus Operator负责监听这些自定义资源的变化，并且根据这些资源的定义自动化地完成如Prometheus Server自身以及配置的自动化管理工作。</p><h3 id="1-2-Prometheus-Operator作用"><a href="#1-2-Prometheus-Operator作用" class="headerlink" title="1.2 Prometheus Operator作用"></a>1.2 Prometheus Operator作用</h3><p>要了解Prometheus Operator能做什么，其实就是要了解Prometheus Operator为我们提供了哪些自定义的Kubernetes资源，列出了Prometheus Operator目前提供的️4类资源：</p><ul><li>Prometheus：声明式创建和管理Prometheus Server实例；</li><li>ServiceMonitor：负责声明式的管理监控配置；</li><li>PrometheusRule：负责声明式的管理告警配置；</li><li>Alertmanager：声明式的创建和管理Alertmanager实例。</li></ul><p>简言之，Prometheus Operator能够帮助用户自动化的创建以及管理Prometheus Server以及其相应的配置。</p><h1 id="二、实战配置"><a href="#二、实战配置" class="headerlink" title="二、实战配置"></a>二、实战配置</h1><h3 id="2-1部署Prometheus-Operator"><a href="#2-1部署Prometheus-Operator" class="headerlink" title="2.1部署Prometheus Operator"></a>2.1部署Prometheus Operator</h3><pre class=" language-docker"><code class="language-docker"><span class="token comment" spellcheck="true">#github项目地址，直接使用git拉下来即可</span>https<span class="token punctuation">:</span>//github.com/prometheus<span class="token punctuation">-</span>operator/kube<span class="token punctuation">-</span>prometheus<span class="token punctuation">[</span>root@k8smaster ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true">#git clone https://github.com/prometheus-operator/kube-prometheus</span><span class="token comment" spellcheck="true">#主要使用项目目录为`manifests`</span><span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># pwd</span>/root/kube<span class="token punctuation">-</span>prometheus/manifests<span class="token comment" spellcheck="true">#开始创建所有服务</span><span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span>kubectl create <span class="token punctuation">-</span>f ./setup<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span>kubectl create <span class="token punctuation">-</span>f .<span class="token comment" spellcheck="true">#部署完成确认</span><span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl -n monitoring get all</span>NAME                                       READY   STATUS    RESTARTS   AGEpod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>0                    2/2     Running   0          13dpod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>1                    2/2     Running   0          13dpod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>2                    2/2     Running   0          13dpod/blackbox<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>6798fb5bb4<span class="token punctuation">-</span>64knd     3/3     Running   0          13dpod/grafana<span class="token punctuation">-</span>77f997786c<span class="token punctuation">-</span>4gbrh               1/1     Running   0          3h58mpod/kube<span class="token punctuation">-</span>state<span class="token punctuation">-</span>metrics<span class="token punctuation">-</span>bdb774b4d<span class="token punctuation">-</span>mkrvk     3/3     Running   0          13dpod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>hn54g                    2/2     Running   0          13dpod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>jjxmr                    2/2     Running   0          13dpod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>qnppx                    2/2     Running   0          13dpod/prometheus<span class="token punctuation">-</span>adapter<span class="token punctuation">-</span>5b8db7955f<span class="token punctuation">-</span>6s97n    1/1     Running   0          13dpod/prometheus<span class="token punctuation">-</span>adapter<span class="token punctuation">-</span>5b8db7955f<span class="token punctuation">-</span>bp9bb    1/1     Running   0          13dpod/prometheus<span class="token punctuation">-</span>k8s<span class="token punctuation">-</span>0                       2/2     Running   0          5h20mpod/prometheus<span class="token punctuation">-</span>k8s<span class="token punctuation">-</span>1                       2/2     Running   0          5h20mpod/prometheus<span class="token punctuation">-</span>operator<span class="token punctuation">-</span>5685494db7<span class="token punctuation">-</span>tphkp   2/2     Running   0          13d<span class="token punctuation">...</span><span class="token punctuation">...</span>.</code></pre><h3 id="2-2-web界面查看"><a href="#2-2-web界面查看" class="headerlink" title="2.2 web界面查看"></a>2.2 web界面查看</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#通过查看server端口访问web界面</span><span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get svc -n monitoring</span>NAME                    TYPE        CLUSTER<span class="token punctuation">-</span>IP       EXTERNAL<span class="token punctuation">-</span>IP   PORT(S)prometheus<span class="token punctuation">-</span>k8s          NodePort    10.107.194.41    &lt;none<span class="token punctuation">></span>        9090<span class="token punctuation">:</span>32523/TC</code></pre><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/586635708.png"></p><blockquote><p>所有监控都正常即可打开grafana查看服务自带的监控面板</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/1635828218.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> k8s </tag>
+            
+            <tag> Prometheus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker部署cadvisor监控容器</title>
+      <link href="/985781f7/"/>
+      <url>/985781f7/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.服务器直接docker启动cadvisor容器</strong></p><pre><code>docker run -d --volume=/:/rootfs:ro --volume=/var/run:/var/run:ro --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk:/dev/disk:ro --publish=8080:8080 --detach=true --name=bj_agent_docker google/cadvisor:latest</code></pre><blockquote><p>主要方式就是通过映射本地文件来监控容器中cpu，内存，网络的使用情况</p></blockquote><p><strong>2.容器启动完成可以访问ip:8080打开cadvisor页面</strong> <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3454901946.jpg"></p><p><strong>3.prometheus添加监控项</strong></p><pre><code>- job_name: &#39;docker&#39;    static_configs:    - targets:      - &#39;106.75.x.x:8080&#39;</code></pre><p><strong>4.重载配置</strong></p><pre><code>kill -HUP 14083</code></pre><p><strong>5.grafana查看监控</strong> <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/4223136120.jpg"></p><p>[[<strong>1</strong>]   ]   <a href="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3454901946.jpg">https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3454901946.jpg</a> </p><p>[[<strong>2</strong>]   ]    <a href="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/4223136120.jpg">https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/4223136120.jpg</a> </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+            <tag> Prometheus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用Docker部署Prometheus+Grafana监控云主机</title>
+      <link href="/db991cc/"/>
+      <url>/db991cc/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1.需要先添加prometheus的默认配置文件</strong></p><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># my global config</span><span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span>     15s <span class="token comment" spellcheck="true"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span>  <span class="token key atrule">evaluation_interval</span><span class="token punctuation">:</span> 15s <span class="token comment" spellcheck="true"># Evaluate rules every 15 seconds. The default is every 1 minute.</span>  <span class="token comment" spellcheck="true"># scrape_timeout is set to the global default (10s).</span> <span class="token comment" spellcheck="true"># Alertmanager configuration</span><span class="token key atrule">alerting</span><span class="token punctuation">:</span>  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>       <span class="token punctuation">-</span> alertmanager<span class="token punctuation">:</span><span class="token number">9093</span> <span class="token comment" spellcheck="true"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span><span class="token key atrule">rule_files</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># - "first_rules.yml"</span>  <span class="token comment" spellcheck="true"># - "second_rules.yml"</span> <span class="token comment" spellcheck="true"># A scrape configuration containing exactly one endpoint to scrape:</span><span class="token comment" spellcheck="true"># Here it's Prometheus itself.</span><span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># The job name is added as a label `job=&lt;job_name>` to any timeseries scraped from this config.</span>  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'prometheus'</span>     <span class="token comment" spellcheck="true"># metrics_path defaults to '/metrics'</span>    <span class="token comment" spellcheck="true"># scheme defaults to 'http'.</span>    <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span> 5s    <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'localhost:9090'</span><span class="token punctuation">]</span></code></pre><hr><p><strong>2.直接直接使用官方镜像启动</strong></p><blockquote><p>我这边文件是在&#x2F;tmp下的</p></blockquote><pre class=" language-yaml"><code class="language-yaml">docker run <span class="token punctuation">-</span>d <span class="token punctuation">-</span><span class="token punctuation">-</span>name=promethues <span class="token punctuation">-</span>p 9090<span class="token punctuation">:</span>9090 <span class="token punctuation">-</span>v /tmp/prometheus.yml<span class="token punctuation">:</span>/etc/prometheus/prometheus.yml prom/prometheus</code></pre><blockquote><p>默认端口是9090 可以直接ip：prot访问</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/4279283483.jpg"></p><blockquote><p>页面可以正常打开 证明prometheus已经安装完成</p></blockquote><hr><p><strong>3.安装监控节点node_exporter</strong></p><pre class=" language-yaml"><code class="language-yaml">docker run <span class="token punctuation">-</span>d <span class="token punctuation">-</span>p 9100<span class="token punctuation">:</span>9100 <span class="token punctuation">-</span>v "/proc<span class="token punctuation">:</span>/host/proc<span class="token punctuation">:</span>ro" <span class="token punctuation">-</span>v "/sys<span class="token punctuation">:</span>/host/sys<span class="token punctuation">:</span>ro" <span class="token punctuation">-</span>v "/<span class="token punctuation">:</span>/rootfs<span class="token punctuation">:</span>ro"  prom/node<span class="token punctuation">-</span>exporter</code></pre><blockquote><p>默认端口是9100 可以直接ip：prot访问确认是否已经收集到数据</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2013638144.jpg"></p><blockquote><p>也可以在prometheus中查看是否有数据</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/1268918424.jpg"></p><hr><p><strong>4.安装grafana做页面展示</strong></p><pre class=" language-yaml"><code class="language-yaml">docker run <span class="token punctuation">-</span>d <span class="token punctuation">-</span><span class="token punctuation">-</span>name=grafana <span class="token punctuation">-</span>p 3000<span class="token punctuation">:</span>3000 grafana/grafana</code></pre><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3958860042.jpg"></p><blockquote><p>默认账号密码均为admin</p><p>添加数据源选择prometheus，url选择promethues访问链接，并保存</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2130166801.jpg"></p><blockquote><p>导入模板选择9276（可以自己选择喜欢的）并保存</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/1685660091.jpg"></p><blockquote><p>查看监控</p></blockquote><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3583263766.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Monitor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> Grafana </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker部署smokeping监控网络质量</title>
       <link href="/ce36882f/"/>
       <url>/ce36882f/</url>
