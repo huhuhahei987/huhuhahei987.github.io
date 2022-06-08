@@ -390,40 +390,40 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>本篇主要介绍通过nginx-vts来获取nginx监控情况 <strong>1.nginx编译安装需要添加vts模块</strong></p>
-<pre><code>./configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_stub_status_module --add-module=../nginx-module-vts/ --with-http_ssl_module
-make &amp;&amp; make install
+<pre class=" language-bash"><code class="language-bash">./configure --prefix<span class="token operator">=</span>/usr/local/nginx --user<span class="token operator">=</span>nginx --group<span class="token operator">=</span>nginx --with-http_stub_status_module --add-module<span class="token operator">=</span><span class="token punctuation">..</span>/nginx-module-vts/ --with-http_ssl_module
+<span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span>
 </code></pre>
 <p>nginx -V查看模块是否添加成功 <img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/644249520.png"></p>
 <p><strong>2.nginx配置文件添加配置</strong></p>
-<pre><code>http下配置这两个参数
-vhost_traffic_status_zone;
-vhost_traffic_status_filter_by_host on;
+<pre class=" language-bash"><code class="language-bash">http下配置这两个参数
+vhost_traffic_status_zone<span class="token punctuation">;</span>
+vhost_traffic_status_filter_by_host on<span class="token punctuation">;</span>
 
 server段
-server &#123;
-        listen 8089;
-        server_name localhost;
-        root html;
-        index index.html index.php;
-    location /status &#123;
-                        vhost_traffic_status_display;
-                        vhost_traffic_status_display_format html;
-      &#125;
-&#125;
+server <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        listen 8089<span class="token punctuation">;</span>
+        server_name localhost<span class="token punctuation">;</span>
+        root html<span class="token punctuation">;</span>
+        index index.html index.php<span class="token punctuation">;</span>
+    location /status <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        vhost_traffic_status_display<span class="token punctuation">;</span>
+                        vhost_traffic_status_display_format html<span class="token punctuation">;</span>
+      <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
 </code></pre>
 <p><strong>3.配置完成重启服务 通过ip+prot&#x2F;status访问</strong></p>
 <p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/462020058.png"></p>
 <p><strong>4.nginx-vts-exporter下载并配置</strong></p>
-<pre><code>wget -c https://github.com/hnlq715/nginx-vts-exporter/releases/download/v0.9.1/nginx-vts-exporter-0.9.1.linux-amd64.tar.gz
-mkdir /usr/local/nginx-vts-exporter
-tar xf nginx-vts-exporter-0.9.1.linux-amd64.tar.gz -C /usr/local/nginx-vts-exporter
-nohup ./nginx-vts-exporter -nginx.scrape_timeout 10 -nginx.scrape_uri http://172.19.0.3:8082/status/format/json &amp;
+<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> -c https://github.com/hnlq715/nginx-vts-exporter/releases/download/v0.9.1/nginx-vts-exporter-0.9.1.linux-amd64.tar.gz
+<span class="token function">mkdir</span> /usr/local/nginx-vts-exporter
+<span class="token function">tar</span> xf nginx-vts-exporter-0.9.1.linux-amd64.tar.gz -C /usr/local/nginx-vts-exporter
+<span class="token function">nohup</span> ./nginx-vts-exporter -nginx.scrape_timeout 10 -nginx.scrape_uri http://172.19.0.3:8082/status/format/json <span class="token operator">&amp;</span>
 </code></pre>
 <p><strong>5.promethues添加配置</strong></p>
-<pre><code>- job_name: &#39;Nginx&#39;
+<pre class=" language-bash"><code class="language-bash">- job_name: <span class="token string">'Nginx'</span>
     static_configs:
     - targets:
-      - &#39;106.75.x.x:9913&#39;
+      - <span class="token string">'106.75.x.x:9913'</span>
 </code></pre>
 <p><strong>6.grafana导入模板并查看</strong></p>
 <blockquote>
