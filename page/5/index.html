@@ -265,40 +265,33 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/b19e20d5/">
+                    <a href="/985781f7/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Docker部署cadvisor监控容器">
                             
-                            <span class="card-title">K8s基础yaml文件</span>
+                            <span class="card-title">Docker部署cadvisor监控容器</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、基础Pod配置nginx：
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx-port
-  namespace: default
-  labels:
-    app: myapp
-    
+                                1.服务器直接docker启动cadvisor容器
+docker run -d --volume=/:/rootfs:ro --volume=/var/run:/var/run:ro --volume=/sys:/sys:ro --volu
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -309,8 +302,12 @@ metadata:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Docker/">
+                            <span class="chip bg-color">Docker</span>
+                        </a>
+                        
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
                         </a>
                         
                     </div>
@@ -322,36 +319,35 @@ metadata:
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/893a2674/">
+                    <a href="/db991cc/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Ingress高级配置">
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="使用Docker部署Prometheus+Grafana监控云主机">
                             
-                            <span class="card-title">Ingress高级配置</span>
+                            <span class="card-title">使用Docker部署Prometheus+Grafana监控云主机</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一.配置ingress路径重写若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-
+                                1.需要先添加prometheus的默认配置文件
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 sec
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Monitor/" class="post-category">
+                                    Monitor
                                 </a>
                                 
                                 
@@ -362,12 +358,16 @@ metadata:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Docker/">
+                            <span class="chip bg-color">Docker</span>
                         </a>
                         
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
+                        <a href="/tags/Prometheus/">
+                            <span class="chip bg-color">Prometheus</span>
+                        </a>
+                        
+                        <a href="/tags/Grafana/">
+                            <span class="chip bg-color">Grafana</span>
                         </a>
                         
                     </div>
@@ -379,75 +379,25 @@ metadata:
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/f619b970/">
+                    <a href="/ce36882f/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Docker部署smokeping监控网络质量">
                             
-                            <span class="card-title">Ingress-nginx配置 https访问</span>
+                            <span class="card-title">Docker部署smokeping监控网络质量</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、配置证书1.1 创建证书secret[root@k8smaster TSL]# kubectl create secret  tls huhuhahei  --key=private.key --cert=public.pem  -n 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+                                1.简介
+smokeping是一款监控网络稳定的开源软件，通过它可以监控到本地到各地的网络状况，如延时，丢包，并通过rrdtool制图方式，图形化地展示网络的延时。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
-                        </a>
-                        
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2d895da1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Docker清理无用镜像及卷组占用的空间">
-                            
-                            <span class="card-title">Docker清理无用镜像及卷组占用的空间</span>
-                        </div>
-                    </a>
+2.配置
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                生产过程中，总是会遇到服务器磁盘被docker占满的情况比如这样也就跑了几个容器，莫名其妙磁盘就没了::(泪)于是上网找方案
-[root@node01 docker]# docker system df 
-TYPE            T
+创建一个目录做数据持久化mkdir -p &#x2F;dat
                             
                         </div>
                         <div class="publish-info">
@@ -473,111 +423,344 @@ TYPE            T
                         <a href="/tags/Docker/">
                             <span class="chip bg-color">Docker</span>
                         </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/undefined/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="卡死导致K8sNode节点NotReady">
-                            
-                            <span class="card-title">卡死导致K8sNode节点NotReady</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)现象是这样的describe查看是这样的初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了结果这样一排查 发现都没问题:@(
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Docker/" class="post-category">
-                                    Docker
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Docker/">
-                            <span class="chip bg-color">Docker</span>
-                        </a>
-                        
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/c2586a0/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="NACOS部署">
-                            
-                            <span class="card-title">NACOS部署</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.前言1.1简介Nacos是阿里巴巴开源的一款支持服务注册与发现，配置管理以及微服务管理的组件。用来取代以前常用的注册中心（zookeeper , eureka等等），以及配置中心（spring cloud config等等）。Nacos
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
                         
                         <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
                             <span class="chip bg-color">开源项目</span>
                         </a>
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/1aa41b34/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql修改非事务引擎">
+                            
+                            <span class="card-title">Mysql修改非事务引擎</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1.Mysql获取非事务引擎的命令
+SELECT table_schema database_name,table_name,engine FROM information_schema.tables WHERE table_schema 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/ba01084/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Mysql清理binlog日志">
+                            
+                            <span class="card-title">Mysql清理binlog日志</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Mysql 清理binlog日志
+1.MySQL Binlog介绍
+MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定义语言：Create、Drop和Alter)和DML(Data 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/f3a1699d/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Mysql修改密码">
+                            
+                            <span class="card-title">Mysql修改密码</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Mysql修改密码的方法
+1.使用set password 方式修改
+set password for root@localhost = password('123456');
+
+
+
+2.使用mysqladmin修改
+mysqladmin 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/55893a1f/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Mysql数据表损坏恢复">
+                            
+                            <span class="card-title">Mysql数据表损坏恢复</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、前言某日登陆发现mysql表损坏，无法启动 ，可以借用如下方法恢复。
+二、恢复启动一个新库[root@db data]# mysqld_safe --defaults-file=/data/3308/my.conf &amp;
+[roo
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/fa85a72c/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Mysql CSR自动恢复">
+                            
+                            <span class="card-title">Mysql CSR自动恢复</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、数据修改后没有commit 也没有记录redo.log数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘
+二、数据没有commit,但是
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/a6515af6/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Mysql根据binlog恢复数据">
+                            
+                            <span class="card-title">Mysql根据binlog恢复数据</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、准备数据#创建db
+mysql> create database db1;
+Query OK, 1 row affected (0.00 sec)
+mysql> create database db2;
+Query OK, 1 row 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -603,11 +786,12 @@ TYPE            T
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">5 / 5</div>
+            <div class="center-align b-text-gray">5 / 8</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a class="right btn-floating btn-large disabled">
+            <a href="/page/6/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
                 <i class="fas fa-angle-right"></i>
             </a>
             
@@ -688,7 +872,7 @@ TYPE            T
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">26.1k</span>
+                        class="white-color">41.7k</span>
             
             
             
