@@ -325,12 +325,12 @@ wget http://github.com/ncabatoff/process-exporter/rel">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Prometheus/">
-                                <span class="chip bg-color">Prometheus</span>
-                            </a>
-                        
                             <a href="/tags/Linux/">
                                 <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/tags/Prometheus/">
+                                <span class="chip bg-color">Prometheus</span>
                             </a>
                         
                     </div>
@@ -488,12 +488,12 @@ mkdir logs
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Prometheus/">
-                                    <span class="chip bg-color">Prometheus</span>
-                                </a>
-                            
                                 <a href="/tags/Linux/">
                                     <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="/tags/Prometheus/">
+                                    <span class="chip bg-color">Prometheus</span>
                                 </a>
                             
                         </div>
@@ -762,12 +762,12 @@ mkdir logs
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Prometheus/">
-                        <span class="chip bg-color">Prometheus</span>
-                    </a>
-                    
                     <a href="/tags/Linux/">
                         <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/Prometheus/">
+                        <span class="chip bg-color">Prometheus</span>
                     </a>
                     
                     <a href="/tags/Alertmanager/">
@@ -1176,7 +1176,45 @@ $(function () {
         <i class="fas fa-arrow-up"></i>
     </a>
 </div>
+<a onclick="switchNightMode()" id="sma" title="模式切换">
+    <i class="fa fa-moon-o" id="nightMode" aria-hidden="true"></i>
+</a>
 
+/* 深色模式按钮设置 */
+#sma {
+    background: #000;
+    width: 38px;
+    height: 38px;
+    display: block;
+    position: fixed;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 170px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+    cursor: pointer;
+}
+
+#sma .fa-moon-o {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 1.48rem!important;
+}
+#sma .fa-lightbulb-o  {
+    position: absolute;
+    right: 13px;
+    bottom: 8px;
+    font-size: 1.5rem!important;
+}
+
+.fa-moon-o:before {
+    content: "\f186";
+}
+.fa-comments:before {
+    content: "\f086";
+}
 
     <script src="/libs/materialize/materialize.min.js"></script>
     <script src="/libs/masonry/masonry.pkgd.min.js"></script>
