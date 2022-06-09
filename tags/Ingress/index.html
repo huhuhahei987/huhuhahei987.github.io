@@ -799,45 +799,7 @@ $(function () {
         <i class="fas fa-arrow-up"></i>
     </a>
 </div>
-<a onclick="switchNightMode()" id="sma" title="模式切换">
-    <i class="fa fa-moon-o" id="nightMode" aria-hidden="true"></i>
-</a>
 
-/* 深色模式按钮设置 */
-#sma {
-    background: #000;
-    width: 38px;
-    height: 38px;
-    display: block;
-    position: fixed;
-    border-radius: 50%;
-    right: 15px;
-    bottom: 170px;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
-    cursor: pointer;
-}
-
-#sma .fa-moon-o {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    font-size: 1.48rem!important;
-}
-#sma .fa-lightbulb-o  {
-    position: absolute;
-    right: 13px;
-    bottom: 8px;
-    font-size: 1.5rem!important;
-}
-
-.fa-moon-o:before {
-    content: "\f186";
-}
-.fa-comments:before {
-    content: "\f086";
-}
 
     <script src="/libs/materialize/materialize.min.js"></script>
     <script src="/libs/masonry/masonry.pkgd.min.js"></script>
@@ -915,44 +877,29 @@ $(function () {
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
 
 </html>
-></i>
-</a>
+     str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
 
-/* 深色模式按钮设置 */
-#sma {
-    background: #000;
-    width: 38px;
-    height: 38px;
-    display: block;
-    position: fixed;
-    border-radius: 50%;
-    right: 15px;
-    bottom: 170px;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
-    cursor: pointer;
-}
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
 
-#sma .fa-moon-o {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    font-size: 1.48rem!important;
-}
-#sma .fa-lightbulb-o  {
-    position: absolute;
-    right: 13px;
-    bottom: 8px;
-    font-size: 1.5rem!important;
-}
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
 
-.fa-moon-o:before {
-    content: "\f186";
-}
-.fa-comments:before {
-    content: "\f086";
-}
 
     <script src="/libs/materialize/materialize.min.js"></script>
     <script src="/libs/masonry/masonry.pkgd.min.js"></script>
