@@ -22,7 +22,7 @@ Fortio是一个快速，小型（3Mb docker映像，具有最小的依赖性）�
 
     <title>Fortio压测工具配置 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
@@ -37,6 +37,28 @@ Fortio是一个快速，小型（3Mb docker映像，具有最小的依赖性）�
 
 
 <body>
+    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -1211,6 +1233,8 @@ $(function () {
     
 
     <!-- 雪花特效 -->
+    
+
     
 
     <!-- 白天和黑夜主题 -->

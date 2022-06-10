@@ -21,7 +21,7 @@
 
     <title>标签 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
@@ -36,6 +36,28 @@
 
 
 <body>
+    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -317,10 +339,19 @@
                 </a>
                 
                 
+                <a href="/tags/Go/" title="Go: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Go" style="background-color: #82E0AA;">Go
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/k8s/" title="k8s: 16">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="k8s" style="background-color: #82E0AA;">k8s
+                            data-tagname="k8s" style="background-color: #D7BDE2;">k8s
                         <span class="tag-length">16</span>
                     </span>
                 </a>
@@ -329,17 +360,8 @@
                 <a href="/tags/Ingress/" title="Ingress: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Ingress" style="background-color: #D7BDE2;">Ingress
+                            data-tagname="Ingress" style="background-color: #A3E4D7;">Ingress
                         <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Go/" title="Go: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Go" style="background-color: #A3E4D7;">Go
-                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -389,20 +411,20 @@
                 </a>
                 
                 
-                <a href="/tags/Mysql/" title="Mysql: 14">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Mysql" style="background-color: #FEF9E7;">Mysql
-                        <span class="tag-length">14</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/Alertmanager/" title="Alertmanager: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="Alertmanager" style="background-color: #FEF9E7;">Alertmanager
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Mysql/" title="Mysql: 14">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Mysql" style="background-color: #FEF9E7;">Mysql
+                        <span class="tag-length">14</span>
                     </span>
                 </a>
                 
@@ -452,19 +474,19 @@
                 </a>
                 
                 
-                <a href="/tags/Grafana/" title="Grafana: 1">
+                <a href="/tags/Ceph/" title="Ceph: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Grafana" style="background-color: #D7BDE2;">Grafana
+                            data-tagname="Ceph" style="background-color: #D7BDE2;">Ceph
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Ceph/" title="Ceph: 1">
+                <a href="/tags/Grafana/" title="Grafana: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Ceph" style="background-color: #D7BDE2;">Ceph
+                            data-tagname="Grafana" style="background-color: #D7BDE2;">Grafana
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -493,7 +515,7 @@
 <script type="text/javascript">
     
 
-    $('#tag-wordcloud').jQCloud([{"text":"Linux","weight":28,"link":"/tags/Linux/"},{"text":"DevOps","weight":2,"link":"/tags/DevOps/"},{"text":"Docker","weight":5,"link":"/tags/Docker/"},{"text":"Prometheus","weight":9,"link":"/tags/Prometheus/"},{"text":"开源项目","weight":11,"link":"/tags/开源项目/"},{"text":"K8s","weight":15,"link":"/tags/K8s/"},{"text":"k8s","weight":16,"link":"/tags/k8s/"},{"text":"Ingress","weight":3,"link":"/tags/Ingress/"},{"text":"Go","weight":1,"link":"/tags/Go/"},{"text":"lnmp","weight":1,"link":"/tags/lnmp/"},{"text":"Databases","weight":3,"link":"/tags/Databases/"},{"text":"ingress","weight":1,"link":"/tags/ingress/"},{"text":"EFK","weight":1,"link":"/tags/EFK/"},{"text":"kubeadm","weight":1,"link":"/tags/kubeadm/"},{"text":"Mysql","weight":14,"link":"/tags/Mysql/"},{"text":"Alertmanager","weight":1,"link":"/tags/Alertmanager/"},{"text":"Nginx","weight":3,"link":"/tags/Nginx/"},{"text":"Operator","weight":3,"link":"/tags/Operator/"},{"text":"ETCD","weight":1,"link":"/tags/ETCD/"},{"text":"Pushgateway","weight":1,"link":"/tags/Pushgateway/"},{"text":"中间件","weight":2,"link":"/tags/中间件/"},{"text":"Grafana","weight":1,"link":"/tags/Grafana/"},{"text":"Ceph","weight":1,"link":"/tags/Ceph/"}], {
+    $('#tag-wordcloud').jQCloud([{"text":"Linux","weight":28,"link":"/tags/Linux/"},{"text":"DevOps","weight":2,"link":"/tags/DevOps/"},{"text":"Docker","weight":5,"link":"/tags/Docker/"},{"text":"Prometheus","weight":9,"link":"/tags/Prometheus/"},{"text":"开源项目","weight":11,"link":"/tags/开源项目/"},{"text":"K8s","weight":15,"link":"/tags/K8s/"},{"text":"Go","weight":1,"link":"/tags/Go/"},{"text":"k8s","weight":16,"link":"/tags/k8s/"},{"text":"Ingress","weight":3,"link":"/tags/Ingress/"},{"text":"lnmp","weight":1,"link":"/tags/lnmp/"},{"text":"Databases","weight":3,"link":"/tags/Databases/"},{"text":"ingress","weight":1,"link":"/tags/ingress/"},{"text":"EFK","weight":1,"link":"/tags/EFK/"},{"text":"kubeadm","weight":1,"link":"/tags/kubeadm/"},{"text":"Alertmanager","weight":1,"link":"/tags/Alertmanager/"},{"text":"Mysql","weight":14,"link":"/tags/Mysql/"},{"text":"Nginx","weight":3,"link":"/tags/Nginx/"},{"text":"Operator","weight":3,"link":"/tags/Operator/"},{"text":"ETCD","weight":1,"link":"/tags/ETCD/"},{"text":"Pushgateway","weight":1,"link":"/tags/Pushgateway/"},{"text":"中间件","weight":2,"link":"/tags/中间件/"},{"text":"Ceph","weight":1,"link":"/tags/Ceph/"},{"text":"Grafana","weight":1,"link":"/tags/Grafana/"}], {
         autoResize: true
     });
 </script>
@@ -805,6 +827,8 @@ $(function () {
     
 
     <!-- 雪花特效 -->
+    
+
     
 
     <!-- 白天和黑夜主题 -->
