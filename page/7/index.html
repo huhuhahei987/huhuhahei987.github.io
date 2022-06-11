@@ -309,22 +309,20 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/ba01084/">
+                    <a href="/54433e83/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Mysql清理binlog日志">
+                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="K8s配置4层转发nginx">
                             
-                            <span class="card-title">Mysql清理binlog日志</span>
+                            <span class="card-title">K8s配置4层转发nginx</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Mysql 清理binlog日志
-1.MySQL Binlog介绍
-MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定义语言：Create、Drop和Alter)和DML(Data 
+                                一 四层转发和七层转发1.1四层负载均衡四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP&#x2F;UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后
                             
                         </div>
                         <div class="publish-info">
@@ -335,8 +333,8 @@ MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -347,12 +345,12 @@ MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/K8s/">
+                            <span class="chip bg-color">K8s</span>
                         </a>
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/Ingress/">
+                            <span class="chip bg-color">Ingress</span>
                         </a>
                         
                     </div>
@@ -364,27 +362,26 @@ MySQL Binlog是以事件形式记录所有DDL(Data Definition Language 数据定
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/f3a1699d/">
+                    <a href="/69f5e54a/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Mysql修改密码">
+                            <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="k8s集群内配置coredns解析">
                             
-                            <span class="card-title">Mysql修改密码</span>
+                            <span class="card-title">k8s集群内配置coredns解析</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Mysql修改密码的方法
-1.使用set password 方式修改
-set password for root@localhost = password('123456');
+                                编辑coredns的confmap
+kubectl -n kube-system edit configmaps coredns
 
-
-
-2.使用mysqladmin修改
-mysqladmin 
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 &amp;#123;
                             
                         </div>
                         <div class="publish-info">
@@ -395,8 +392,8 @@ mysqladmin
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -407,12 +404,8 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
                     </div>
@@ -424,22 +417,28 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/55893a1f/">
+                    <a href="/b19e20d5/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Mysql数据表损坏恢复">
+                            <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="K8s基础yaml文件">
                             
-                            <span class="card-title">Mysql数据表损坏恢复</span>
+                            <span class="card-title">K8s基础yaml文件</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、前言某日登陆发现mysql表损坏，无法启动 ，可以借用如下方法恢复。
-二、恢复启动一个新库[root@db data]# mysqld_safe --defaults-file=/data/3308/my.conf &amp;
-[roo
+                                一、基础Pod配置nginx：
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-port
+  namespace: default
+  labels:
+    app: myapp
+    
                             
                         </div>
                         <div class="publish-info">
@@ -450,8 +449,8 @@ mysqladmin
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -462,12 +461,8 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
                     </div>
@@ -479,21 +474,24 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/fa85a72c/">
+                    <a href="/893a2674/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/33.jpg" class="responsive-img" alt="Mysql CSR自动恢复">
+                            <img src="/medias/featureimages/44.jpg" class="responsive-img" alt="Ingress高级配置">
                             
-                            <span class="card-title">Mysql CSR自动恢复</span>
+                            <span class="card-title">Ingress高级配置</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、数据修改后没有commit 也没有记录redo.log数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘
-二、数据没有commit,但是
+                                一.配置ingress路径重写若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+
                             
                         </div>
                         <div class="publish-info">
@@ -504,8 +502,8 @@ mysqladmin
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/k8s/" class="post-category">
+                                    k8s
                                 </a>
                                 
                                 
@@ -516,12 +514,12 @@ mysqladmin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/Ingress/">
+                            <span class="chip bg-color">Ingress</span>
                         </a>
                         
                     </div>
@@ -533,24 +531,20 @@ mysqladmin
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/a6515af6/">
+                    <a href="/f619b970/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/48.jpg" class="responsive-img" alt="Mysql根据binlog恢复数据">
+                            <img src="/medias/featureimages/40.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
                             
-                            <span class="card-title">Mysql根据binlog恢复数据</span>
+                            <span class="card-title">Ingress-nginx配置 https访问</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、准备数据#创建db
-mysql> create database db1;
-Query OK, 1 row affected (0.00 sec)
-mysql> create database db2;
-Query OK, 1 row 
+                                一、配置证书1.1 创建证书secret[root@k8smaster TSL]# kubectl create secret  tls huhuhahei  --key=private.key --cert=public.pem  -n 
                             
                         </div>
                         <div class="publish-info">
@@ -561,8 +555,8 @@ Query OK, 1 row
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                                 
                                 
@@ -573,12 +567,12 @@ Query OK, 1 row
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/Ingress/">
+                            <span class="chip bg-color">Ingress</span>
                         </a>
                         
                     </div>
@@ -590,24 +584,22 @@ Query OK, 1 row
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/414a2e2c/">
+                    <a href="/2d895da1/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="Mysql开启慢日志">
+                            <img src="/medias/featureimages/36.jpg" class="responsive-img" alt="Docker清理无用镜像及卷组占用的空间">
                             
-                            <span class="card-title">Mysql开启慢日志</span>
+                            <span class="card-title">Docker清理无用镜像及卷组占用的空间</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、开启慢日志参数#指定是否开启慢查询日志
-slow_query_log = 1
-#指定慢日志文件存放位置（默认在data）
-slow_query_log_file=/application/mysql/data/slow.log
-#设定慢
+                                生产过程中，总是会遇到服务器磁盘被docker占满的情况比如这样也就跑了几个容器，莫名其妙磁盘就没了::(泪)于是上网找方案
+[root@node01 docker]# docker system df 
+TYPE            T
                             
                         </div>
                         <div class="publish-info">
@@ -618,8 +610,8 @@ slow_query_log_file=/application/mysql/data/slow.log
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                                 
                                 
@@ -630,12 +622,8 @@ slow_query_log_file=/application/mysql/data/slow.log
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/Docker/">
+                            <span class="chip bg-color">Docker</span>
                         </a>
                         
                     </div>
@@ -647,20 +635,20 @@ slow_query_log_file=/application/mysql/data/slow.log
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/247e674/">
+                    <a href="/undefined/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Mysql物理备份之Xtrabackup">
+                            <img src="/medias/featureimages/39.jpg" class="responsive-img" alt="卡死导致K8sNode节点NotReady">
                             
-                            <span class="card-title">Mysql物理备份之Xtrabackup</span>
+                            <span class="card-title">卡死导致K8sNode节点NotReady</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、Xtrabackup介绍MySQL冷备、mysqldump、MySQL热拷贝都无法实现对数据库进行增量备份。在实际生产环境中增量备份是非常实用的，如果数据大于50G或100G，存储空间足够的情况下，可以每天进行完整备份，如果每天产生的数
+                                某天发现测试环境节点忽然变为NotRead 导致服务异常:@(内伤)现象是这样的describe查看是这样的初步感觉是节点有问题了 一般出现节点NotReady无非是 节点CPU 内存 磁盘 和网络出问题了结果这样一排查 发现都没问题:@(
                             
                         </div>
                         <div class="publish-info">
@@ -671,8 +659,8 @@ slow_query_log_file=/application/mysql/data/slow.log
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                                 
                                 
@@ -683,12 +671,12 @@ slow_query_log_file=/application/mysql/data/slow.log
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/Docker/">
+                            <span class="chip bg-color">Docker</span>
                         </a>
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
                     </div>
@@ -700,32 +688,32 @@ slow_query_log_file=/application/mysql/data/slow.log
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/23a9b713/">
+                    <a href="/c2586a0/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/38.jpg" class="responsive-img" alt="Mysql逻辑备份之Mysqldump">
+                            <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="NACOS部署">
                             
-                            <span class="card-title">Mysql逻辑备份之Mysqldump</span>
+                            <span class="card-title">NACOS部署</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、mysqldump简介mysqldump是mysql自带的逻辑备份工具，它的备份原理是通过协议连接到 MySQL 数据库，将需要备份的数据查询出来，将查询出的数据转换成对应的insert 语句，当我们需要还原这些数据时，只要执行这些 i
+                                一.前言1.1简介Nacos是阿里巴巴开源的一款支持服务注册与发现，配置管理以及微服务管理的组件。用来取代以前常用的注册中心（zookeeper , eureka等等），以及配置中心（spring cloud config等等）。Nacos
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                                <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                                 
                                 
@@ -736,74 +724,12 @@ slow_query_log_file=/application/mysql/data/slow.log
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
+                        <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
+                            <span class="chip bg-color">开源项目</span>
                         </a>
                         
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/b0f44f6e/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Mysql延迟复制、半同步复制、过滤复制、GTID复制">
-                            
-                            <span class="card-title">Mysql延迟复制、半同步复制、过滤复制、GTID复制</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、延迟复制主库操作修改配置文件
-[mysqld]
-#开启binlog
-log-bin=mysql-bin
-binlog_format=row
-#设置server_id
-server_id=1
-
-重启db
-[root@db data]# /
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
+                        <a href="/tags/k8s/">
+                            <span class="chip bg-color">k8s</span>
                         </a>
                         
                     </div>
@@ -829,12 +755,11 @@ server_id=1
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">7 / 9</div>
+            <div class="center-align b-text-gray">7 / 7</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a href="/page/8/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
+            <a class="right btn-floating btn-large disabled">
                 <i class="fas fa-angle-right"></i>
             </a>
             
