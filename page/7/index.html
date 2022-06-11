@@ -309,23 +309,27 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/eb76ee24/">
+                    <a href="/f3a1699d/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/35.jpg" class="responsive-img" alt="K8s中配置lnmp环境">
+                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Mysql修改密码">
                             
-                            <span class="card-title">K8s中配置lnmp环境</span>
+                            <span class="card-title">Mysql修改密码</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、配置用于存储的NFS服务1.1服务端配置 nfs#yum安装
-[root@k8smaster lnmp]# yum -y install nfs-utils
-#编辑 配置文件 （确保目录存在）
-[root@k8smaster lnmp]
+                                Mysql修改密码的方法
+1.使用set password 方式修改
+set password for root@localhost = password('123456');
+
+
+
+2.使用mysqladmin修改
+mysqladmin 
                             
                         </div>
                         <div class="publish-info">
@@ -336,8 +340,8 @@
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -348,12 +352,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/lnmp/">
-                            <span class="chip bg-color">lnmp</span>
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -365,21 +369,22 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/c062e948/">
+                    <a href="/55893a1f/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/43.jpg" class="responsive-img" alt="K8s数据持久化StorageClass">
+                            <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Mysql数据表损坏恢复">
                             
-                            <span class="card-title">K8s数据持久化StorageClass</span>
+                            <span class="card-title">Mysql数据表损坏恢复</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、简介1.1什么是StorageClassKubernetes提供了一套可以自动创建PV的机制，即：Dynamic Provisioning。而这个机制的核心在于StorageClass这个API对象。
-StorageClass对象会定义
+                                一、前言某日登陆发现mysql表损坏，无法启动 ，可以借用如下方法恢复。
+二、恢复启动一个新库[root@db data]# mysqld_safe --defaults-file=/data/3308/my.conf &amp;
+[roo
                             
                         </div>
                         <div class="publish-info">
@@ -390,8 +395,8 @@ StorageClass对象会定义
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -402,8 +407,12 @@ StorageClass对象会定义
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -415,21 +424,21 @@ StorageClass对象会定义
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/fafe3e8d/">
+                    <a href="/fa85a72c/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="K8s强制删除Terminating的命名空间">
+                            <img src="/medias/featureimages/33.jpg" class="responsive-img" alt="Mysql CSR自动恢复">
                             
-                            <span class="card-title">K8s强制删除Terminating的命名空间</span>
+                            <span class="card-title">Mysql CSR自动恢复</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法
-1.1 将ns资源保存为json文件kubectl get ns istio-system -o jso
+                                一、数据修改后没有commit 也没有记录redo.log数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘
+二、数据没有commit,但是
                             
                         </div>
                         <div class="publish-info">
@@ -440,8 +449,8 @@ StorageClass对象会定义
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -452,8 +461,12 @@ StorageClass对象会定义
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -465,25 +478,24 @@ StorageClass对象会定义
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/3033822e/">
+                    <a href="/a6515af6/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/48.jpg" class="responsive-img" alt="K8s配置ingress-nginx暴露服务">
+                            <img src="/medias/featureimages/48.jpg" class="responsive-img" alt="Mysql根据binlog恢复数据">
                             
-                            <span class="card-title">K8s配置ingress-nginx暴露服务</span>
+                            <span class="card-title">Mysql根据binlog恢复数据</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、简介1.1 介绍在kubernetes中，POD，SVC的IP地址只能集群内部使用，集群外部是无法访问的。
-为了能让外部的应用访问进来，kubernetes提供了如下几种方案：
-
-NodePort
-LoadBalancer
-Ingres
+                                一、准备数据#创建db
+mysql> create database db1;
+Query OK, 1 row affected (0.00 sec)
+mysql> create database db2;
+Query OK, 1 row 
                             
                         </div>
                         <div class="publish-info">
@@ -494,8 +506,8 @@ Ingres
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -506,12 +518,12 @@ Ingres
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/ingress/">
-                            <span class="chip bg-color">ingress</span>
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -523,20 +535,24 @@ Ingres
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/54433e83/">
+                    <a href="/414a2e2c/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="K8s配置4层转发nginx">
+                            <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="Mysql开启慢日志">
                             
-                            <span class="card-title">K8s配置4层转发nginx</span>
+                            <span class="card-title">Mysql开启慢日志</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一 四层转发和七层转发1.1四层负载均衡四层负载均衡工作在OSI模型的传输层，由于在传输层，只有TCP&#x2F;UDP协议，这两种协议中除了包含源IP、目标IP以外，还包含源端口号及目的端口号。四层负载均衡服务器在接受到客户端请求后，以后
+                                一、开启慢日志参数#指定是否开启慢查询日志
+slow_query_log = 1
+#指定慢日志文件存放位置（默认在data）
+slow_query_log_file=/application/mysql/data/slow.log
+#设定慢
                             
                         </div>
                         <div class="publish-info">
@@ -547,8 +563,8 @@ Ingres
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -559,12 +575,12 @@ Ingres
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/K8s/">
-                            <span class="chip bg-color">K8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -576,26 +592,20 @@ Ingres
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/69f5e54a/">
+                    <a href="/247e674/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="k8s集群内配置coredns解析">
+                            <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Mysql物理备份之Xtrabackup">
                             
-                            <span class="card-title">k8s集群内配置coredns解析</span>
+                            <span class="card-title">Mysql物理备份之Xtrabackup</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                编辑coredns的confmap
-kubectl -n kube-system edit configmaps coredns
-
-apiVersion: v1
-data:
-  Corefile: |
-    .:53 &amp;#123;
+                                一、Xtrabackup介绍MySQL冷备、mysqldump、MySQL热拷贝都无法实现对数据库进行增量备份。在实际生产环境中增量备份是非常实用的，如果数据大于50G或100G，存储空间足够的情况下，可以每天进行完整备份，如果每天产生的数
                             
                         </div>
                         <div class="publish-info">
@@ -606,8 +616,8 @@ data:
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -618,8 +628,12 @@ data:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -631,28 +645,20 @@ data:
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/b19e20d5/">
+                    <a href="/23a9b713/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="K8s基础yaml文件">
+                            <img src="/medias/featureimages/38.jpg" class="responsive-img" alt="Mysql逻辑备份之Mysqldump">
                             
-                            <span class="card-title">K8s基础yaml文件</span>
+                            <span class="card-title">Mysql逻辑备份之Mysqldump</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、基础Pod配置nginx：
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx-port
-  namespace: default
-  labels:
-    app: myapp
-    
+                                一、mysqldump简介mysqldump是mysql自带的逻辑备份工具，它的备份原理是通过协议连接到 MySQL 数据库，将需要备份的数据查询出来，将查询出的数据转换成对应的insert 语句，当我们需要还原这些数据时，只要执行这些 i
                             
                         </div>
                         <div class="publish-info">
@@ -663,8 +669,8 @@ metadata:
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -675,8 +681,12 @@ metadata:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -688,24 +698,29 @@ metadata:
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/893a2674/">
+                    <a href="/b0f44f6e/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/44.jpg" class="responsive-img" alt="Ingress高级配置">
+                            <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Mysql延迟复制、半同步复制、过滤复制、GTID复制">
                             
-                            <span class="card-title">Ingress高级配置</span>
+                            <span class="card-title">Mysql延迟复制、半同步复制、过滤复制、GTID复制</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一.配置ingress路径重写若后端路径是&#x2F;app 默认访问是不带路径的会导致出现404的情况 因此需要配置下路径重写
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
+                                一、延迟复制主库操作修改配置文件
+[mysqld]
+#开启binlog
+log-bin=mysql-bin
+binlog_format=row
+#设置server_id
+server_id=1
 
+重启db
+[root@db data]# /
                             
                         </div>
                         <div class="publish-info">
@@ -716,8 +731,8 @@ metadata:
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -728,12 +743,12 @@ metadata:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -745,20 +760,29 @@ metadata:
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/f619b970/">
+                    <a href="/ad2c14ec/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/40.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                            <img src="/medias/featureimages/52.jpg" class="responsive-img" alt="Mysql 索引管理">
                             
-                            <span class="card-title">Ingress-nginx配置 https访问</span>
+                            <span class="card-title">Mysql 索引管理</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、配置证书1.1 创建证书secret[root@k8smaster TSL]# kubectl create secret  tls huhuhahei  --key=private.key --cert=public.pem  -n 
+                                一、索引算法简介1.1 B+Tree
+
+1.2 B*Tree
+
+二、索引管理2.1 基础概念索引建立在表的列上(字段)的。
+在where后面的列建立索引才会加快查询速度。
+pages&lt;---索引（属性）&lt;----查数据。
+
+
+2
                             
                         </div>
                         <div class="publish-info">
@@ -769,8 +793,8 @@ metadata:
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                                <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
                                 </a>
                                 
                                 
@@ -781,12 +805,12 @@ metadata:
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
-                        <a href="/tags/Ingress/">
-                            <span class="chip bg-color">Ingress</span>
+                        <a href="/tags/Mysql/">
+                            <span class="chip bg-color">Mysql</span>
                         </a>
                         
                     </div>
@@ -812,7 +836,7 @@ metadata:
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">7 / 8</div>
+            <div class="center-align b-text-gray">7 / 9</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -898,7 +922,7 @@ metadata:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">41.7k</span>
+                        class="white-color">55.5k</span>
             
             
             
