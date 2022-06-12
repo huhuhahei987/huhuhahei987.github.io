@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Goproxy 代理部署, huhuhahei">
-    <meta name="description" content="goproxy安装配置(这次下载的是商业版本的)
-curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/master/install_aut">
+    <meta name="keywords" content="Nginx if多条件判断, huhuhahei">
+    <meta name="description" content="前言Nginx默认是不支持直接进行多逻辑判断的,例如如下代码
+                if ($http_user_agent != &#34;curl&#34; &amp;amp;&amp;amp; $remote_addr != &#34;172.16.182.204">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
     
 
-    <title>Goproxy 代理部署 | huhuhahei</title>
+    <title>Nginx if多条件判断 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -293,12 +293,12 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Goproxy 代理部署</h1>
+                    <h1 class="description center-align post-title">Nginx if多条件判断</h1>
                 </div>
             </div>
         </div>
@@ -418,8 +418,8 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                                 <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="/tags/Go/">
-                                <span class="chip bg-color">Go</span>
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
                             </a>
                         
                     </div>
@@ -443,7 +443,7 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-08
+                    2022-06-12
                 </div>
                 
 
@@ -452,14 +452,14 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    209
+                    523
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -479,34 +479,91 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>goproxy安装配置(这次下载的是商业版本的)</strong></p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>L https<span class="token punctuation">:</span>//mirrors.host900.com/https<span class="token punctuation">:</span>//github.com/snail007/goproxy/blob/master/install_auto_commercial.sh <span class="token punctuation">|</span> bash
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Nginx默认是不支持直接进行多逻辑判断的,例如如下代码</p>
+<pre class=" language-nginx"><code class="language-nginx">                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">return</span> <span class="token number">403</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
 </code></pre>
-<p><strong>安装完成，配置目录是&#x2F;etc&#x2F;proxy</strong></p>
-<p><strong>商业版本激活</strong></p>
-<pre class=" language-bash"><code class="language-bash">proxy http
+<p>这样配置<code>nginx -t</code>会提示配置文件有错误</p>
+<pre class=" language-bash"><code class="language-bash">nginx: <span class="token punctuation">[</span>emerg<span class="token punctuation">]</span> invalid condition <span class="token string">"<span class="token variable">$http_user_agent</span>"</span> <span class="token keyword">in</span> /usr/local/nginx/conf/conf.d/proxy.conf:38
+nginx: configuration <span class="token function">file</span> /usr/local/nginx/conf/nginx.conf <span class="token function">test</span> failed
 </code></pre>
-<p><strong>执行完上面的命令不需要操作会自动停止然后再目录下回出现一个.txt结尾的问题件,里面的内容就是机器码</strong></p>
-<p><strong>激活方法参考</strong></p>
-<p><a target="_blank" rel="noopener" href="https://snail007.host900.com/goproxy/page/free_vs_commercial/">https://snail007.host900.com/goproxy/page/free_vs_commercial&#x2F;</a></p>
-<p><strong>服务启动</strong></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">nohup</span> proxy http -a test:123456:0:0 -t tcp -p <span class="token string">"0.0.0.0:8081"</span> -T tcp -P <span class="token string">"0.0.0.0:8080"</span> <span class="token operator">&amp;</span>
+<p>所以需要采取其他的方案</p>
+<h3 id="使用变量实现与运算"><a href="#使用变量实现与运算" class="headerlink" title="使用变量实现与运算"></a>使用变量实现与运算</h3><pre class=" language-bash"><code class="language-bash">                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">" "</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">"$&amp;#123;fooo&amp;#125;1"</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span> <span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">"$&amp;#123;fooo&amp;#125;1"</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$fooo</span> ~* <span class="token string">"11"</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">return</span> 403<span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+        <span class="token comment" spellcheck="true">#当user_agent不等于curl且客户端地址不是172.16.182.204返回403</span>
 </code></pre>
-<pre class=" language-bash"><code class="language-bash">参数介绍
-
-http 使用http协议进行代理
-
--a 制定用户认证 用户名:密码:最大连接数:速度限制
-
--t 指定协议
-
--p 监听端口
-
--T 后端服务协议
-
--P 后端服务地址和端口
+<p>访问测试</p>
+<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219 <span class="token comment" spellcheck="true">#满足客户端地址不是172.16.182.204 但是user_agent是curl 所以正常返回</span>
+HTTP/1.1 200 OK
+Date: Sun, 12 Jun 2022 06:27:05 GMT
+Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Expires: Mon, 26 Jul 1997 05:00:00 GMT
 </code></pre>
-<p>官方文档<a target="_blank" rel="noopener" href="https://snail007.host900.com/goproxy/manual/zh/#/?id=_2tcp%e4%bb%a3%e7%90%86">goproxy</a></p>
+<pre class=" language-bash"><code class="language-bash">curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#user_agent不是curl 但是地址是172.16.182.204  正常返回</span>
+HTTP/1.1 200 OK
+Date: Sun, 12 Jun 2022 06:31:42 GMT
+Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Expires: Mon, 26 Jul 1997 05:00:00 GMT
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">
+curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#两个条件都满足 返回403</span>
+HTTP/1.1 403 Forbidden
+Date: Sun, 12 Jun 2022 06:31:10 GMT
+Content-Type: text/html
+Connection: keep-alive
+Vary: Accept-Encoding
+</code></pre>
+<h3 id="使用变量实现逻辑或运算"><a href="#使用变量实现逻辑或运算" class="headerlink" title="使用变量实现逻辑或运算"></a>使用变量实现逻辑或运算</h3><pre class=" language-nginx"><code class="language-nginx">                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">" "</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span> <span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$fooo</span> <span class="token operator">~</span><span class="token operator">*</span> <span class="token string">"1"</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token keyword">return</span> <span class="token number">403</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+</code></pre>
+<p>访问测试</p>
+<pre class=" language-bash"><code class="language-bash">curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#user_agent不正确 </span>
+HTTP/1.1 403 Forbidden
+Date: Sun, 12 Jun 2022 06:35:00 GMT
+Content-Type: text/html
+Connection: keep-alive
+Vary: Accept-Encoding
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219  <span class="token comment" spellcheck="true">#客户端ip地址不正确</span>
+HTTP/1.1 403 Forbidden
+Date: Sun, 12 Jun 2022 06:35:45 GMT
+Content-Type: text/html
+Connection: keep-alive
+Vary: Accept-Encoding
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219   <span class="token comment" spellcheck="true">#两个都满足访问正常</span>
+HTTP/1.1 200 OK
+Date: Sun, 12 Jun 2022 06:36:25 GMT
+Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Expires: Mon, 26 Jul 1997 05:00:00 GMT
+</code></pre>
 
                 
             </div>
@@ -533,7 +590,7 @@ http 使用http协议进行代理
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/7b9f226b/">https://huhuhahei987.github.io/7b9f226b/</a>
+                    <a href="https://huhuhahei987.github.io/3ba6a52e/">https://huhuhahei987.github.io/3ba6a52e/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -575,8 +632,8 @@ http 使用http协议进行代理
                                     <span class="chip bg-color">Linux</span>
                                 </a>
                             
-                                <a href="/tags/Go/">
-                                    <span class="chip bg-color">Go</span>
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
                                 </a>
                             
                         </div>
@@ -1024,17 +1081,18 @@ http 使用http协议进行代理
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2eab2259/">
+                <a href="/3ba6a52e/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Nginx代理添加缓存">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Nginx if多条件判断">
                         
-                        <span class="card-title">Nginx代理添加缓存</span>
+                        <span class="card-title">Nginx if多条件判断</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1044,9 +1102,9 @@ http 使用http协议进行代理
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1059,6 +1117,7 @@ http 使用http协议进行代理
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1081,13 +1140,13 @@ http 使用http协议进行代理
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/5d7d0bc/">
+                <a href="/77d7bcd/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/49.jpg" class="responsive-img" alt="记录一个nacos部署报错处理过程">
+                        <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="Docker Yum部署">
                         
-                        <span class="card-title">记录一个nacos部署报错处理过程</span>
+                        <span class="card-title">Docker Yum部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1098,14 +1157,14 @@ http 使用http协议进行代理
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    开源项目
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                             
                             
@@ -1115,12 +1174,8 @@ http 使用http协议进行代理
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
-                    </a>
-                    
-                    <a href="/tags/K8s/">
-                        <span class="chip bg-color">K8s</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
