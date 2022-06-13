@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="MongoDB数据备份和恢复, huhuhahei">
-    <meta name="description" content="1 备份概述mongodb数据备份和还原主要分为二种，一种是针对于库的mongodump和mongorestore，一种是针 对库中表的mongoexport和mongoimport。
- mongodump备份的原理是通过一次查询获取当前服">
+    <meta name="description" content="1.1 备份概述mongodb数据备份和还原主要分为二种，一种是针对于库的mongodump和mongorestore，一种是针 对库中表的mongoexport和mongoimport。
+ mongodump备份的原理是通过一次查询获取当">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    700
+                    701
                 </div>
                 
 
@@ -479,7 +479,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="1-备份概述"><a href="#1-备份概述" class="headerlink" title="1 备份概述"></a>1 备份概述</h3><p><code>mongodb</code>数据备份和还原主要分为二种，一种是针对于库的<code>mongodump</code>和<code>mongorestore</code>，一种是针 对库中表的<code>mongoexport</code>和<code>mongoimport</code>。</p>
+                <h3 id="1-1-备份概述"><a href="#1-1-备份概述" class="headerlink" title="1.1 备份概述"></a>1.1 备份概述</h3><p><code>mongodb</code>数据备份和还原主要分为二种，一种是针对于库的<code>mongodump</code>和<code>mongorestore</code>，一种是针 对库中表的<code>mongoexport</code>和<code>mongoimport</code>。</p>
 <p> <code>mongodump</code>备份的原理是通过一次查询获取当前服务器快照，并将快照写入磁盘中，因此这种方式保 存的也不是实时的。在获取快照后，服务器还会有数据写入，为了保证备份的安全，可以利用fsync锁使 服务器数据暂时写入缓存中。</p>
 <p><code>mongodb</code>备份恢复方式通常有以下三种：</p>
 <ol>
