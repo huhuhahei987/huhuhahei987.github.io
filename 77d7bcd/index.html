@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Docker Yum部署, huhuhahei">
     <meta name="description" content="1.1 配置第三方yum源yum -y install yum-utils
-mv /etc/yum.repos.d/dvd.repo&amp;amp;#123;,.bak&amp;amp;#125;
-wget -O /etc/yum.repos.d/cen">
+mv /etc/yum.repos.d/dvd.repo{,.bak}
+wget -O /etc/yum.repos.d/centos-base.repo http">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -449,7 +449,7 @@ wget -O /etc/yum.repos.d/cen">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    172
+                    164
                 </div>
                 
 
@@ -477,7 +477,7 @@ wget -O /etc/yum.repos.d/cen">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="1-1-配置第三方yum源"><a href="#1-1-配置第三方yum源" class="headerlink" title="1.1 配置第三方yum源"></a>1.1 配置第三方yum源</h3><pre class=" language-bash"><code class="language-bash">yum -y <span class="token function">install</span> yum-utils
-<span class="token function">mv</span> /etc/yum.repos.d/dvd.repo<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;,.bak&amp;#125;</span>
+<span class="token function">mv</span> /etc/yum.repos.d/dvd.repo<span class="token punctuation">{</span>,.bak<span class="token punctuation">}</span>
 <span class="token function">wget</span> -O /etc/yum.repos.d/centos-base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 yum-config-manager --add-repo http://mirrors.aliyun.com/dockerce/linux/centos/docker-ce.repo
 </code></pre>
@@ -489,11 +489,13 @@ yum -y <span class="token function">install</span> docker-ce
 </code></pre>
 <h3 id="1-4-配置Docker镜像加速"><a href="#1-4-配置Docker镜像加速" class="headerlink" title="1.4 配置Docker镜像加速"></a>1.4 配置Docker镜像加速</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /etc/docker
 <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;</span>-<span class="token string">'EOF'</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
     <span class="token string">"registry-mirrors"</span><span class="token keyword">:</span>
     <span class="token punctuation">[</span><span class="token string">"https://ww9b0ehc.mirror.aliyuncs.com"</span><span class="token punctuation">]</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 EOF
+
+
 </code></pre>
 <h3 id="1-5-启动"><a href="#1-5-启动" class="headerlink" title="1.5 启动"></a>1.5 启动</h3><pre class=" language-bash"><code class="language-bash">systemctl daemon-reload
 systemctl restart docker
@@ -1305,7 +1307,7 @@ net.bridge.bridge-nf-call-ip6tables <span class="token operator">=</span> 1
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">57.4k</span>
+                        class="white-color">57.3k</span>
             
             
             
