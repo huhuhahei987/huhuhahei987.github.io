@@ -431,8 +431,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Databases/" class="post-category">
-                                Databases
+                            <a href="/categories/Mongo/" class="post-category">
+                                Mongo
                             </a>
                         
                     </div>
@@ -453,14 +453,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    8 分
                 </div>
                 
 
@@ -563,7 +563,7 @@
             <span class="token punctuation">-</span> <span class="token punctuation">></span><span class="token punctuation">-</span>
               cp /data/key.txt /data/db/key &amp;&amp; chown 999<span class="token punctuation">:</span>999 /data/db/key &amp;&amp;
               chmod 400 /data/db/key  &amp;&amp; ls <span class="token punctuation">-</span>l /data/
-          <span class="token key atrule">resources</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
           <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
             <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mongo
               <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /data/db
@@ -597,7 +597,7 @@
               <span class="token key atrule">value</span><span class="token punctuation">:</span> root
             <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MONGO_INITDB_ROOT_PASSWORD
               <span class="token key atrule">value</span><span class="token punctuation">:</span> dSJN52PuSqn
-          <span class="token key atrule">resources</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
           <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
             <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mongo
               <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /data/db
@@ -622,14 +622,14 @@
               <span class="token key atrule">value</span><span class="token punctuation">:</span> admin
             <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> KUBERNETES_SERVICE_NAME
               <span class="token key atrule">value</span><span class="token punctuation">:</span> mongo
-          <span class="token key atrule">resources</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
           <span class="token key atrule">terminationMessagePath</span><span class="token punctuation">:</span> /dev/termination<span class="token punctuation">-</span>log
           <span class="token key atrule">terminationMessagePolicy</span><span class="token punctuation">:</span> File
           <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
       <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> Always
       <span class="token key atrule">terminationGracePeriodSeconds</span><span class="token punctuation">:</span> <span class="token number">10</span>
       <span class="token key atrule">dnsPolicy</span><span class="token punctuation">:</span> ClusterFirst
-      <span class="token key atrule">securityContext</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+      <span class="token key atrule">securityContext</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
       <span class="token key atrule">schedulerName</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>scheduler
   <span class="token key atrule">volumeClaimTemplates</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
@@ -696,7 +696,7 @@
 <h1 id="三-验证"><a href="#三-验证" class="headerlink" title="三 验证"></a>三 验证</h1><h3 id="3-1-连接测试"><a href="#3-1-连接测试" class="headerlink" title="3.1 连接测试"></a>3.1 连接测试</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># mongo -uroot -p dSJN52PuSqn</span>
 MongoDB shell version v4.2.8
 connecting to: mongodb://127.0.0.1:27017/?compressors<span class="token operator">=</span>disabled<span class="token operator">&amp;</span>gssapiServiceName<span class="token operator">=</span>mongodb
-Implicit session: session <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; "id" : UUID("8f142a74-c99c-48df-8c37-5107f846e4a5") &amp;#125;</span>
+Implicit session: session <span class="token punctuation">{</span> <span class="token string">"id"</span> <span class="token keyword">:</span> UUID<span class="token punctuation">(</span><span class="token string">"8f142a74-c99c-48df-8c37-5107f846e4a5"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
 MongoDB server version: 4.2.8
 Server has startup warnings:
 2022-03-05T07:53:05.774+0000 I  CONTROL  <span class="token punctuation">[</span>initandlisten<span class="token punctuation">]</span>
@@ -719,11 +719,11 @@ To permanently disable this reminder, run the following command: db.disableFreeM
 ---
 
 rs0:PRIMARY<span class="token operator">></span> rs.status
-function<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+function<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> db._adminCommand<span class="token punctuation">(</span><span class="token string">"replSetGetStatus"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 rs0:PRIMARY<span class="token operator">></span> rs.status<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
         <span class="token string">"set"</span> <span class="token keyword">:</span> <span class="token string">"rs0"</span>,
         <span class="token string">"date"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:10.117Z"</span><span class="token punctuation">)</span>,
         <span class="token string">"myState"</span> <span class="token keyword">:</span> 1,
@@ -734,61 +734,61 @@ rs0:PRIMARY<span class="token operator">></span> rs.status<span class="token pun
         <span class="token string">"heartbeatIntervalMillis"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>2000<span class="token punctuation">)</span>,
         <span class="token string">"majorityVoteCount"</span> <span class="token keyword">:</span> 2,
         <span class="token string">"writeMajorityCount"</span> <span class="token keyword">:</span> 2,
-        <span class="token string">"optimes"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-                <span class="token string">"lastCommittedOpTime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        <span class="token string">"optimes"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
+                <span class="token string">"lastCommittedOpTime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                <span class="token punctuation">}</span>,
                 <span class="token string">"lastCommittedWallTime"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07.713Z"</span><span class="token punctuation">)</span>,
-                <span class="token string">"readConcernMajorityOpTime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token string">"readConcernMajorityOpTime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                <span class="token punctuation">}</span>,
                 <span class="token string">"readConcernMajorityWallTime"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07.713Z"</span><span class="token punctuation">)</span>,
-                <span class="token string">"appliedOpTime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token string">"appliedOpTime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                <span class="token string">"durableOpTime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">}</span>,
+                <span class="token string">"durableOpTime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                <span class="token punctuation">}</span>,
                 <span class="token string">"lastAppliedWallTime"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07.713Z"</span><span class="token punctuation">)</span>,
                 <span class="token string">"lastDurableWallTime"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07.713Z"</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+        <span class="token punctuation">}</span>,
         <span class="token string">"lastStableRecoveryTimestamp"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469057, 1<span class="token punctuation">)</span>,
         <span class="token string">"lastStableCheckpointTimestamp"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469057, 1<span class="token punctuation">)</span>,
-        <span class="token string">"electionCandidateMetrics"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        <span class="token string">"electionCandidateMetrics"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                 <span class="token string">"lastElectionReason"</span> <span class="token keyword">:</span> <span class="token string">"electionTimeout"</span>,
                 <span class="token string">"lastElectionDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T07:53:17.358Z"</span><span class="token punctuation">)</span>,
                 <span class="token string">"electionTerm"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>,
-                <span class="token string">"lastCommittedOpTimeAtElection"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token string">"lastCommittedOpTimeAtElection"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646466756, 1<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>2<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                <span class="token string">"lastSeenOpTimeAtElection"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">}</span>,
+                <span class="token string">"lastSeenOpTimeAtElection"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646466769, 2<span class="token punctuation">)</span>,
                         <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>4<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                <span class="token punctuation">}</span>,
                 <span class="token string">"numVotesNeeded"</span> <span class="token keyword">:</span> 2,
                 <span class="token string">"priorityAtElection"</span> <span class="token keyword">:</span> 1,
                 <span class="token string">"electionTimeoutMillis"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>10000<span class="token punctuation">)</span>,
                 <span class="token string">"numCatchUpOps"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>0<span class="token punctuation">)</span>,
                 <span class="token string">"newTermStartDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T07:53:17.393Z"</span><span class="token punctuation">)</span>,
                 <span class="token string">"wMajorityWriteAvailabilityDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T07:53:17.729Z"</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+        <span class="token punctuation">}</span>,
         <span class="token string">"members"</span> <span class="token keyword">:</span> <span class="token punctuation">[</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">{</span>
                         <span class="token string">"_id"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"mongo-0.mongo.mongo.svc.cluster.local:27017"</span>,
                         <span class="token string">"health"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"state"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"stateStr"</span> <span class="token keyword">:</span> <span class="token string">"PRIMARY"</span>,
                         <span class="token string">"uptime"</span> <span class="token keyword">:</span> 2287,
-                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                                 <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                                 <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                        <span class="token punctuation">}</span>,
                         <span class="token string">"optimeDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07Z"</span><span class="token punctuation">)</span>,
                         <span class="token string">"syncingTo"</span> <span class="token keyword">:</span> <span class="token string">""</span>,
                         <span class="token string">"syncSourceHost"</span> <span class="token keyword">:</span> <span class="token string">""</span>,
@@ -799,22 +799,22 @@ rs0:PRIMARY<span class="token operator">></span> rs.status<span class="token pun
                         <span class="token string">"configVersion"</span> <span class="token keyword">:</span> 6,
                         <span class="token string">"self"</span> <span class="token keyword">:</span> true,
                         <span class="token string">"lastHeartbeatMessage"</span> <span class="token keyword">:</span> <span class="token string">""</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">}</span>,
+                <span class="token punctuation">{</span>
                         <span class="token string">"_id"</span> <span class="token keyword">:</span> 2,
                         <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"mongo-2.mongo.mongo.svc.cluster.local:27017"</span>,
                         <span class="token string">"health"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"state"</span> <span class="token keyword">:</span> 2,
                         <span class="token string">"stateStr"</span> <span class="token keyword">:</span> <span class="token string">"SECONDARY"</span>,
                         <span class="token string">"uptime"</span> <span class="token keyword">:</span> 2284,
-                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                                 <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                                 <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                        <span class="token string">"optimeDurable"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        <span class="token punctuation">}</span>,
+                        <span class="token string">"optimeDurable"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                                 <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                                 <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                        <span class="token punctuation">}</span>,
                         <span class="token string">"optimeDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07Z"</span><span class="token punctuation">)</span>,
                         <span class="token string">"optimeDurableDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07Z"</span><span class="token punctuation">)</span>,
                         <span class="token string">"lastHeartbeat"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:09.817Z"</span><span class="token punctuation">)</span>,
@@ -826,22 +826,22 @@ rs0:PRIMARY<span class="token operator">></span> rs.status<span class="token pun
                         <span class="token string">"syncSourceId"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"infoMessage"</span> <span class="token keyword">:</span> <span class="token string">""</span>,
                         <span class="token string">"configVersion"</span> <span class="token keyword">:</span> 6
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">}</span>,
+                <span class="token punctuation">{</span>
                         <span class="token string">"_id"</span> <span class="token keyword">:</span> 3,
                         <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"mongo-1.mongo.mongo.svc.cluster.local:27017"</span>,
                         <span class="token string">"health"</span> <span class="token keyword">:</span> 1,
                         <span class="token string">"state"</span> <span class="token keyword">:</span> 2,
                         <span class="token string">"stateStr"</span> <span class="token keyword">:</span> <span class="token string">"SECONDARY"</span>,
                         <span class="token string">"uptime"</span> <span class="token keyword">:</span> 2260,
-                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        <span class="token string">"optime"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                                 <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                                 <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
-                        <span class="token string">"optimeDurable"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                        <span class="token punctuation">}</span>,
+                        <span class="token string">"optimeDurable"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                                 <span class="token string">"ts"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
                                 <span class="token string">"t"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span>5<span class="token punctuation">)</span>
-                        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                        <span class="token punctuation">}</span>,
                         <span class="token string">"optimeDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07Z"</span><span class="token punctuation">)</span>,
                         <span class="token string">"optimeDurableDate"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:07Z"</span><span class="token punctuation">)</span>,
                         <span class="token string">"lastHeartbeat"</span> <span class="token keyword">:</span> ISODate<span class="token punctuation">(</span><span class="token string">"2022-03-05T08:31:09.222Z"</span><span class="token punctuation">)</span>,
@@ -853,55 +853,55 @@ rs0:PRIMARY<span class="token operator">></span> rs.status<span class="token pun
                         <span class="token string">"syncSourceId"</span> <span class="token keyword">:</span> 2,
                         <span class="token string">"infoMessage"</span> <span class="token keyword">:</span> <span class="token string">""</span>,
                         <span class="token string">"configVersion"</span> <span class="token keyword">:</span> 6
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+                <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>,
         <span class="token string">"ok"</span> <span class="token keyword">:</span> 1,
-        <span class="token string">"<span class="token variable">$clusterTime</span>"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        <span class="token string">"<span class="token variable">$clusterTime</span>"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                 <span class="token string">"clusterTime"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>,
-                <span class="token string">"signature"</span> <span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+                <span class="token string">"signature"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span>
                         <span class="token string">"hash"</span> <span class="token keyword">:</span> BinData<span class="token punctuation">(</span>0,<span class="token string">"LxAPsQBDq0Bx33yC0PzRJWFMbbM="</span><span class="token punctuation">)</span>,
                         <span class="token string">"keyId"</span> <span class="token keyword">:</span> NumberLong<span class="token punctuation">(</span><span class="token string">"7071495762592399364"</span><span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>,
         <span class="token string">"operationTime"</span> <span class="token keyword">:</span> Timestamp<span class="token punctuation">(</span>1646469067, 1<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>创建数据库测试</p>
 <pre class=" language-bash"><code class="language-bash">rs0:PRIMARY<span class="token operator">></span> use <span class="token function">test</span>
 switched to db <span class="token function">test</span>
-rs0:PRIMARY<span class="token operator">></span> db.users.insertMany<span class="token punctuation">(</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-<span class="token punctuation">..</span>.      name: <span class="token string">"bob"</span>, age: 42, status: <span class="token string">"A"</span>, <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,&amp;#123;</span>
-<span class="token punctuation">..</span>.      name: <span class="token string">"ahn"</span>, age: 22, status: <span class="token string">"A"</span>, <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;,&amp;#123;</span>
-<span class="token punctuation">..</span>.      name: <span class="token string">"xi"</span>, age: 34, status: <span class="token string">"D"</span>, <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;])</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+rs0:PRIMARY<span class="token operator">></span> db.users.insertMany<span class="token punctuation">(</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+<span class="token punctuation">..</span>.      name: <span class="token string">"bob"</span>, age: 42, status: <span class="token string">"A"</span>, <span class="token punctuation">}</span>,<span class="token punctuation">{</span>
+<span class="token punctuation">..</span>.      name: <span class="token string">"ahn"</span>, age: 22, status: <span class="token string">"A"</span>, <span class="token punctuation">}</span>,<span class="token punctuation">{</span>
+<span class="token punctuation">..</span>.      name: <span class="token string">"xi"</span>, age: 34, status: <span class="token string">"D"</span>, <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
         <span class="token string">"acknowledged"</span> <span class="token keyword">:</span> true,
         <span class="token string">"insertedIds"</span> <span class="token keyword">:</span> <span class="token punctuation">[</span>
                 ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d6"</span><span class="token punctuation">)</span>,
                 ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d7"</span><span class="token punctuation">)</span>,
                 ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d8"</span><span class="token punctuation">)</span>
         <span class="token punctuation">]</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 rs0:PRIMARY<span class="token operator">></span> show collections
 <span class="token function">users</span>
 rs0:PRIMARY<span class="token operator">></span> db.user.find<span class="token punctuation">(</span><span class="token punctuation">)</span>
 rs0:PRIMARY<span class="token operator">></span> db.users.find<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; "_id" : ObjectId("62232018adef03bcf644f4d6"), "name" : "bob", "age" : 42, "status" : "A" &amp;#125;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; "_id" : ObjectId("62232018adef03bcf644f4d7"), "name" : "ahn", "age" : 22, "status" : "A" &amp;#125;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; "_id" : ObjectId("62232018adef03bcf644f4d8"), "name" : "xi", "age" : 34, "status" : "D" &amp;#125;</span>
+<span class="token punctuation">{</span> <span class="token string">"_id"</span> <span class="token keyword">:</span> ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d6"</span><span class="token punctuation">)</span>, <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"bob"</span>, <span class="token string">"age"</span> <span class="token keyword">:</span> 42, <span class="token string">"status"</span> <span class="token keyword">:</span> <span class="token string">"A"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token string">"_id"</span> <span class="token keyword">:</span> ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d7"</span><span class="token punctuation">)</span>, <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"ahn"</span>, <span class="token string">"age"</span> <span class="token keyword">:</span> 22, <span class="token string">"status"</span> <span class="token keyword">:</span> <span class="token string">"A"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">{</span> <span class="token string">"_id"</span> <span class="token keyword">:</span> ObjectId<span class="token punctuation">(</span><span class="token string">"62232018adef03bcf644f4d8"</span><span class="token punctuation">)</span>, <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"xi"</span>, <span class="token string">"age"</span> <span class="token keyword">:</span> 34, <span class="token string">"status"</span> <span class="token keyword">:</span> <span class="token string">"D"</span> <span class="token punctuation">}</span>
 </code></pre>
 <p>为数据库创建用户</p>
 <pre class=" language-yaml"><code class="language-yaml">rs0<span class="token punctuation">:</span>PRIMARY<span class="token punctuation">></span> use test
 switched to db test
-rs0<span class="token punctuation">:</span>PRIMARY<span class="token punctuation">></span> db.createUser(&amp;<span class="token comment" spellcheck="true">#123;user: "jim", pwd: "123456", roles: [&amp;#123; role: "dbOwner", db: "test" &amp;#125;]&amp;#125;)</span>
-Successfully added user<span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;</span>
+rs0<span class="token punctuation">:</span>PRIMARY<span class="token punctuation">></span> db.createUser(<span class="token punctuation">{</span><span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token string">"jim"</span><span class="token punctuation">,</span> <span class="token key atrule">pwd</span><span class="token punctuation">:</span> <span class="token string">"123456"</span><span class="token punctuation">,</span> <span class="token key atrule">roles</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> <span class="token key atrule">role</span><span class="token punctuation">:</span> <span class="token string">"dbOwner"</span><span class="token punctuation">,</span> <span class="token key atrule">db</span><span class="token punctuation">:</span> <span class="token string">"test"</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span>)
+Successfully added user<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         <span class="token key atrule">"user"</span> <span class="token punctuation">:</span> <span class="token string">"jim"</span><span class="token punctuation">,</span>
         <span class="token key atrule">"roles"</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                &amp;<span class="token comment" spellcheck="true">#123;</span>
+                <span class="token punctuation">{</span>
                         <span class="token key atrule">"role"</span> <span class="token punctuation">:</span> <span class="token string">"dbOwner"</span><span class="token punctuation">,</span>
                         <span class="token key atrule">"db"</span> <span class="token punctuation">:</span> <span class="token string">"test"</span>
-                &amp;<span class="token comment" spellcheck="true">#125;</span>
+                <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
-&amp;<span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
                 
@@ -1710,7 +1710,7 @@ Successfully added user<span class="token punctuation">:</span> &amp;<span class
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">58.1k</span>
+                        class="white-color">57.9k</span>
             
             
             
