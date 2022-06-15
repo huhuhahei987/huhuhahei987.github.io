@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Redis 基础命令, huhuhahei">
-    <meta name="description" content="一. redis基础命令Redis 命令通过Redis 客户端对 redis 服务端执行相应操作，Redis 客户端在官方下载的 redis 的 安装包中– redis­-cli。
+    <meta name="description" content="1. redis基础命令Redis 命令通过Redis 客户端对 redis 服务端执行相应操作，Redis 客户端在官方下载的 redis 的 安装包中– redis­-cli。
 语法
 redis-cli -h host -p port ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -480,7 +480,7 @@ redis-cli -h host -p port ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-redis基础命令"><a href="#一-redis基础命令" class="headerlink" title="一. redis基础命令"></a>一. redis基础命令</h1><p><code>Redis</code> 命令通过<code>Redis</code> 客户端对 <code>redis</code> 服务端执行相应操作，<code>Redis</code> 客户端在官方下载的 <code>redis</code> 的 安装包中– <code>redis­-cli</code>。</p>
+                <h1 id="1-redis基础命令"><a href="#1-redis基础命令" class="headerlink" title="1. redis基础命令"></a>1. redis基础命令</h1><p><code>Redis</code> 命令通过<code>Redis</code> 客户端对 <code>redis</code> 服务端执行相应操作，<code>Redis</code> 客户端在官方下载的 <code>redis</code> 的 安装包中– <code>redis­-cli</code>。</p>
 <p>语法</p>
 <pre class=" language-bash"><code class="language-bash">redis-cli -h host -p port -a password
 <span class="token punctuation">[</span>root@redis bin<span class="token punctuation">]</span> ./redis-cli <span class="token comment" spellcheck="true">#连接本地Redis</span>
@@ -490,7 +490,7 @@ PONG
 172.24.8.78:6379<span class="token operator">></span> <span class="token function">ping</span>
 PONG
 </code></pre>
-<h1 id="二-redis-key命令"><a href="#二-redis-key命令" class="headerlink" title="二. redis key命令"></a>二. redis key命令</h1><h4 id="2-1-DEL"><a href="#2-1-DEL" class="headerlink" title="2.1 DEL"></a>2.1 DEL</h4><p>语法：<code>DEL key [key ...] </code></p>
+<h1 id="redis-key命令"><a href="#redis-key命令" class="headerlink" title=". redis key命令"></a>. redis key命令</h1><h4 id="2-1-DEL"><a href="#2-1-DEL" class="headerlink" title="2.1 DEL"></a>2.1 DEL</h4><p>语法：<code>DEL key [key ...] </code></p>
 <p>作用：删除给定的一个或多个 key ，不存在的 key 会被忽略。 </p>
 <p>示例：</p>
 <pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> phone 123456789
@@ -528,7 +528,7 @@ OK
 127.0.0.1:6379<span class="token operator">></span> EXISTS name
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
 </code></pre>
-<h4 id="4-EXPIRE"><a href="#4-EXPIRE" class="headerlink" title=".4 EXPIRE"></a>.4 EXPIRE</h4><p>语法：<code>EXPIRE key seconds</code></p>
+<h4 id="2-4-EXPIRE"><a href="#2-4-EXPIRE" class="headerlink" title="2.4 EXPIRE"></a>2.4 EXPIRE</h4><p>语法：<code>EXPIRE key seconds</code></p>
 <p>作用：为给定 key 设置（更新）生存时间，当 key 过期时(生存时间为 0 )，它会被自动删除。 </p>
 <p>延伸： 在 Redis 中，带有生存时间的 key 被称为『易失的』(volatile)。 </p>
 <p>生存时间可以通过使用 DEL 命令删除整个 key 来移除，或者被 SET 和 GETSET 命令覆写 (overwrite)。若一个命令只是修改(alter)一个带生存时间的 key 的值而不是用一个新的 key 值来 代替(replace)，则生存时间不会被改变。</p>
