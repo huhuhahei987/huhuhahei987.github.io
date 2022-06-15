@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Curl详解, huhuhahei">
-    <meta name="description" content="Curl详解1.Post请求curl -H &#34;Accept: application/json&#34; -H &#34;Content-type: application/json&#34; -X POST -d &#39;&amp;amp;#123;&#34;phone&#34;: &#34;180">
+    <meta name="description" content="Curl详解1.Post请求curl -H &#34;Accept: application/json&#34; -H &#34;Content-type: application/json&#34; -X POST -d &#39;{&#34;phone&#34;: &#34;18000011005&#34;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -447,7 +447,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.3k
                 </div>
                 
 
@@ -474,7 +474,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Curl详解"><a href="#Curl详解" class="headerlink" title="Curl详解"></a>Curl详解</h1><h3 id="1-Post请求"><a href="#1-Post请求" class="headerlink" title="1.Post请求"></a>1.Post请求</h3><pre class=" language-bash"><code class="language-bash">curl -H <span class="token string">"Accept: application/json"</span> -H <span class="token string">"Content-type: application/json"</span> -X POST -d <span class="token string">'&amp;#123;"phone": "18000011005","password": "xxxxx", "status":40,"order_no":"1998708","config":&amp;#123;"loading":true&amp;#125;,"data": "123", "appVersion": "1.2.3","CHEN_ZHE_TEST_ONE_TWO_THREE": 1&amp;#125;'</span>  http://192.168.57.80/mjyx-mall-gateway2/web/index.php/auth/login
+                <h1 id="Curl详解"><a href="#Curl详解" class="headerlink" title="Curl详解"></a>Curl详解</h1><h3 id="1-Post请求"><a href="#1-Post请求" class="headerlink" title="1.Post请求"></a>1.Post请求</h3><pre class=" language-bash"><code class="language-bash">curl -H <span class="token string">"Accept: application/json"</span> -H <span class="token string">"Content-type: application/json"</span> -X POST -d <span class="token string">'{"phone": "18000011005","password": "xxxxx", "status":40,"order_no":"1998708","config":{"loading":true},"data": "123", "appVersion": "1.2.3","CHEN_ZHE_TEST_ONE_TWO_THREE": 1}'</span>  http://192.168.57.80/mjyx-mall-gateway2/web/index.php/auth/login
 </code></pre>
 <h4 id="设置POST-Header"><a href="#设置POST-Header" class="headerlink" title="设置POST Header"></a>设置POST Header</h4><blockquote>
 <p>-H “Accept: application&#x2F;json” -H “Content-type: application&#x2F;json” -X POST -d </p>
@@ -546,7 +546,7 @@
 </blockquote>
 <p>上面命令添加两个 HTTP 标头。</p>
 <blockquote>
-<pre class=" language-bash"><code class="language-bash">$ curl -d <span class="token string">'&amp;#123;"login": "emma", "pass": "123"&amp;#125;'</span> -H <span class="token string">'Content-Type: application/json'</span> https://google.com/login
+<pre class=" language-bash"><code class="language-bash">$ curl -d <span class="token string">'{"login": "emma", "pass": "123"}'</span> -H <span class="token string">'Content-Type: application/json'</span> https://google.com/login
 </code></pre>
 </blockquote>
 <p>上面命令添加 HTTP 请求的标头是<code>Content-Type: application/json</code>，然后用<code>-d</code>参数发送 JSON 数据。</p>
@@ -561,7 +561,7 @@
 <pre class=" language-bash"><code class="language-bash">$ curl -L -d <span class="token string">'tweet=hi'</span> https://api.twitter.com/tweet
 </code></pre>
 </blockquote>
-<h2 id="–limit-rate"><a href="#–limit-rate" class="headerlink" title="–limit-rate"></a>–limit-rate</h2><p><code>--limit-rate</code>用来限制 HTTP 请求和回应的带宽，模拟慢网速的环境。</p>
+<p><code>--limit-rate</code>用来限制 HTTP 请求和回应的带宽，模拟慢网速的环境。</p>
 <blockquote>
 <pre class=" language-bash"><code class="language-bash">$ curl --limit-rate 200k https://google.com
 </code></pre>
@@ -629,8 +629,12 @@
 </code></pre>
 </blockquote>
 <p>上面命令中，请求的代理使用 HTTP 协议。</p>
-<h3 id="13-指定解析"><a href="#13-指定解析" class="headerlink" title="13.指定解析"></a>13.指定解析</h3><p>–resolve 指定解析的ip</p>
+<h3 id="13-指定解析"><a href="#13-指定解析" class="headerlink" title="13.指定解析"></a>13.指定解析</h3><p><code>--resolve</code> 指定解析的ip</p>
 <pre class=" language-bash"><code class="language-bash">curl --resolve html.uu898.com:80:125.254.136.140 http://html.uu898.com/protocol/userProtocol_yinsi.htm
+</code></pre>
+<h3 id="14-指定超时时间"><a href="#14-指定超时时间" class="headerlink" title="14 指定超时时间"></a>14 指定超时时间</h3><p><code>--connect-timeout</code>可以指定连接建立的超时时间 超时报错<code>curl: (28) connect() timed out!</code></p>
+<p><code>-m</code> 指定连接过程最大的允许时间<code>curl: (28) Operation timed out after 2000 milliseconds with 0 bytes received</code></p>
+<pre class=" language-bash"><code class="language-bash">curl -I --connect-timeout 2 -m 5 -o  /dev/null  https://www.baidu.com
 </code></pre>
 
                 
@@ -1427,7 +1431,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">57.3k</span>
+                        class="white-color">57.4k</span>
             
             
             
