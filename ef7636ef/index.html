@@ -520,7 +520,7 @@ conn <span class="token operator">=</span> boto.connect_s3<span class="token pun
 
 bucket <span class="token operator">=</span> conn.create_bucket<span class="token punctuation">(</span><span class="token string">'ceph-s3-bucket'</span><span class="token punctuation">)</span>
 <span class="token keyword">for</span> bucket <span class="token keyword">in</span> conn.get_all_buckets<span class="token punctuation">(</span><span class="token punctuation">)</span>:
-    print <span class="token string">"&amp;#123;name&amp;#125; &amp;#123;created&amp;#125;"</span>.format<span class="token punctuation">(</span>
+    print <span class="token string">"{name} {created}"</span>.format<span class="token punctuation">(</span>
         name<span class="token operator">=</span>bucket.name,
         created<span class="token operator">=</span>bucket.creation_date,
     <span class="token punctuation">)</span>

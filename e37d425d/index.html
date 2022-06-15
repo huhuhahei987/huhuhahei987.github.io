@@ -453,7 +453,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    937
+                    929
                 </div>
                 
 
@@ -631,9 +631,9 @@ tmpfs          tmpfs     192M     0  192M   0% /run/user/0
 <span class="token punctuation">[</span>root@ceph-admin rbd-demo<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ceph osd pool application enable mypool rbd</span>
 enabled application <span class="token string">'rbd'</span> on pool <span class="token string">'mypool'</span>
 <span class="token punctuation">[</span>root@ceph-admin rbd-demo<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ceph osd pool application get mypool</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-    <span class="token string">"rbd"</span><span class="token keyword">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;&amp;#125;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">{</span>
+    <span class="token string">"rbd"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 <span class="token comment" spellcheck="true">#可以使用下面命令查看详细信息</span>
 <span class="token punctuation">[</span>root@ceph-admin rbd-demo<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ceph health detail</span>

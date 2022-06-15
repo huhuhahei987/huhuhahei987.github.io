@@ -546,7 +546,7 @@ vdc    253:32   0  50G  0 disk
 </code></pre>
 <p>部署完成查看svc端口既可web访问</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#查看密码</span>
-kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath<span class="token operator">=</span><span class="token string">"&amp;#123;['data']['password']&amp;#125;"</span> <span class="token operator">|</span> base64 --decode <span class="token operator">&amp;&amp;</span> <span class="token keyword">echo</span>
+kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath<span class="token operator">=</span><span class="token string">"{['data']['password']}"</span> <span class="token operator">|</span> base64 --decode <span class="token operator">&amp;&amp;</span> <span class="token keyword">echo</span>
 <span class="token comment" spellcheck="true">#密码： NHaYC4%)5F.Js*%7tO$y</span>
 </code></pre>
 <p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/03/2106452900.png"></p>
