@@ -455,14 +455,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    5 分
                 </div>
                 
 
@@ -515,8 +515,8 @@ mv alertmanager<span class="token punctuation">-</span>0.20.0.linux<span class="
   <span class="token key atrule">email_configs</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#接受方的邮箱</span>
   <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token string">'www.2668416023@foxmail.com'</span>
     <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true  </span><span class="token comment" spellcheck="true">#是否发送恢复告警</span>
-    <span class="token key atrule">html</span><span class="token punctuation">:</span> '&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; template "default.html" . &amp;#125;&amp;#125;'  #模板的配置规则 如果不想配置的这里可以忽略</span>
-    <span class="token key atrule">headers</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123; Subject: "&amp;#123;&amp;#123; .GroupLabels.SortedPairs.Values &amp;#125;&amp;#125; [&amp;#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Firing | len &amp;#125;&amp;#125;]" &amp;#125;</span>
+    <span class="token key atrule">html</span><span class="token punctuation">:</span> <span class="token string">'{{ template "default.html" . }}'</span>  <span class="token comment" spellcheck="true">#模板的配置规则 如果不想配置的这里可以忽略</span>
+    <span class="token key atrule">headers</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token key atrule">Subject</span><span class="token punctuation">:</span> <span class="token string">"{{ .GroupLabels.SortedPairs.Values }} [{{ .Status | toUpper }}:{{ .Alerts.Firing | len }}]"</span> <span class="token punctuation">}</span>
   
 <span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#告警抑制规则</span>
   <span class="token punctuation">-</span> <span class="token key atrule">source_match</span><span class="token punctuation">:</span>
@@ -526,55 +526,55 @@ mv alertmanager<span class="token punctuation">-</span>0.20.0.linux<span class="
     <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'alertname'</span><span class="token punctuation">,</span> <span class="token string">'dev'</span><span class="token punctuation">,</span> <span class="token string">'instance'</span><span class="token punctuation">]</span>
 </code></pre>
 <p>模板配置<br>路径<code>/usr/local/alertmanager/template/default.tmpl</code></p>
-<pre class=" language-yaml"><code class="language-yaml">&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; define "default.html" &amp;#125;&amp;#125;</span>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">{</span><span class="token punctuation">{</span> define "default.html" <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- if gt (len .Alerts.Firing) 0 -&amp;#125;&amp;#125;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> if gt (len .Alerts.Firing) 0 <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-<span class="token punctuation">[</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Firing | len &amp;#125;&amp;#125;]</span>
+<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token punctuation">{</span> .Status <span class="token punctuation">|</span> toUpper <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token punctuation">{</span> .Alerts.Firing <span class="token punctuation">|</span> len <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
 
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; range $i, $alert := .Alerts &amp;#125;&amp;#125;</span>
-
-&lt;pre<span class="token punctuation">></span>
-
-告警节点：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "instance" &amp;#125;&amp;#125;</span>
-
-告警服务：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "alertname" &amp;#125;&amp;#125;</span>
-
-报警详情：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Annotations "summary" &amp;#125;&amp;#125;</span>
-
-开始时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.StartsAt.Local &amp;#125;&amp;#125;</span>
-
-&lt;/pre<span class="token punctuation">></span>
-
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>
-
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>
-
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- if gt (len .Alerts.Resolved) 0 -&amp;#125;&amp;#125;</span>
-
-<span class="token punctuation">[</span>&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; .Status | toUpper &amp;#125;&amp;#125;:&amp;#123;&amp;#123; .Alerts.Resolved | len &amp;#125;&amp;#125;]</span>
-
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; range $i, $alert := .Alerts &amp;#125;&amp;#125;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> range $i<span class="token punctuation">,</span> $alert <span class="token punctuation">:</span>= .Alerts <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
 &lt;pre<span class="token punctuation">></span>
 
-恢复节点：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "instance" &amp;#125;&amp;#125;</span>
+告警节点：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Labels "instance" <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-恢复服务：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Labels "alertname" &amp;#125;&amp;#125;</span>
+告警服务：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Labels "alertname" <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-状 <span class="token punctuation">?</span> <span class="token punctuation">?</span>态：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; index $alert.Status &amp;#125;&amp;#125;</span>
+报警详情：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Annotations "summary" <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-开始时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.StartsAt.Local &amp;#125;&amp;#125;</span>
-
-恢复时间：&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $alert.EndsAt.Local &amp;#125;&amp;#125;</span>
+开始时间：<span class="token punctuation">{</span><span class="token punctuation">{</span> $alert.StartsAt.Local <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
 &lt;/pre<span class="token punctuation">></span>
 
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123; end &amp;#125;&amp;#125;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
 
-&amp;<span class="token comment" spellcheck="true">#123;&amp;#123;- end &amp;#125;&amp;#125;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> if gt (len .Alerts.Resolved) 0 <span class="token punctuation">-</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token punctuation">{</span> .Status <span class="token punctuation">|</span> toUpper <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token punctuation">{</span> .Alerts.Resolved <span class="token punctuation">|</span> len <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> range $i<span class="token punctuation">,</span> $alert <span class="token punctuation">:</span>= .Alerts <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+&lt;pre<span class="token punctuation">></span>
+
+恢复节点：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Labels "instance" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+恢复服务：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Labels "alertname" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+状 <span class="token punctuation">?</span> <span class="token punctuation">?</span>态：<span class="token punctuation">{</span><span class="token punctuation">{</span> index $alert.Status <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+开始时间：<span class="token punctuation">{</span><span class="token punctuation">{</span> $alert.StartsAt.Local <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+恢复时间：<span class="token punctuation">{</span><span class="token punctuation">{</span> $alert.EndsAt.Local <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+&lt;/pre<span class="token punctuation">></span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token punctuation">-</span> end <span class="token punctuation">}</span><span class="token punctuation">}</span>
 </code></pre>
 <p>配置完成后可以使用自带的工具检查下格式</p>
 <pre class=" language-yaml"><code class="language-yaml">./amtool check<span class="token punctuation">-</span>config alertmanager.yml
@@ -624,7 +624,7 @@ root     30680     1  0 13<span class="token punctuation">:</span>16 <span class
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> node_rules
     <span class="token key atrule">rules</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_cpu_usage
-      <span class="token key atrule">expr</span><span class="token punctuation">:</span> 100 <span class="token punctuation">-</span> avg(irate(node_cpu_seconds_total&amp;<span class="token comment" spellcheck="true">#123;mode="idle"&amp;#125;[1m])) by (instance) * 100</span>
+      <span class="token key atrule">expr</span><span class="token punctuation">:</span> 100 <span class="token punctuation">-</span> avg(irate(node_cpu_seconds_total<span class="token punctuation">{</span>mode="idle"<span class="token punctuation">}</span><span class="token punctuation">[</span>1m<span class="token punctuation">]</span>)) by (instance) * 100
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
         <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> CPU_monitor
 
@@ -639,7 +639,7 @@ root     30680     1  0 13<span class="token punctuation">:</span>16 <span class
         <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> Memory_monitor
 
     <span class="token punctuation">-</span> <span class="token key atrule">record</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_root_partition_predit
-      <span class="token key atrule">expr</span><span class="token punctuation">:</span> node_filesystem_free_bytes&amp;<span class="token comment" spellcheck="true">#123;device="/dev/vda1", mountpoint="/"&amp;#125;/(1024*1024*1024)</span>
+      <span class="token key atrule">expr</span><span class="token punctuation">:</span> node_filesystem_free_bytes<span class="token punctuation">{</span>device="/dev/vda1"<span class="token punctuation">,</span> mountpoint="/"<span class="token punctuation">}</span>/(1024<span class="token important">*1024</span><span class="token important">*1024</span>)
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
         <span class="token key atrule">metric_type</span><span class="token punctuation">:</span> root_partition_monitor
 </code></pre>
@@ -653,7 +653,7 @@ root     30680     1  0 13<span class="token punctuation">:</span>16 <span class
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
         <span class="token key atrule">severity</span><span class="token punctuation">:</span> warning
       <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 CPU使用率持续1分钟超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125; %</span>
+        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 <span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.instance <span class="token punctuation">}</span><span class="token punctuation">}</span> 的 CPU使用率持续1分钟超出阈值<span class="token punctuation">,</span>当前为 <span class="token punctuation">{</span><span class="token punctuation">{</span>humanize $value<span class="token punctuation">}</span><span class="token punctuation">}</span> %
     
     <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 系统一分钟负载
       <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_1m_load <span class="token punctuation">></span> 20
@@ -661,19 +661,19 @@ root     30680     1  0 13<span class="token punctuation">:</span>16 <span class
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
         <span class="token key atrule">severity</span><span class="token punctuation">:</span> warning
       <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 1分负载超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125;</span>
+        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 <span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.instance <span class="token punctuation">}</span><span class="token punctuation">}</span> 的 1分负载超出阈值<span class="token punctuation">,</span>当前为 <span class="token punctuation">{</span><span class="token punctuation">{</span>humanize $value<span class="token punctuation">}</span><span class="token punctuation">}</span>
     
     <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 内存使用率
       <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_mem_usage <span class="token punctuation">></span> 80
       <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m
       <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 内存 使用率持续1分钟超出阈值,当前为 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125; %</span>
+        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 <span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.instance <span class="token punctuation">}</span><span class="token punctuation">}</span> 的 内存 使用率持续1分钟超出阈值<span class="token punctuation">,</span>当前为 <span class="token punctuation">{</span><span class="token punctuation">{</span>humanize $value<span class="token punctuation">}</span><span class="token punctuation">}</span> %
     
     <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> 系统盘磁盘使用
       <span class="token key atrule">expr</span><span class="token punctuation">:</span> instance<span class="token punctuation">:</span>node_root_partition_predit &lt; 10
       <span class="token key atrule">for</span><span class="token punctuation">:</span> 1m
       <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 &amp;<span class="token comment" spellcheck="true">#123;&amp;#123; $labels.instance &amp;#125;&amp;#125; 的 根分区 剩余可用空间只有 &amp;#123;&amp;#123;humanize $value&amp;#125;&amp;#125;GB,，请及时扩容和清理空间!!!!!</span>
+        <span class="token key atrule">summary</span><span class="token punctuation">:</span> 主机 <span class="token punctuation">{</span><span class="token punctuation">{</span> $labels.instance <span class="token punctuation">}</span><span class="token punctuation">}</span> 的 根分区 剩余可用空间只有 <span class="token punctuation">{</span><span class="token punctuation">{</span>humanize $value<span class="token punctuation">}</span><span class="token punctuation">}</span>GB<span class="token punctuation">,</span>，请及时扩容和清理空间<span class="token tag">!!!!!</span>
 </code></pre>
 <p>配置完成重载<code>kill -HUP 18892</code></p>
 <p>访问prometheus界面即可查看配置的规则<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/1841199424.jpg"><br>告警的状态<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/3354612842.jpg"></p>
@@ -1492,7 +1492,7 @@ root     30680     1  0 13<span class="token punctuation">:</span>16 <span class
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

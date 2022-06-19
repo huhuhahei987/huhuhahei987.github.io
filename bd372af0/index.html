@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    283
+                    275
                 </div>
                 
 
@@ -490,16 +490,16 @@ vhost_traffic_status_zone<span class="token punctuation">;</span>
 vhost_traffic_status_filter_by_host on<span class="token punctuation">;</span>
 
 server段
-server <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+server <span class="token punctuation">{</span>
         listen 8089<span class="token punctuation">;</span>
         server_name localhost<span class="token punctuation">;</span>
         root html<span class="token punctuation">;</span>
         index index.html index.php<span class="token punctuation">;</span>
-    location /status <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+    location /status <span class="token punctuation">{</span>
                         vhost_traffic_status_display<span class="token punctuation">;</span>
                         vhost_traffic_status_display_format html<span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+      <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p><strong>3.配置完成重启服务 通过ip+prot&#x2F;status访问</strong></p>
 <p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/08/462020058.png"></p>
@@ -1335,7 +1335,7 @@ server <span class="token operator">&amp;</span><span class="token comment" spel
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

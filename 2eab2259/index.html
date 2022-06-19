@@ -454,7 +454,7 @@ nginx 子">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    299
+                    295
                 </div>
                 
 
@@ -485,7 +485,7 @@ nginx 子">
 <pre class=" language-nginx"><code class="language-nginx"><span class="token keyword">proxy_cache_path</span> <span class="token operator">/</span>data<span class="token operator">/</span>cache levels<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">2</span> keys_zone<span class="token operator">=</span>cache_one<span class="token punctuation">:</span>200m inactive<span class="token operator">=</span>1d max_size<span class="token operator">=</span>30g<span class="token punctuation">;</span>
 </code></pre>
 <p><strong>nginx 子配置文件中引用配置</strong></p>
-<pre class=" language-nginx"><code class="language-nginx"><span class="token keyword">location</span> <span class="token operator">~</span> <span class="token punctuation">.</span><span class="token operator">*</span>\<span class="token punctuation">.</span><span class="token punctuation">(</span>gif<span class="token operator">|</span>jpg<span class="token operator">|</span>png<span class="token operator">|</span>htm<span class="token operator">|</span>html<span class="token operator">|</span>css<span class="token operator">|</span>js<span class="token operator">|</span><span class="token keyword">flv</span><span class="token operator">|</span>ico<span class="token operator">|</span>swf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<pre class=" language-nginx"><code class="language-nginx"><span class="token keyword">location</span> <span class="token operator">~</span> <span class="token punctuation">.</span><span class="token operator">*</span>\<span class="token punctuation">.</span><span class="token punctuation">(</span>gif<span class="token operator">|</span>jpg<span class="token operator">|</span>png<span class="token operator">|</span>htm<span class="token operator">|</span>html<span class="token operator">|</span>css<span class="token operator">|</span>js<span class="token operator">|</span><span class="token keyword">flv</span><span class="token operator">|</span>ico<span class="token operator">|</span>swf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">proxy_pass</span> <span class="token keyword">https</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>huhuhahei<span class="token punctuation">.</span>cn<span class="token punctuation">;</span>
                 <span class="token keyword">proxy_redirect</span> off<span class="token punctuation">;</span>
                 <span class="token keyword">proxy_cache</span> cache_one<span class="token punctuation">;</span>
@@ -494,7 +494,7 @@ nginx 子">
                 <span class="token keyword">proxy_cache_valid</span> any 1m<span class="token punctuation">;</span>
                 <span class="token keyword">include</span> conf<span class="token punctuation">.</span>d<span class="token operator">/</span>steam_sub_filter<span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
                 <span class="token keyword">expires</span> 30d<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+        <span class="token punctuation">}</span>
 </code></pre>
 <p><strong>配置完成重启nginx</strong></p>
 <pre class=" language-bash"><code class="language-bash">nginx -s reload
@@ -1329,7 +1329,7 @@ drwx------ 169 nobody nogroup 4096 Apr 20 10:58 f
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

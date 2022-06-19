@@ -452,14 +452,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    741
+                    737
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    3 分
                 </div>
                 
 
@@ -633,7 +633,7 @@ grafana                              Bound    pvc<span class="token punctuation"
 <span class="token comment" spellcheck="true">#编辑grafana的deployment资源配置</span>
 <span class="token punctuation">[</span>root@k8smaster StorageClass<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl -n monitoring edit deployments.apps grafan</span>
 <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">emptyDir</span><span class="token punctuation">:</span> &amp;<span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">emptyDir</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana<span class="token punctuation">-</span>storage
 <span class="token comment" spellcheck="true">#更改为</span>
 <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
@@ -1456,7 +1456,7 @@ grafana                              Bound    pvc<span class="token punctuation"
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

@@ -363,10 +363,19 @@
                 </a>
                 
                 
+                <a href="/categories/Ceph/" title="Ceph: 6">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">Ceph
+                        <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/categories/Linux/" title="Linux: 16">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">Linux
+                            style="background-color: #D5F5E3;">Linux
                         <span class="tag-length">16</span>
                     </span>
                 </a>
@@ -375,7 +384,7 @@
                 <a href="/categories/Docker/" title="Docker: 4">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">Docker
+                            style="background-color: #E8F8F5;">Docker
                         <span class="tag-length">4</span>
                     </span>
                 </a>
@@ -384,7 +393,7 @@
                 <a href="/categories/Monitor/" title="Monitor: 11">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">Monitor
+                            style="background-color: #FEF9E7;">Monitor
                         <span class="tag-length">11</span>
                     </span>
                 </a>
@@ -393,7 +402,7 @@
                 <a href="/categories/K8s/" title="K8s: 4">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #FEF9E7;">K8s
+                            style="background-color: #F8F9F9;">K8s
                         <span class="tag-length">4</span>
                     </span>
                 </a>
@@ -402,7 +411,7 @@
                 <a href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" title="开源项目: 8">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F8F9F9;">开源项目
+                            style="background-color: #82E0AA;">开源项目
                         <span class="tag-length">8</span>
                     </span>
                 </a>
@@ -411,7 +420,7 @@
                 <a href="/categories/k8s/" title="k8s: 10">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #82E0AA;">k8s
+                            style="background-color: #D7BDE2;">k8s
                         <span class="tag-length">10</span>
                     </span>
                 </a>
@@ -420,35 +429,8 @@
                 <a href="/categories/ELK/" title="ELK: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D7BDE2;">ELK
+                            style="background-color: #A3E4D7;">ELK
                         <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Databases/" title="Databases: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #A3E4D7;">Databases
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Mysql/" title="Mysql: 15">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #85C1E9;">Mysql
-                        <span class="tag-length">15</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Ceph/" title="Ceph: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8C471;">Ceph
-                        <span class="tag-length">6</span>
                     </span>
                 </a>
                 
@@ -456,7 +438,7 @@
                 <a href="/categories/Pgsql/" title="Pgsql: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F9E79F;">Pgsql
+                            style="background-color: #85C1E9;">Pgsql
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -465,8 +447,26 @@
                 <a href="/categories/Mongo/" title="Mongo: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #FFF;">Mongo
+                            style="background-color: #F8C471;">Mongo
                         <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/Mysql/" title="Mysql: 15">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            style="background-color: #F9E79F;">Mysql
+                        <span class="tag-length">15</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/Databases/" title="Databases: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #FFF;">Databases
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -673,9 +673,10 @@ pages&lt;---索引（属性）&lt;----查数据。
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、准备环境1.1 创建数据目录准备配置文件[root@db data]# mkdir /data/&amp;#123;3307,3308&amp;#125;
+                                一、准备环境1.1 创建数据目录准备配置文件[root@db data]# mkdir /data/{3307,3308}
 [root@db data]# cat 3307/my.conf
-[mysqld
+[mysqld]
+basedir=/applica
                             
                         </div>
                         <div class="publish-info">
@@ -864,7 +865,7 @@ mysql-5.6.40.tar.gz
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

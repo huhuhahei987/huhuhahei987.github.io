@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    148
+                    144
                 </div>
                 
 
@@ -478,11 +478,11 @@
                 <p>我们在日常的k8s维护中，经常遇到k8s删除命名空间一直处于Terminating的状态 让人抓狂::(怒) 下面总结下强制删除的方法</p>
 <h3 id="1-1-将ns资源保存为json文件"><a href="#1-1-将ns资源保存为json文件" class="headerlink" title="1.1 将ns资源保存为json文件"></a>1.1 将ns资源保存为json文件</h3><pre class=" language-bash"><code class="language-bash">kubectl get ns istio-system -o json <span class="token operator">></span>istis.json
 </code></pre>
-<h3 id="2-1-删除json文件finalizers字段"><a href="#2-1-删除json文件finalizers字段" class="headerlink" title="2.1 删除json文件finalizers字段"></a>2.1 删除json文件finalizers字段</h3><pre class=" language-json"><code class="language-json"><span class="token property">"spec"</span><span class="token operator">:</span> &amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+<h3 id="2-1-删除json文件finalizers字段"><a href="#2-1-删除json文件finalizers字段" class="headerlink" title="2.1 删除json文件finalizers字段"></a>2.1 删除json文件finalizers字段</h3><pre class=" language-json"><code class="language-json"><span class="token property">"spec"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"finalizers"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">"kubernetes"</span>
         <span class="token punctuation">]</span>
-    &amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <h3 id="3-1启动一个kube-proxy"><a href="#3-1启动一个kube-proxy" class="headerlink" title="3.1启动一个kube proxy"></a>3.1启动一个kube proxy</h3><pre class=" language-bash"><code class="language-bash">kubectl proxy --port<span class="token operator">=</span>8081
 </code></pre>
@@ -1289,7 +1289,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

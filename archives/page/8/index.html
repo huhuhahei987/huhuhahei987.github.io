@@ -469,9 +469,10 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    一、准备环境1.1 创建数据目录准备配置文件[root@db data]# mkdir /data/&amp;#123;3307,3308&amp;#125;
+                                    一、准备环境1.1 创建数据目录准备配置文件[root@db data]# mkdir /data/{3307,3308}
 [root@db data]# cat 3307/my.conf
-[mysqld
+[mysqld]
+basedir=/applica
                                 
                             </div>
                             <div class="publish-info">
@@ -1035,7 +1036,8 @@ kubectl -n kube-system edit configmaps coredns
 apiVersion: v1
 data:
   Corefile: |
-    .:53 &amp;#123;
+    .:53 {
+        
                                 
                             </div>
                             <div class="publish-info">
@@ -1169,7 +1171,7 @@ data:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

@@ -452,7 +452,7 @@ top -bn 1 -i -c
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    182
+                    170
                 </div>
                 
 
@@ -485,11 +485,11 @@ top -bn 1 -i -c
 </code></pre>
 <p>输出如下：<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/2626793770.png"></p>
 <p>但是输入前面的信息都不是我们需要的所以需要awk筛选下，命令如下</p>
-<pre class=" language-vim"><code class="language-vim"><span class="token builtin">top</span> <span class="token operator">-</span><span class="token keyword">bn</span> <span class="token number">1</span> <span class="token operator">-</span>i <span class="token operator">-</span><span class="token keyword">c</span> |awk <span class="token string">'&amp;#123; if (NR > 6) print &amp;#125;'</span>
+<pre class=" language-vim"><code class="language-vim"><span class="token builtin">top</span> <span class="token operator">-</span><span class="token keyword">bn</span> <span class="token number">1</span> <span class="token operator">-</span>i <span class="token operator">-</span><span class="token keyword">c</span> |awk <span class="token string">'{ if (NR > 6) print }'</span>
 </code></pre>
 <p>输出如下：<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/3801311281.png"></p>
 <p>最后通过awk筛选需要的信息即可，命令如下</p>
-<pre class=" language-vim"><code class="language-vim"><span class="token builtin">top</span> <span class="token operator">-</span><span class="token keyword">bn</span> <span class="token number">1</span> <span class="token operator">-</span>i <span class="token operator">-</span><span class="token keyword">c</span> |awk <span class="token string">'&amp;#123; if (NR > 6) print &amp;#125;'</span> |awk <span class="token string">'&amp;#123; if ($9 > 0.1) print $1,$9,$12&amp;#125;'</span>
+<pre class=" language-vim"><code class="language-vim"><span class="token builtin">top</span> <span class="token operator">-</span><span class="token keyword">bn</span> <span class="token number">1</span> <span class="token operator">-</span>i <span class="token operator">-</span><span class="token keyword">c</span> |awk <span class="token string">'{ if (NR > 6) print }'</span> |awk <span class="token string">'{ if ($9 > 0.1) print $1,$9,$12}'</span>
 </code></pre>
 <p>输出如下：<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/07/1943897181.png"></p>
 
@@ -1287,7 +1287,7 @@ top -bn 1 -i -c
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

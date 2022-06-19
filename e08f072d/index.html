@@ -494,7 +494,7 @@
 <span class="token punctuation">-</span>p：指定进程号
 <span class="token punctuation">-</span>w：显示每个进程的上下文切换情况
 <span class="token punctuation">-</span>t：显示选择任务的线程的统计信息外的额外信息
-<span class="token punctuation">-</span>T &amp;<span class="token comment" spellcheck="true">#123; TASK | CHILD | ALL &amp;#125;</span>
+<span class="token punctuation">-</span>T <span class="token punctuation">{</span> TASK <span class="token punctuation">|</span> CHILD <span class="token punctuation">|</span> ALL <span class="token punctuation">}</span>
  这个选项指定了pidstat监控的。TASK表示报告独立的task，CHILD关键字表示报告进程下所有线程统计信息。ALL表示报告独立的task和task下面的所有线程。
  注意：task和子线程的全局的统计信息和pidstat选项无关。这些统计信息不会对应到当前的统计间隔，这些统计信息只有在子线程kill或者完成的时候才会被收集。
 <span class="token punctuation">-</span>V：版本号
@@ -1367,7 +1367,7 @@ Command：当前进程对应的命令
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

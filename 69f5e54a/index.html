@@ -11,7 +11,8 @@ kubectl -n kube-system edit configmaps coredns
 apiVersion: v1
 data:
   Corefile: |
-    .:53 &amp;amp;#123;">
+    .:53 {
+        ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -453,7 +454,7 @@ data:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    113
+                    101
                 </div>
                 
 
@@ -486,24 +487,24 @@ data:
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">data</span><span class="token punctuation">:</span>
   <span class="token key atrule">Corefile</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
-    .:53 &amp;#123;
+    .:53 {
         errors
         health
         ready</span>
 <span class="token comment" spellcheck="true"># 添加下面</span>
         log
-        rewrite stop &amp;<span class="token comment" spellcheck="true">#123;</span>
+        rewrite stop <span class="token punctuation">{</span>
           name regex git.boge.com gitlab.gitlab<span class="token punctuation">-</span>ver130806.svc.cluster.local
 <span class="token comment" spellcheck="true"># 将域名解析到默认的svc域名</span>
           answer name gitlab.gitlab<span class="token punctuation">-</span>ver130806.svc.cluster.local git.boge.com
 <span class="token comment" spellcheck="true"># 反向解析</span>
-        &amp;<span class="token comment" spellcheck="true">#125;</span>
+        <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true"># </span>
-        kubernetes cluster.local in<span class="token punctuation">-</span>addr.arpa ip6.arpa &amp;<span class="token comment" spellcheck="true">#123;</span>
+        kubernetes cluster.local in<span class="token punctuation">-</span>addr.arpa ip6.arpa <span class="token punctuation">{</span>
 
           pods verified
           fallthrough in<span class="token punctuation">-</span>addr.arpa ip6.arpa
-        &amp;<span class="token comment" spellcheck="true">#125;</span>
+        <span class="token punctuation">}</span>
         autopath @kubernetes
         prometheus <span class="token punctuation">:</span><span class="token number">9153</span>
         forward . /etc/resolv.conf
@@ -511,7 +512,7 @@ data:
         loop
         reload
         loadbalance
-    &amp;<span class="token comment" spellcheck="true">#125;</span>
+    <span class="token punctuation">}</span>
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
   <span class="token key atrule">name</span><span class="token punctuation">:</span> coredns
@@ -1317,7 +1318,7 @@ data:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

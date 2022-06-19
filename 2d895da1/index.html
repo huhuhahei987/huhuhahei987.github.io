@@ -449,7 +449,7 @@ TYPE            T">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    444
+                    440
                 </div>
                 
 
@@ -532,7 +532,7 @@ Local Volumes   2         2         0B        0B
 Build Cache     0         0         0B        0B
 </code></pre>
 <p>当然也可以手动清理无tag的镜像</p>
-<pre class=" language-bash"><code class="language-bash">docker rmi <span class="token punctuation">$(</span>docker images <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"^&lt;none>"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">"&amp;#123;print <span class="token variable">$3</span>&amp;#125;"</span><span class="token punctuation">)</span>
+<pre class=" language-bash"><code class="language-bash">docker rmi <span class="token punctuation">$(</span>docker images <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"^&lt;none>"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">"{print <span class="token variable">$3</span>}"</span><span class="token punctuation">)</span>
 </code></pre>
 <p>手动清理关闭的容器</p>
 <pre class=" language-bash"><code class="language-bash">docker <span class="token function">ps</span> -a <span class="token operator">|</span> <span class="token function">grep</span> Exit <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">' '</span> -f 1 <span class="token operator">|</span> <span class="token function">xargs</span> docker <span class="token function">rm</span>
@@ -1341,7 +1341,7 @@ Build Cache     0         0         0B        0B
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

@@ -622,7 +622,7 @@ hello
 <h3 id="5-3-Script模块"><a href="#5-3-Script模块" class="headerlink" title="5.3 Script模块"></a>5.3 Script模块</h3><p>功能：在远程主机上运行ansible服务器上的脚本(无需执行权限)</p>
 <p>注意：此模块不具有幂等性<br>范例：</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@master ansible<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ansible all -m script -a ./test.sh </span>
-10.46.74.222 <span class="token operator">|</span> CHANGED <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+10.46.74.222 <span class="token operator">|</span> CHANGED <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
     <span class="token string">"changed"</span><span class="token keyword">:</span> true, 
     <span class="token string">"rc"</span><span class="token keyword">:</span> 0, 
     <span class="token string">"stderr"</span><span class="token keyword">:</span> <span class="token string">"Shared connection to 10.46.74.222 closed.\r\n"</span>, 
@@ -633,8 +633,8 @@ hello
     <span class="token string">"stdout_lines"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
         <span class="token string">"10.46.74.222 "</span>
     <span class="token punctuation">]</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-10.46.40.183 <span class="token operator">|</span> CHANGED <span class="token operator">=</span><span class="token operator">></span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">}</span>
+10.46.40.183 <span class="token operator">|</span> CHANGED <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
     <span class="token string">"changed"</span><span class="token keyword">:</span> true, 
     <span class="token string">"rc"</span><span class="token keyword">:</span> 0, 
     <span class="token string">"stderr"</span><span class="token keyword">:</span> <span class="token string">"Shared connection to 10.46.40.183 closed.\r\n"</span>, 
@@ -645,7 +645,7 @@ hello
     <span class="token string">"stdout_lines"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
         <span class="token string">"10.46.40.183 "</span>
     <span class="token punctuation">]</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <hr>
 <h3 id="5-4-Copy模块"><a href="#5-4-Copy模块" class="headerlink" title="5.4 Copy模块"></a>5.4 Copy模块</h3><p>功能：从ansible服务器主控端复制文件到远程主机</p>
@@ -1595,7 +1595,7 @@ ansible all -m group -a <span class="token string">'name=nginx state=absent'</sp
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

@@ -454,7 +454,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    883
+                    867
                 </div>
                 
 
@@ -654,24 +654,24 @@ Escape character is '^<span class="token punctuation">]</span>'
     <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
 </code></pre>
 <p>nginx服务配置文件</p>
-<pre class=" language-yaml"><code class="language-yaml">server &amp;<span class="token comment" spellcheck="true">#123;</span>
+<pre class=" language-yaml"><code class="language-yaml">server <span class="token punctuation">{</span>
     listen       80;
     server_name  localhost;
-    location / &amp;<span class="token comment" spellcheck="true">#123;</span>
+    location / <span class="token punctuation">{</span>
         root   /usr/share/nginx/html;
         index  index.html index.htm;
-    &amp;<span class="token comment" spellcheck="true">#125;</span>
+    <span class="token punctuation">}</span>
     error_page   500 502 503 504  /50x.html;
-    location = /50x.html &amp;<span class="token comment" spellcheck="true">#123;</span>
+    location = /50x.html <span class="token punctuation">{</span>
         root   /usr/share/nginx/html;
-    &amp;<span class="token comment" spellcheck="true">#125;</span>
-    location ~ \.php$ &amp;<span class="token comment" spellcheck="true">#123;</span>
+    <span class="token punctuation">}</span>
+    location ~ \.php$ <span class="token punctuation">{</span>
         fastcgi_pass   127.0.0.1<span class="token punctuation">:</span>9000;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME  /var/www/html/$fastcgi_script_name;
         include        fastcgi_params;
-    &amp;<span class="token comment" spellcheck="true">#125;</span>
-&amp;<span class="token comment" spellcheck="true">#125;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#创建configmap</span>
 <span class="token punctuation">[</span>root@k8smaster lnmp<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl create cm ngin-conf --from-file=default.conf -n lnmp</span>
@@ -1497,7 +1497,7 @@ phpinfo();
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             

@@ -469,7 +469,7 @@ rabbitmq02
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    284
+                    208
                 </div>
                 
 
@@ -524,11 +524,11 @@ YIHXTAVFVTEWSDSXWVLY
 <pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#查看集群状态</span>
 rabbitmqctl cluster_status
 Cluster status of node rabbit@rabbitmq01
-<span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;nodes,[&amp;#123;disc,[rabbit@rabbitmq01]&amp;#125;]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;running_nodes,[rabbit@rabbitmq01]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;cluster_name,&lt;&lt;"rabbit@rabbitmq01">>&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;partitions,[]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;alarms,[&amp;#123;rabbit@rabbitmq01,[]&amp;#125;]&amp;#125;]</span>
+<span class="token punctuation">[</span><span class="token punctuation">{</span>nodes,<span class="token punctuation">[</span><span class="token punctuation">{</span>disc,<span class="token punctuation">[</span>rabbit@rabbitmq01<span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>running_nodes,<span class="token punctuation">[</span>rabbit@rabbitmq01<span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>cluster_name,<span class="token operator">&lt;&lt;</span><span class="token string">"rabbit@rabbitmq01"</span><span class="token operator">>></span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>partitions,<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>alarms,<span class="token punctuation">[</span><span class="token punctuation">{</span>rabbit@rabbitmq01,<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
 
 <span class="token comment" spellcheck="true">#停止服务</span>
 rabbitmqctl stop_app
@@ -542,17 +542,17 @@ rabbitmqctl start_app
 <span class="token comment" spellcheck="true">#再次查看集群</span>
 rabbitmqctl cluster_status
 Cluster status of node rabbit@rabbitmq01
-<span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;nodes,[&amp;#123;disc,[rabbit@rabbitmq02]&amp;#125;,&amp;#123;ram,[rabbit@rabbitmq01]&amp;#125;]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;running_nodes,[rabbit@rabbitmq02,rabbit@rabbitmq01]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;cluster_name,&lt;&lt;"rabbit@rabbitmq01">>&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;partitions,[]&amp;#125;,</span>
- <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;alarms,[&amp;#123;rabbit@rabbitmq02,[]&amp;#125;,&amp;#123;rabbit@rabbitmq01,[]&amp;#125;]&amp;#125;]</span>
+<span class="token punctuation">[</span><span class="token punctuation">{</span>nodes,<span class="token punctuation">[</span><span class="token punctuation">{</span>disc,<span class="token punctuation">[</span>rabbit@rabbitmq02<span class="token punctuation">]</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span>ram,<span class="token punctuation">[</span>rabbit@rabbitmq01<span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>running_nodes,<span class="token punctuation">[</span>rabbit@rabbitmq02,rabbit@rabbitmq01<span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>cluster_name,<span class="token operator">&lt;&lt;</span><span class="token string">"rabbit@rabbitmq01"</span><span class="token operator">>></span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>partitions,<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+ <span class="token punctuation">{</span>alarms,<span class="token punctuation">[</span><span class="token punctuation">{</span>rabbit@rabbitmq02,<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span>rabbit@rabbitmq01,<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
 </code></pre>
-<h3 id="2-3-开启HA-镜像队列"><a href="#2-3-开启HA-镜像队列" class="headerlink" title="2.3 开启HA 镜像队列"></a>2.3 开启HA 镜像队列</h3><pre class=" language-bash"><code class="language-bash">rabbitmqctl set_policy -p / ha <span class="token string">"^"</span> <span class="token string">'&amp;#123;"ha-mode":"all"&amp;#125;'</span>
-Setting policy <span class="token string">"ha"</span> <span class="token keyword">for</span> pattern <span class="token string">"^"</span> to <span class="token string">"&amp;#123;\"ha-mode\":\"all\"&amp;#125;"</span> with priority <span class="token string">"0"</span>
+<h3 id="2-3-开启HA-镜像队列"><a href="#2-3-开启HA-镜像队列" class="headerlink" title="2.3 开启HA 镜像队列"></a>2.3 开启HA 镜像队列</h3><pre class=" language-bash"><code class="language-bash">rabbitmqctl set_policy -p / ha <span class="token string">"^"</span> <span class="token string">'{"ha-mode":"all"}'</span>
+Setting policy <span class="token string">"ha"</span> <span class="token keyword">for</span> pattern <span class="token string">"^"</span> to <span class="token string">"{\"ha-mode\":\"all\"}"</span> with priority <span class="token string">"0"</span>
 rabbitmqctl list_policies -p /
 Listing policies
-/	ha	all	^	<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"ha-mode":"all"&amp;#125;	0</span>
+/	ha	all	^	<span class="token punctuation">{</span><span class="token string">"ha-mode"</span><span class="token keyword">:</span><span class="token string">"all"</span><span class="token punctuation">}</span>	0
 </code></pre>
 
                 
@@ -1357,7 +1357,7 @@ Listing policies
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">63.4k</span>
+                        class="white-color">62.8k</span>
             
             
             
