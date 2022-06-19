@@ -4,9 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Mysql CSR自动恢复, huhuhahei">
-    <meta name="description" content="一、数据修改后没有commit 也没有记录redo.log数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘
-二、数据没有commit,但是">
+    <meta name="keywords" content="ceph横向扩容, huhuhahei">
+    <meta name="description" content="随着业务增长ceph服务也会出现,存储空间不足的情况,这个时候就需要扩容集群
+扩容一般分为两种:
+
+横向扩容(增加集群节点)
+纵向扩容(单节点增加更多的磁盘)
+
+1.1 检查节点磁盘ceph-deploy disk list ceph-no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +25,7 @@
 
     
 
-    <title>Mysql CSR自动恢复 | huhuhahei</title>
+    <title>ceph横向扩容 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -293,12 +298,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/47.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/39.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mysql CSR自动恢复</h1>
+                    <h1 class="description center-align post-title">ceph横向扩容</h1>
                 </div>
             </div>
         </div>
@@ -418,8 +423,8 @@
                                 <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="/tags/Mysql/">
-                                <span class="chip bg-color">Mysql</span>
+                            <a href="/tags/Ceph/">
+                                <span class="chip bg-color">Ceph</span>
                             </a>
                         
                     </div>
@@ -430,8 +435,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Mysql/" class="post-category">
-                                Mysql
+                            <a href="/categories/Ceph/" class="post-category">
+                                Ceph
                             </a>
                         
                     </div>
@@ -443,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-05
+                    2022-06-19
                 </div>
                 
 
@@ -452,14 +457,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    264
+                    707
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -479,19 +484,81 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、数据修改后没有commit-也没有记录redo-log"><a href="#一、数据修改后没有commit-也没有记录redo-log" class="headerlink" title="一、数据修改后没有commit 也没有记录redo.log"></a>一、数据修改后没有commit 也没有记录redo.log</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/1584144069.jpg"><br><strong>数据更新后，尚未commit设备断电。服务启动后自动加载数据进入内存，因为redo.log无数据，所以数据根据undo.log拍摄的快照回滚并重新落盘</strong></p>
-<h1 id="二、数据没有commit-但是写入了redo-log"><a href="#二、数据没有commit-但是写入了redo-log" class="headerlink" title="二、数据没有commit,但是写入了redo.log"></a>二、数据没有commit,但是写入了redo.log</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/447963019.png"><br><strong>redo buffer根据参数定时写入redo.log，但实际事务并未真正提交。此时设备断电，服务启动后加载数据到内存。</strong></p>
+                <p>随着业务增长<code>ceph</code>服务也会出现,存储空间不足的情况,这个时候就需要扩容集群</p>
+<p>扩容一般分为两种:</p>
 <ul>
-<li>首先根据redo.log记录变更信息修改data buffer数据 将id 1修改为2</li>
-<li>在根据undo buffer信息 发现没有commit 再次将数据进行回滚 将id 2修改为1</li>
-<li>最后将id&#x3D;1 lsn&#x3D;100 txid&#x3D;100 写入磁盘</li>
+<li>横向扩容(增加集群节点)</li>
+<li>纵向扩容(单节点增加更多的磁盘)</li>
 </ul>
-<h1 id="三、事务成功commit"><a href="#三、事务成功commit" class="headerlink" title="三、事务成功commit"></a>三、事务成功commit</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/11/39761923.png"><br>事务成功提交，变更写入redo.log 并且undo.log记录commit</p>
-<ul>
-<li>首先根据redo.log记录变更信息修改data buffer数据 将id 1修改为2</li>
-<li>undo.log有记录commit因此数据不会发生回滚</li>
-<li>将id&#x3D;2 lsn&#x3D;101 txid&#x3D;101写入磁盘</li>
-</ul>
+<h3 id="1-1-检查节点磁盘"><a href="#1-1-检查节点磁盘" class="headerlink" title="1.1 检查节点磁盘"></a>1.1 检查节点磁盘</h3><pre class=" language-bash"><code class="language-bash">ceph-deploy disk list ceph-node2
+<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> connected to host: ceph-node2
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> detect platform information from remote host
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> detect machine <span class="token function">type</span>
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> <span class="token function">find</span> the location of an executable
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Running command: <span class="token function">fdisk</span> -l
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Disk /dev/sda: 107.4 GB, 107374182400 bytes, 209715200 sectors
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Disk /dev/sdb: 536.9 GB, 536870912000 bytes, 1048576000 sectors
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Disk /dev/mapper/ceph--5ec322fc--9910--4476--a9fc--c0360c0bd446-osd--block--ab000a3d--2ddb--4480--8ef7--f3a5ff572555: 536.9 GB, 536866717696 bytes, 1048567808 sectors
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Disk /dev/sdc: 107.4 GB, 107374182400 bytes, 209715200 sectors
+<span class="token comment" spellcheck="true"># sdc就是我们新添加的磁盘</span>
+</code></pre>
+<p>如果你的磁盘已经配置了分区 可以使用下面命令删除 <strong>注意 删除分区数据也会删除</strong></p>
+<pre class=" language-bash"><code class="language-bash">ceph-deploy disk zap ceph-node2 /dev/sdc
+<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>ceph_deploy.osd<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Distro info: CentOS Linux 7.8.2003 Core
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> zeroing last few blocks of device
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> <span class="token function">find</span> the location of an executable
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Running command: /usr/sbin/ceph-volume lvm zap /dev/sdc
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> --<span class="token operator">></span> Zapping: /dev/sdc
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> --<span class="token operator">></span> --destroy was not specified, but zapping a whole device will remove the partition table
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> Running command: /bin/dd if<span class="token operator">=</span>/dev/zero of<span class="token operator">=</span>/dev/sdc bs<span class="token operator">=</span>1M count<span class="token operator">=</span>10 conv<span class="token operator">=</span>fsync
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span>  stderr: 10+0 records <span class="token keyword">in</span>
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> 10+0 records out
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span>  stderr: 10485760 bytes <span class="token punctuation">(</span>10 MB<span class="token punctuation">)</span> copied, 0.0930712 s, 113 MB/s
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> --<span class="token operator">></span> Zapping successful for: <span class="token operator">&lt;</span>Raw Device: /dev/sdc<span class="token operator">></span>
+</code></pre>
+<h3 id="2-1-添加osd磁盘"><a href="#2-1-添加osd磁盘" class="headerlink" title="2.1 添加osd磁盘"></a>2.1 添加osd磁盘</h3><pre class=" language-bash"><code class="language-bash">ceph-deploy osd create ceph-node2 --data /dev/sdc
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> Running command: /bin/systemctl <span class="token function">enable</span> --runtime ceph-osd@4
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span>  stderr: Created symlink from /run/systemd/system/ceph-osd.target.wants/ceph-osd@4.service to /usr/lib/systemd/system/ceph-osd@.service.
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> Running command: /bin/systemctl start ceph-osd@4
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> --<span class="token operator">></span> ceph-volume lvm activate successful <span class="token keyword">for</span> osd ID: 4
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>WARNIN<span class="token punctuation">]</span> --<span class="token operator">></span> ceph-volume lvm create successful for: /dev/sdc
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> checking OSD status<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> <span class="token function">find</span> the location of an executable
+<span class="token punctuation">[</span>ceph-node2<span class="token punctuation">]</span><span class="token punctuation">[</span>INFO  <span class="token punctuation">]</span> Running command: /bin/ceph --cluster<span class="token operator">=</span>ceph osd <span class="token function">stat</span> --format<span class="token operator">=</span>json
+<span class="token punctuation">[</span>ceph_deploy.osd<span class="token punctuation">]</span><span class="token punctuation">[</span>DEBUG <span class="token punctuation">]</span> Host ceph-node2 is now ready <span class="token keyword">for</span> osd use
+</code></pre>
+<p>再次查看osd</p>
+<pre class=" language-bash"><code class="language-bash">ceph osd tree
+ID  CLASS WEIGHT  TYPE NAME           STATUS REWEIGHT PRI-AFF
+ -1       2.05426 root default
+ -9       0.48999     host ceph-admin
+  3   hdd 0.48999         osd.3           up  1.00000 1.00000
+ -3       0.48830     host ceph-node1
+  0   hdd 0.48830         osd.0           up  1.00000 1.00000
+ -5       0.58768     host ceph-node2
+  1   hdd 0.48999         osd.1           up  1.00000 1.00000
+  4   hdd 0.09769         osd.4           up  1.00000 1.00000
+ -7       0.48830     host ceph-node3
+  2   hdd 0.48830         osd.2           up  1.00000 1.00000
+-16             0     host ceph-node5
+</code></pre>
+<h3 id="3-1-临时关闭集群rebalance"><a href="#3-1-临时关闭集群rebalance" class="headerlink" title="3.1 临时关闭集群rebalance"></a>3.1 临时关闭集群rebalance</h3><p>当我们生产环境扩容的时候,由于<code>ceph</code>添加<code>osd</code>后会默认进行pg的均衡,所以可能会影响到生产服务的稳定,可以使用一下参数临时关闭集群的<code>rebalance</code></p>
+<pre class=" language-bash"><code class="language-bash">ceph osd <span class="token keyword">set</span> norebalance
+ceph osd <span class="token keyword">set</span> nobackfill
+</code></pre>
+<p>查看集群状态</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@ceph-admin ceph<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ceph -s</span>
+  cluster:
+    id:     0e81966f-1e65-45b7-add4-dd6ad971f4cf
+    health: HEALTH_WARN
+            nobackfill,norebalance flag<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">set</span>
+</code></pre>
+<p>再次开启</p>
+<pre class=" language-bash"><code class="language-bash">ceph osd unset norebalance
+ceph osd unset nobackfill
+</code></pre>
 
                 
             </div>
@@ -518,7 +585,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/fa85a72c/">https://huhuhahei987.github.io/fa85a72c/</a>
+                    <a href="https://huhuhahei987.github.io/167ead09/">https://huhuhahei987.github.io/167ead09/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -560,8 +627,8 @@
                                     <span class="chip bg-color">Linux</span>
                                 </a>
                             
-                                <a href="/tags/Mysql/">
-                                    <span class="chip bg-color">Mysql</span>
+                                <a href="/tags/Ceph/">
+                                    <span class="chip bg-color">Ceph</span>
                                 </a>
                             
                         </div>
@@ -1013,13 +1080,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/55893a1f/">
+                <a href="/fdf20d39/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Mysql数据表损坏恢复">
+                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Ceph详解">
                         
-                        <span class="card-title">Mysql数据表损坏恢复</span>
+                        <span class="card-title">Ceph详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1030,14 +1097,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                            <a href="/categories/Ceph/" class="post-category">
+                                    Ceph
                                 </a>
                             
                             
@@ -1051,8 +1118,8 @@
                         <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/Mysql/">
-                        <span class="chip bg-color">Mysql</span>
+                    <a href="/tags/Ceph/">
+                        <span class="chip bg-color">Ceph</span>
                     </a>
                     
                 </div>
@@ -1066,13 +1133,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/a6515af6/">
+                <a href="/3db8ca3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/49.jpg" class="responsive-img" alt="Mysql根据binlog恢复数据">
+                        <img src="/medias/featureimages/38.jpg" class="responsive-img" alt="Redis 基础命令">
                         
-                        <span class="card-title">Mysql根据binlog恢复数据</span>
+                        <span class="card-title">Redis 基础命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1083,14 +1150,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                            <a href="/categories/Redis/" class="post-category">
+                                    Redis
                                 </a>
                             
                             
@@ -1104,8 +1171,8 @@
                         <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/Mysql/">
-                        <span class="chip bg-color">Mysql</span>
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
