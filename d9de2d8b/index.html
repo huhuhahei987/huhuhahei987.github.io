@@ -597,7 +597,8 @@ istio-egressgateway      ClusterIP      10.68.20.211    <span class="token opera
 istio-ingressgateway     LoadBalancer   10.68.159.17    <span class="token operator">&lt;</span>pending<span class="token operator">></span>     15020:38813/TCP,80:37266/TCP,443:27530/TCP,15029:28752/TCP,15030:21822/TCP,15031:34373/TCP,15032:27310/TCP,15443:36864/TCP   22h
 </code></pre>
 <p>浏览器访问节点地址+NodePort端口</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515135511693.png" alt="image-20220515135511693">可以正常访问 并且刷新reviews是会轮训变化的 证明流量是轮训转发到reviews服务的不同版本中的</p>
+<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515135511693.png" alt="image-20220515135511693"></p>
+<p>可以正常访问 并且刷新reviews是会轮训变化的 证明流量是轮训转发到reviews服务的不同版本中的</p>
 <h3 id="2-部署默认应用路由"><a href="#2-部署默认应用路由" class="headerlink" title="2.部署默认应用路由"></a>2.部署默认应用路由</h3><pre class=" language-bash"><code class="language-bash">kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
 </code></pre>
 <p>yaml文件如下</p>
