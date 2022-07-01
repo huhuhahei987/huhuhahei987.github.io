@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>K8s 通过Comfigmap导入ENV</title>
+      <link href="/9a96ca61/"/>
+      <url>/9a96ca61/</url>
+      
+        <content type="html"><![CDATA[<p>一般情况下服务env是直接通过yaml文件导入的类似 当时当我们多个服务同时需要这个配置的时候 如果单一配置 后面修改的话就比较麻烦 </p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">env</span><span class="token punctuation">:</span>  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> LOG_DIR    <span class="token key atrule">value</span><span class="token punctuation">:</span> /var/log/nginx</code></pre><p>我们可以使用<code>configmap</code>的方法先声明配置 然后通过env传入<code>pod</code>中</p><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1<span class="token key atrule">metadata</span><span class="token punctuation">:</span>  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token key atrule">data</span><span class="token punctuation">:</span>  <span class="token key atrule">mysql.db.name</span><span class="token punctuation">:</span> test  <span class="token key atrule">mysql.host</span><span class="token punctuation">:</span> 192.168.0.10  <span class="token key atrule">mysql.password</span><span class="token punctuation">:</span> test  <span class="token key atrule">mysql.port</span><span class="token punctuation">:</span> <span class="token string">'3306'</span>  <span class="token key atrule">mysql.user</span><span class="token punctuation">:</span> test</code></pre><p>然后我们在<code>yaml</code>文件中指定</p><pre class=" language-yaml"><code class="language-yaml">            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_DB_NAME              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.db.name            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_HOST              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.host            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_PORT              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.port            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_USER              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.user            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_PASSWORD              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.password</code></pre><p>这样后面就算修改我们只需要修改<code>configmap</code>就可以 服务会自己读配置文件中的内容</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> K8s </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Istio 简介</title>
       <link href="/82740f3b/"/>
       <url>/82740f3b/</url>

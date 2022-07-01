@@ -4,12 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Mysql根据binlog恢复数据, huhuhahei">
-    <meta name="description" content="一、准备数据#创建db
-mysql&gt; create database db1;
-Query OK, 1 row affected (0.00 sec)
-mysql&gt; create database db2;
-Query OK, 1 row ">
+    <meta name="keywords" content="K8s 通过Comfigmap导入ENV, huhuhahei">
+    <meta name="description" content="一般情况下服务env是直接通过yaml文件导入的类似 当时当我们多个服务同时需要这个配置的时候 如果单一配置 后面修改的话就比较麻烦 
+env:
+  - name: LOG_DIR
+    value: /var/log/nginx
+
+我们">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +24,7 @@ Query OK, 1 row ">
 
     
 
-    <title>Mysql根据binlog恢复数据 | huhuhahei</title>
+    <title>K8s 通过Comfigmap导入ENV | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -296,12 +297,12 @@ Query OK, 1 row ">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/49.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/46.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mysql根据binlog恢复数据</h1>
+                    <h1 class="description center-align post-title">K8s 通过Comfigmap导入ENV</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +418,8 @@ Query OK, 1 row ">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="/tags/Mysql/">
-                                <span class="chip bg-color">Mysql</span>
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
                             </a>
                         
                     </div>
@@ -433,8 +430,8 @@ Query OK, 1 row ">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Mysql/" class="post-category">
-                                Mysql
+                            <a href="/categories/K8s/" class="post-category">
+                                K8s
                             </a>
                         
                     </div>
@@ -446,7 +443,7 @@ Query OK, 1 row ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-05
+                    2022-07-01
                 </div>
                 
 
@@ -455,14 +452,14 @@ Query OK, 1 row ">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    634
+                    204
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    1 分
                 </div>
                 
 
@@ -482,144 +479,51 @@ Query OK, 1 row ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、准备数据"><a href="#一、准备数据" class="headerlink" title="一、准备数据"></a>一、准备数据</h1><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#创建db</span>
-mysql<span class="token operator">></span> <span class="token keyword">create</span> <span class="token keyword">database</span> <span class="token number">db1</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token keyword">row</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-mysql<span class="token operator">></span> <span class="token keyword">create</span> <span class="token keyword">database</span> <span class="token number">db2</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token keyword">row</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec
-
-<span class="token comment" spellcheck="true">#db1创建表并插入测试数据</span>
-mysql<span class="token operator">></span> <span class="token keyword">use</span> <span class="token number">db1</span><span class="token punctuation">;</span>
-<span class="token keyword">Database</span> changed
-
-mysql<span class="token operator">></span> <span class="token keyword">create</span> <span class="token keyword">table</span> ti<span class="token punctuation">(</span>id <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">insert</span> <span class="token keyword">into</span> ti <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-Records: <span class="token number">5</span>  Duplicates: <span class="token number">0</span>  <span class="token keyword">Warnings</span>: <span class="token number">0</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> ti<span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span> id   <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span>    <span class="token number">1</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">2</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">3</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">4</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">5</span> <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token number">5</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true">#db2创建表并插入数据</span>
-mysql<span class="token operator">></span> <span class="token keyword">use</span> <span class="token number">db2</span><span class="token punctuation">;</span>
-<span class="token keyword">Database</span> changed
-mysql<span class="token operator">></span> <span class="token keyword">create</span> <span class="token keyword">table</span> t2<span class="token punctuation">(</span>id <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">insert</span> <span class="token keyword">into</span> t2 <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-Records: <span class="token number">3</span>  Duplicates: <span class="token number">0</span>  <span class="token keyword">Warnings</span>: <span class="token number">0</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> t2<span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span> id   <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span>    <span class="token number">1</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">2</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">3</span> <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token number">3</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
+                <p>一般情况下服务env是直接通过yaml文件导入的类似 当时当我们多个服务同时需要这个配置的时候 如果单一配置 后面修改的话就比较麻烦 </p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">env</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> LOG_DIR
+    <span class="token key atrule">value</span><span class="token punctuation">:</span> /var/log/nginx
 </code></pre>
-<hr>
-<h1 id="二、模拟删除数据"><a href="#二、模拟删除数据" class="headerlink" title="二、模拟删除数据"></a>二、模拟删除数据</h1><pre class=" language-sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">drop</span> <span class="token keyword">table</span> ti<span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">show</span> <span class="token keyword">tables</span><span class="token punctuation">;</span>
-Empty <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
+<p>我们可以使用<code>configmap</code>的方法先声明配置 然后通过env传入<code>pod</code>中</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql.db.name</span><span class="token punctuation">:</span> test
+  <span class="token key atrule">mysql.host</span><span class="token punctuation">:</span> 192.168.0.10
+  <span class="token key atrule">mysql.password</span><span class="token punctuation">:</span> test
+  <span class="token key atrule">mysql.port</span><span class="token punctuation">:</span> <span class="token string">'3306'</span>
+  <span class="token key atrule">mysql.user</span><span class="token punctuation">:</span> test
 </code></pre>
-<hr>
-<h1 id="三、使用binlog恢复"><a href="#三、使用binlog恢复" class="headerlink" title="三、使用binlog恢复"></a>三、使用binlog恢复</h1><p>使用mysqlbinlog工具查看日志的起始点</p>
-<pre class=" language-sql"><code class="language-sql">mysqlbinlog <span class="token comment" spellcheck="true">--base64-output=decode-rows -vvv /application/mysql/data/mysql-bin.000008</span>
-<span class="token comment" spellcheck="true">#起点</span>
-<span class="token comment" spellcheck="true"># at 2787</span>
-<span class="token comment" spellcheck="true">#211108 13:26:12 server id 1  end_log_pos 2878 CRC32 0x0357015f 	Query	thread_id=exec_time=0	error_code=0</span>
-<span class="token keyword">SET</span> <span class="token keyword">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1636349172</span><span class="token comment" spellcheck="true">/*!*/</span><span class="token punctuation">;</span>
-<span class="token keyword">create</span> <span class="token keyword">database</span> <span class="token number">db1</span>
-<span class="token comment" spellcheck="true">#结束</span>
-<span class="token comment" spellcheck="true"># at 3722</span>
-<span class="token comment" spellcheck="true">#211108 13:29:20 server id 1  end_log_pos 3753 CRC32 0x958a7d9c 	Xid = 230</span>
-<span class="token keyword">COMMIT</span><span class="token comment" spellcheck="true">/*!*/</span><span class="token punctuation">;</span>
+<p>然后我们在<code>yaml</code>文件中指定</p>
+<pre class=" language-yaml"><code class="language-yaml">            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_DB_NAME
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.db.name
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_HOST
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.host
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_PORT
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.port
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_USER
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.user
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_SERVICE_PASSWORD
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> mysql.password
 </code></pre>
-<p>截取这一段日志，但是我们会发现这一段日志不只有db1的操作还有db2的操作 我们需要截取db1库的 所以需要添加参数-d</p>
-<pre class=" language-sql"><code class="language-sql">mysqlbinlog <span class="token operator">-</span><span class="token number">d</span> <span class="token number">db1</span> <span class="token comment" spellcheck="true">--start-position=2787 --stop-position=3722 /application/mysql/data/mysql-bin.000008 >/tmp/back2.sql</span>
-</code></pre>
-<p>登陆db导入数据</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#先关闭binlog记录</span>
-mysql<span class="token operator">></span> <span class="token keyword">set</span> sql_log_bin<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true">#导入截取的binlog</span>
-mysql<span class="token operator">></span> source <span class="token operator">/</span>tmp<span class="token operator">/</span>back2<span class="token punctuation">.</span>sql<span class="token punctuation">;</span>
-Query OK<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">rows</span> affected <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true">#查看数据已经恢复</span>
-mysql<span class="token operator">></span> <span class="token keyword">use</span> <span class="token number">db1</span><span class="token punctuation">;</span>
-<span class="token keyword">Database</span> changed
-mysql<span class="token operator">></span> <span class="token keyword">show</span> <span class="token keyword">tables</span><span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">---------------+</span>
-<span class="token operator">|</span> Tables_in_db1 <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">---------------+</span>
-<span class="token operator">|</span> ti            <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">---------------+</span>
-<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-
-mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> ti<span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span> id   <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token operator">|</span>    <span class="token number">1</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">2</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">3</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">4</span> <span class="token operator">|</span>
-<span class="token operator">|</span>    <span class="token number">5</span> <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment" spellcheck="true">------+</span>
-<span class="token number">5</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
-</code></pre>
-<p>当然这个方法其实局限性比较大只能恢复近期的数据 如果是很早之前创建的库的话 代价就比较大了</p>
-<ul>
-<li>1）可以用备份恢复+短时间内二进制日志，恢复到故障之前</li>
-<li>2）非官方方法，binlog2sql，binlog取反，类似于Oracle的flushback</li>
-<li>3）延时从库</li>
-</ul>
-<hr>
-<h1 id="四、binlog日志的日常操作"><a href="#四、binlog日志的日常操作" class="headerlink" title="四、binlog日志的日常操作"></a>四、binlog日志的日常操作</h1><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#物理查看</span>
-<span class="token punctuation">[</span>root<span class="token variable">@db01</span> <span class="token keyword">data</span><span class="token punctuation">]</span><span class="token comment" spellcheck="true"># ll /application/mysql/data/</span>
-<span class="token operator">-</span>rw<span class="token operator">-</span>rw<span class="token comment" spellcheck="true">---- 1 mysql mysql      285 Mar  6  2017 mysql-bin.000001</span>
-<span class="token comment" spellcheck="true">#命令行查看</span>
-mysql<span class="token operator">></span> <span class="token keyword">show</span> <span class="token keyword">binary</span> logs<span class="token punctuation">;</span>
-mysql<span class="token operator">></span> <span class="token keyword">show</span> master <span class="token keyword">status</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">#查看binlog事件</span>
-mysql<span class="token operator">></span> <span class="token keyword">show</span> binlog events <span class="token operator">in</span> <span class="token string">'mysql-bin.000007'</span><span class="token punctuation">;</span>
-</code></pre>
-<p>设置binlog保留时间</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#临时生效</span>
-<span class="token keyword">SET</span> <span class="token keyword">GLOBAL</span> expire_logs_days <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">#永久生效</span>
-<span class="token punctuation">[</span>root<span class="token variable">@db01</span> <span class="token keyword">data</span><span class="token punctuation">]</span><span class="token comment" spellcheck="true"># vim /etc/my.cnf</span>
-<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
-expire_logs_days <span class="token operator">=</span> <span class="token number">7</span>
-</code></pre>
-<p>清除binlog</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#根据时间删除</span>
-<span class="token keyword">PURGE</span> <span class="token keyword">BINARY</span> LOGS BEFORE <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> INTERVAL <span class="token number">3</span> day<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">#根据文件名删除</span>
-<span class="token keyword">PURGE</span> <span class="token keyword">BINARY</span> LOGS <span class="token keyword">TO</span> <span class="token string">'mysql-bin.000010'</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">#重置binlog</span>
-mysql<span class="token operator">></span> reset master<span class="token punctuation">;</span>
-</code></pre>
+<p>这样后面就算修改我们只需要修改<code>configmap</code>就可以 服务会自己读配置文件中的内容</p>
 
                 
             </div>
@@ -646,7 +550,7 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/a6515af6/">https://huhuhahei987.github.io/a6515af6/</a>
+                    <a href="https://huhuhahei987.github.io/9a96ca61/">https://huhuhahei987.github.io/9a96ca61/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -684,12 +588,8 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="/tags/Mysql/">
-                                    <span class="chip bg-color">Mysql</span>
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
                                 </a>
                             
                         </div>
@@ -1137,17 +1037,18 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/fa85a72c/">
+                <a href="/9a96ca61/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Mysql CSR自动恢复">
+                        <img src="/medias/featureimages/46.jpg" class="responsive-img" alt="K8s 通过Comfigmap导入ENV">
                         
-                        <span class="card-title">Mysql CSR自动恢复</span>
+                        <span class="card-title">K8s 通过Comfigmap导入ENV</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1157,30 +1058,27 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/Mysql/">
-                        <span class="chip bg-color">Mysql</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
@@ -1194,13 +1092,13 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/414a2e2c/">
+                <a href="/82740f3b/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/33.jpg" class="responsive-img" alt="Mysql开启慢日志">
+                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Istio 简介">
                         
-                        <span class="card-title">Mysql开启慢日志</span>
+                        <span class="card-title">Istio 简介</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1211,14 +1109,14 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
@@ -1228,12 +1126,12 @@ mysql<span class="token operator">></span> reset master<span class="token punctu
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
-                    <a href="/tags/Mysql/">
-                        <span class="chip bg-color">Mysql</span>
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
                     </a>
                     
                 </div>
