@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IstioVirtualService应用, huhuhahei">
-    <meta name="description" content="一.VS详解1.配置路由重写默认将所有 HTTP 流量路由到标签为“版本：v1”的评论服务的 pod。此外，路径以 &amp;#x2F;wpcatalog&amp;#x2F; 或 &amp;#x2F;consumercatalog&amp;#x2F; 开头的 HTTP 请">
+    <meta name="keywords" content="Istio-流量控制, huhuhahei">
+    <meta name="description" content="一.配置指定路由1.服务添加labels配置依赖于服务lables含有version才可以根据不通的版本来分割流量
+例如
+  selector:
+    matchLabels:
+      app: nginx-php
+      ver">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +24,7 @@
 
     
 
-    <title>IstioVirtualService应用 | huhuhahei</title>
+    <title>Istio-流量控制 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -292,12 +297,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/26.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IstioVirtualService应用</h1>
+                    <h1 class="description center-align post-title">Istio-流量控制</h1>
                 </div>
             </div>
         </div>
@@ -442,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-24
+                    2022-07-01
                 </div>
                 
 
@@ -451,7 +456,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    1.7k
                 </div>
                 
 
@@ -478,364 +483,295 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-VS详解"><a href="#一-VS详解" class="headerlink" title="一.VS详解"></a>一.VS详解</h1><h3 id="1-配置路由重写"><a href="#1-配置路由重写" class="headerlink" title="1.配置路由重写"></a>1.配置路由重写</h3><p>默认将所有 HTTP 流量路由到标签为“版本：v1”的评论服务的 pod。此外，路径以 &#x2F;wpcatalog&#x2F; 或 &#x2F;consumercatalog&#x2F; 开头的 HTTP 请求将被重写为 &#x2F;newcatalog 并发送到标签为“version: v2”的 pod</p>
+                <h1 id="一-配置指定路由"><a href="#一-配置指定路由" class="headerlink" title="一.配置指定路由"></a>一.配置指定路由</h1><h3 id="1-服务添加labels"><a href="#1-服务添加labels" class="headerlink" title="1.服务添加labels"></a>1.服务添加labels</h3><p>配置依赖于服务lables含有version才可以根据不通的版本来分割流量</p>
+<p>例如</p>
+<pre class=" language-yaml"><code class="language-yaml">  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+      <span class="token key atrule">version</span><span class="token punctuation">:</span> v1   <span class="token comment" spellcheck="true">#匹配也太添加version</span>
+  <span class="token key atrule">strategy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">rollingUpdate</span><span class="token punctuation">:</span>
+      <span class="token key atrule">maxSurge</span><span class="token punctuation">:</span> 25%
+      <span class="token key atrule">maxUnavailable</span><span class="token punctuation">:</span> 25%
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> RollingUpdate
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+        <span class="token key atrule">prometheus.io/path</span><span class="token punctuation">:</span> /stats/prometheus
+        <span class="token key atrule">prometheus.io/port</span><span class="token punctuation">:</span> <span class="token string">"15020"</span>
+        <span class="token key atrule">prometheus.io/scrape</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+        <span class="token key atrule">sidecar.istio.io/status</span><span class="token punctuation">:</span> '<span class="token punctuation">{</span>"initContainers"<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">"istio-init"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>"containers"<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">"istio-proxy"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>"volumes"<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">"istio-envoy"</span><span class="token punctuation">,</span><span class="token string">"istio-data"</span><span class="token punctuation">,</span><span class="token string">"istio-podinfo"</span><span class="token punctuation">,</span><span class="token string">"istiod-ca-cert"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>"imagePullSecrets"<span class="token punctuation">:</span><span class="token null important">null</span><span class="token punctuation">,</span>"revision"<span class="token punctuation">:</span><span class="token string">"default"</span><span class="token punctuation">}</span>'
+      <span class="token key atrule">creationTimestamp</span><span class="token punctuation">:</span> <span class="token null important">null</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+        <span class="token key atrule">security.istio.io/tlsMode</span><span class="token punctuation">:</span> istio
+        <span class="token key atrule">service.istio.io/canonical-name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+        <span class="token key atrule">service.istio.io/canonical-revision</span><span class="token punctuation">:</span> v1
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v1  <span class="token comment" spellcheck="true"># 指定version</span>
+</code></pre>
+<p>查看pod是否有这个labels</p>
+<pre class=" language-bash"><code class="language-bash">kubectl get po --show-labels
+nginx-v1-74fb95984c-n4q7n         3/3     Running   0          147m    app<span class="token operator">=</span>nginx-php,pod-template-hash<span class="token operator">=</span>74fb95984c,security.istio.io/tlsMode<span class="token operator">=</span>istio,service.istio.io/canonical-name<span class="token operator">=</span>nginx-php,service.istio.io/canonical-revision<span class="token operator">=</span>v1,version<span class="token operator">=</span>v1
+nginx-v2-b6c55c89-dzq4z           3/3     Running   0          150m    app<span class="token operator">=</span>nginx-php,pod-template-hash<span class="token operator">=</span>b6c55c89,security.istio.io/tlsMode<span class="token operator">=</span>istio,service.istio.io/canonical-name<span class="token operator">=</span>nginx-php,service.istio.io/canonical-revision<span class="token operator">=</span>v2,version<span class="token operator">=</span>v2
+</code></pre>
+<h3 id="2-配置Destination-Rule"><a href="#2-配置Destination-Rule" class="headerlink" title="2.配置Destination Rule"></a>2.配置Destination Rule</h3><p>设置Destination Rule的不同版本,将流量转发给不同版本的服务</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">provider</span><span class="token punctuation">:</span> asm
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+  <span class="token key atrule">subsets</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v2
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v2
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v1
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+</code></pre>
+<h3 id="3-配置VirtualService"><a href="#3-配置VirtualService" class="headerlink" title="3.配置VirtualService"></a>3.配置VirtualService</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>vs
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> www.huhuhahei.cn
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">route</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+</code></pre>
+<p>kiali查看可以发现流量是转发到不同版本的后端的</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135233931.png" alt="image-20220524135233931"></p>
+<h1 id="二-模拟注入故障"><a href="#二-模拟注入故障" class="headerlink" title="二.模拟注入故障"></a>二.模拟注入故障</h1><h3 id="1-注入-HTTP-延迟故障"><a href="#1-注入-HTTP-延迟故障" class="headerlink" title="1.注入 HTTP 延迟故障"></a>1.注入 HTTP 延迟故障</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>vs
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> www.huhuhahei.cn
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">route</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+      <span class="token key atrule">fault</span><span class="token punctuation">:</span>
+        <span class="token key atrule">delay</span><span class="token punctuation">:</span>
+          <span class="token key atrule">fixedDelay</span><span class="token punctuation">:</span> 7s   <span class="token comment" spellcheck="true">#注入延迟7s</span>
+          <span class="token key atrule">percentage</span><span class="token punctuation">:</span>
+            <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token number">100       </span><span class="token comment" spellcheck="true">#注入的百分比</span>
+</code></pre>
+<p>kiali可以查看到访问的平均延迟升高到9.75s</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135615542.png" alt="image-20220524135615542"></p>
+<h3 id="2-注入http-abort-故障"><a href="#2-注入http-abort-故障" class="headerlink" title="2.注入http abort 故障"></a>2.注入http abort 故障</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>vs
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> www.huhuhahei.cn
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">route</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
+      <span class="token key atrule">fault</span><span class="token punctuation">:</span>
+        <span class="token key atrule">abort</span><span class="token punctuation">:</span>
+          <span class="token key atrule">httpStatus</span><span class="token punctuation">:</span> <span class="token number">500   </span><span class="token comment" spellcheck="true">#注入500状态码</span>
+          <span class="token key atrule">percentage</span><span class="token punctuation">:</span>
+            <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token number">100       </span><span class="token comment" spellcheck="true">#注入的百分比</span>
+</code></pre>
+<p>kiali查看可以发现访问全是5xx</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524140439472.png" alt="image-20220524140439472"></p>
+<h1 id="三-基于用户认证"><a href="#三-基于用户认证" class="headerlink" title="三.基于用户认证"></a>三.基于用户认证</h1><pre class=" language-bash"><code class="language-bash">kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+</code></pre>
+<p>yaml文件如下</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> reviews<span class="token punctuation">-</span>route
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> reviews
+  <span class="token punctuation">...</span>
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> reviews.prod.svc.cluster.local
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"reviews-v2-routes"</span>
-    <span class="token key atrule">match</span><span class="token punctuation">:</span>                       <span class="token comment" spellcheck="true">#匹配下面两个路径</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
-        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/wpcatalog"</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
-        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/consumercatalog"</span>
-    <span class="token key atrule">rewrite</span><span class="token punctuation">:</span>
-      <span class="token key atrule">uri</span><span class="token punctuation">:</span> <span class="token string">"/newcatalog"</span>        <span class="token comment" spellcheck="true">#转发到v2版本的pod的这个路径</span>
-    <span class="token key atrule">route</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews.prod.svc.cluster.local
-        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
-  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"reviews-v1-route"</span>      <span class="token comment" spellcheck="true">#默认情况下请求转发到此路径</span>
-    <span class="token key atrule">route</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews.prod.svc.cluster.local
-        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
-</code></pre>
-<h3 id="2-服务配置跨域"><a href="#2-服务配置跨域" class="headerlink" title="2.服务配置跨域"></a>2.服务配置跨域</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
-        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
-    <span class="token key atrule">corsPolicy</span><span class="token punctuation">:</span>
-      <span class="token key atrule">allowOrigins</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">exact</span><span class="token punctuation">:</span> example.com           <span class="token comment" spellcheck="true">#允许跨域的域名</span>
-      <span class="token key atrule">allowMethods</span><span class="token punctuation">:</span>                  <span class="token comment" spellcheck="true">#允许跨域的请求</span>
-      <span class="token punctuation">-</span> POST
-      <span class="token punctuation">-</span> GET
-      <span class="token key atrule">allowCredentials</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-      <span class="token key atrule">allowHeaders</span><span class="token punctuation">:</span>                  <span class="token comment" spellcheck="true">#允许的Headers</span>
-      <span class="token punctuation">-</span> X<span class="token punctuation">-</span>Foo<span class="token punctuation">-</span>Bar
-      <span class="token key atrule">maxAge</span><span class="token punctuation">:</span> <span class="token string">"24h"</span>                  <span class="token comment" spellcheck="true">#有效期</span>
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>配置</th>
-<th>类型</th>
-<th align="center">描述</th>
-<th align="center">必需的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>allowOrigin</code></td>
-<td><code>string[]</code></td>
-<td align="center">允许执行 CORS 请求的源列表。内容将被序列化到 Access-Control-Allow-Origin 标头中。通配符 * 将允许所有来源。</td>
-<td align="center">不</td>
-</tr>
-<tr>
-<td><code>allowMethods</code></td>
-<td><code>string[]</code></td>
-<td align="center">允许访问资源的 HTTP 方法列表。内容将被序列化到 Access-Control-Allow-Methods 标头中。</td>
-<td align="center">不</td>
-</tr>
-<tr>
-<td><code>allowHeaders</code></td>
-<td><code>string[]</code></td>
-<td align="center">请求资源时可以使用的 HTTP 标头列表。序列化为 Access-Control-Allow-Headers 标头。</td>
-<td align="center">不</td>
-</tr>
-<tr>
-<td><code>exposeHeaders</code></td>
-<td><code>string[]</code></td>
-<td align="center">允许浏览器访问的 HTTP 标头白名单。序列化为 Access-Control-Expose-Headers 标头。</td>
-<td align="center">不</td>
-</tr>
-<tr>
-<td><code>maxAge</code></td>
-<td><code>Duration</code></td>
-<td align="center">指定预检请求的结果可以缓存多长时间。翻译为<code>Access-Control-Max-Age</code>标题。</td>
-<td align="center">不</td>
-</tr>
-<tr>
-<td><code>allowCredentials</code></td>
-<td><code>BoolValue</code></td>
-<td align="center">指示是否允许调用者使用凭据发送实际请求（而不是预检）。翻译为 <code>Access-Control-Allow-Credentials</code>标题。</td>
-<td align="center">不</td>
-</tr>
-</tbody></table>
-<h3 id="3-配置路径转发"><a href="#3-配置路径转发" class="headerlink" title="3.配置路径转发"></a>3.配置路径转发</h3><p>HttpMatchRequest 指定要满足的一组标准，以便将规则应用于 HTTP 请求。例如，以下内容将规则限制为仅匹配 URL 路径以 &#x2F;ratings&#x2F;v2&#x2F; 开头的请求，并且请求包含<code>end-user</code>带有 value 的自定义标头<code>jason</code></p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
+  <span class="token punctuation">-</span> reviews
   <span class="token key atrule">http</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>             <span class="token comment" spellcheck="true">#匹配headers</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>
         <span class="token key atrule">end-user</span><span class="token punctuation">:</span>
           <span class="token key atrule">exact</span><span class="token punctuation">:</span> jason
-      <span class="token key atrule">uri</span><span class="token punctuation">:</span>
-        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/ratings/v2/"</span>     <span class="token comment" spellcheck="true">#匹配路径</span>
-      <span class="token key atrule">ignoreUriCase</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
     <span class="token key atrule">route</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>场地</th>
-<th>类型</th>
-<th>描述</th>
-<th>必需的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>name</code></td>
-<td><code>string</code></td>
-<td>分配给匹配项的名称。匹配的名称将与父路由的名称连接，并将记录在与该路由匹配的请求的访问日志中。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>uri</code></td>
-<td><code>StringMatch</code></td>
-<td>匹配值的 URI 区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配<strong>注意：</strong><code>ignore_uri_case</code>可以通过标志启用不区分大小写的匹配 。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>scheme</code></td>
-<td><code>StringMatch</code></td>
-<td>URI Scheme 值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>method</code></td>
-<td><code>StringMatch</code></td>
-<td>HTTP 方法值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>authority</code></td>
-<td><code>StringMatch</code></td>
-<td>HTTP 授权值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>headers</code></td>
-<td><code>map&lt;string, StringMatch&gt;</code></td>
-<td>标题键必须为小写并使用连字符作为分隔符，例如<em>x-request-id</em>。标头值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配<strong>注意：</strong><code>uri</code>、<code>scheme</code>、<code>method</code>和键<code>authority</code>将被忽略。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>port</code></td>
-<td><code>uint32</code></td>
-<td>指定正在寻址的主机上的端口。许多服务只公开单个端口或使用它们支持的协议标记端口，在这些情况下，不需要显式选择端口。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>sourceLabels</code></td>
-<td><code>map&lt;string, string&gt;</code></td>
-<td>一个或多个标签，用于限制规则对具有给定标签的工作负载的适用性。如果 VirtualService 在顶部指定了网关列表，则它必须包含保留的网关 <code>mesh</code>以使该字段适用。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>queryParams</code></td>
-<td><code>map&lt;string, StringMatch&gt;</code></td>
-<td>查询参数进行匹配。例如： - 对于像“?key&#x3D;true”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>exact: &quot;true&quot;</code>。- 对于像“?key”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>exact: &quot;&quot;</code>。- 对于像“?key&#x3D;123”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>regex: &quot;\d+$&quot;</code>。请注意，此配置仅匹配“123”之类的值，而不匹配“a123”或“123a”。<strong>注意：</strong> <code>prefix</code>目前不支持匹配。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>ignoreUriCase</code></td>
-<td><code>bool</code></td>
-<td>用于指定 URI 匹配是否不区分大小写的标志。<strong>注意：</strong><code>exact</code>只有在和<code>prefix</code> URI 匹配的情况下才会忽略大小写。</td>
-<td>不</td>
-</tr>
-</tbody></table>
-<h3 id="4-配置301重定向"><a href="#4-配置301重定向" class="headerlink" title="4.配置301重定向"></a>4.配置301重定向</h3><p>HTTPRedirect 可用于向调用者发送 301 重定向响应，其中 Authority&#x2F;Host 和响应中的 URI 可以与指定的值交换。例如，以下规则将评级服务上的 &#x2F;v1&#x2F;getProductRatings API 请求重定向到 bookratings 服务提供的 &#x2F;v1&#x2F;bookRatings</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
-        <span class="token key atrule">exact</span><span class="token punctuation">:</span> /v1/getProductRatings
-    <span class="token key atrule">redirect</span><span class="token punctuation">:</span>
-      <span class="token key atrule">uri</span><span class="token punctuation">:</span> /v1/bookRatings
-      <span class="token key atrule">authority</span><span class="token punctuation">:</span> newratings.default.svc.cluster.local
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>场地</th>
-<th>类型</th>
-<th>描述</th>
-<th>必需的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>uri</code></td>
-<td><code>string</code></td>
-<td>在重定向时，使用此值覆盖 URL 的路径部分。请注意，无论请求 URI 是否匹配为确切路径或前缀，都将替换整个路径。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>authority</code></td>
-<td><code>string</code></td>
-<td>在重定向时，使用此值覆盖 URL 的授权&#x2F;主机部分。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>redirectCode</code></td>
-<td><code>uint32</code></td>
-<td>在重定向时，指定要在重定向响应中使用的 HTTP 状态代码。默认响应代码为 MOVED_PERMANENTLY (301)。</td>
-<td>不</td>
-</tr>
-</tbody></table>
-<h3 id="5-配置HTTP重试"><a href="#5-配置HTTP重试" class="headerlink" title="5.配置HTTP重试"></a>5.配置HTTP重试</h3><p>描述 HTTP 请求失败时要使用的重试策略。例如，以下规则将调用 rating:v1 服务时的最大重试次数设置为 3，每次重试尝试超时 2 秒。</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
   <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews
         <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
-    <span class="token key atrule">retries</span><span class="token punctuation">:</span>
-      <span class="token key atrule">attempts</span><span class="token punctuation">:</span> <span class="token number">3</span>
-      <span class="token key atrule">perTryTimeout</span><span class="token punctuation">:</span> 2s
-      <span class="token key atrule">retryOn</span><span class="token punctuation">:</span> gateway<span class="token punctuation">-</span>error<span class="token punctuation">,</span>connect<span class="token punctuation">-</span>failure<span class="token punctuation">,</span>refused<span class="token punctuation">-</span>stream
 </code></pre>
-<table>
-<thead>
-<tr>
-<th>场地</th>
-<th>类型</th>
-<th>描述</th>
-<th>必需的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>attempts</code></td>
-<td><code>int32</code></td>
-<td>给定请求的重试次数。重试间隔将自动确定（25ms+）。实际重试次数取决于 httpReqTimeout。</td>
-<td>是的</td>
-</tr>
-<tr>
-<td><code>perTryTimeout</code></td>
-<td><code>Duration</code></td>
-<td>给定请求的每次重试超时。格式：1h&#x2F;1m&#x2F;1s&#x2F;1ms。必须 &gt;&#x3D;1 毫秒。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>retryOn</code></td>
-<td><code>string</code></td>
-<td>指定重试发生的条件。可以使用“,”分隔列表指定一个或多个策略。有关更多详细信息，请参阅<a target="_blank" rel="noopener" href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/router_filter#x-envoy-retry-on">重试策略</a> 和<a target="_blank" rel="noopener" href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/router_filter#x-envoy-retry-grpc-on">gRPC 重试策略</a>。</td>
-<td></td>
-</tr>
-</tbody></table>
-<h3 id="6-HTTP路由"><a href="#6-HTTP路由" class="headerlink" title="6.HTTP路由"></a>6.HTTP路由</h3><table>
-<thead>
-<tr>
-<th>场地</th>
-<th>类型</th>
-<th>描述</th>
-<th>必需的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>name</code></td>
-<td><code>string</code></td>
-<td>为调试目的分配给路由的名称。路由的名称将与匹配的名称连接，并将记录在访问日志中以匹配此路由&#x2F;匹配的请求。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>match</code></td>
-<td><code>HTTPMatchRequest[]</code></td>
-<td>激活规则需要满足的匹配条件。单个匹配块内的所有条件都具有 AND 语义，而匹配块列表具有 OR 语义。如果任何一个匹配块成功，则匹配该规则。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>route</code></td>
-<td><code>HTTPRouteDestination[]</code></td>
-<td>http 规则可以重定向或转发（默认）流量。转发目标可以是服务的多个版本之一（参见文档开头的词汇表）。与服务版本相关的权重决定了它接收的流量比例。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>redirect</code></td>
-<td><code>HTTPRedirect</code></td>
-<td>http 规则可以重定向或转发（默认）流量。如果在规则中指定了流量直通选项，则路由&#x2F;重定向将被忽略。重定向原语可用于将 HTTP 301 重定向发送到不同的 URI 或授权。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>rewrite</code></td>
-<td><code>HTTPRewrite</code></td>
-<td>重写 HTTP URI 和授权标头。Rewrite 不能与 Redirect 原语一起使用。转发前会进行重写。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>timeout</code></td>
-<td><code>Duration</code></td>
-<td>HTTP 请求超时。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>retries</code></td>
-<td><code>HTTPRetry</code></td>
-<td>HTTP 请求的重试策略。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>fault</code></td>
-<td><code>HTTPFaultInjection</code></td>
-<td>故障注入策略应用于客户端的 HTTP 流量。请注意，在客户端启用故障时，将不会启用超时或重试。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>mirror</code></td>
-<td><code>Destination</code></td>
-<td>除了将请求转发到预期目标之外，还将 HTTP 流量镜像到另一个目标。镜像流量是在尽力而为的基础上，边车&#x2F;网关在从原始目的地返回响应之前不会等待镜像集群响应。将为镜像目的地生成统计信息。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>mirrorPercent</code></td>
-<td><code>UInt32Value</code></td>
-<td>由<code>mirror</code>字段镜像的流量百分比。如果没有这个字段，所有的流量（100%）都会被镜像。最大值为 100。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>corsPolicy</code></td>
-<td><code>CorsPolicy</code></td>
-<td>跨域资源共享策略 (CORS)。有关跨源资源共享的更多详细信息，请参阅 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> 。</td>
-<td>不</td>
-</tr>
-<tr>
-<td><code>headers</code></td>
-<td><code>Headers</code></td>
-<td>标头操作规则</td>
-<td>不</td>
-</tr>
-</tbody></table>
+<p>再次访问booinfo发现只能访问到reviews v1服务</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143700189.png" alt="image-20220515143700189"></p>
+<p>登陆json用户 再次访问 发现只能访问到reviews v2服务</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143910759.png" alt="image-20220515143910759">清理</p>
+<pre class=" language-bash"><code class="language-bash">kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+</code></pre>
+<h1 id="四-熔断器配置"><a href="#四-熔断器配置" class="headerlink" title="四.熔断器配置"></a>四.熔断器配置</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php
+  <span class="token key atrule">trafficPolicy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">connectionPool</span><span class="token punctuation">:</span>
+      <span class="token key atrule">tcp</span><span class="token punctuation">:</span>
+        <span class="token key atrule">maxConnections</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">http</span><span class="token punctuation">:</span>
+        <span class="token key atrule">http1MaxPendingRequests</span><span class="token punctuation">:</span> <span class="token number">1</span>
+        <span class="token key atrule">maxRequestsPerConnection</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token key atrule">outlierDetection</span><span class="token punctuation">:</span>
+      <span class="token key atrule">consecutive5xxErrors</span><span class="token punctuation">:</span> <span class="token number">1</span>
+      <span class="token key atrule">interval</span><span class="token punctuation">:</span> 1s
+      <span class="token key atrule">baseEjectionTime</span><span class="token punctuation">:</span> 180s
+      <span class="token key atrule">maxEjectionPercent</span><span class="token punctuation">:</span> <span class="token number">100</span>
+  <span class="token key atrule">subsets</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v2
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v2
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v1
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+</code></pre>
+<p>使用工具请求触发熔断</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> FORTIO_POD<span class="token operator">=</span><span class="token punctuation">$(</span>kubectl get pods -l app<span class="token operator">=</span>fortio -o <span class="token string">'jsonpath={.items[0].metadata.name}'</span><span class="token punctuation">)</span>
+kubectl <span class="token function">exec</span> <span class="token string">"<span class="token variable">$FORTIO_POD</span>"</span> -c fortio -- /usr/bin/fortio load -c 2 -qps 0 -n 20 -loglevel Warning https://www.huhuhahei.cn
+07:38:03 I logger.go:128<span class="token operator">></span> Log level is now 3 Warning <span class="token punctuation">(</span>was 2 Info<span class="token punctuation">)</span>
+Fortio 1.32.0 running at 0 queries per second, 2-<span class="token operator">></span>2 procs, <span class="token keyword">for</span> 20 calls: https://www.huhuhahei.cn
+Starting at max qps with 2 thread<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">[</span>gomax 2<span class="token punctuation">]</span> <span class="token keyword">for</span> exactly 20 calls <span class="token punctuation">(</span>10 per thread + 0<span class="token punctuation">)</span>
+07:38:08 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>1<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:08 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>1<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:08 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>1<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>1<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>1<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+07:38:09 W http_client.go:825<span class="token operator">></span> <span class="token punctuation">[</span>0<span class="token punctuation">]</span> Non ok http code 503 <span class="token punctuation">(</span>HTTP/1.1 503<span class="token punctuation">)</span>
+Ended after 5.132047777s <span class="token keyword">:</span> 20 calls. qps<span class="token operator">=</span>3.8971
+Aggregated Function Time <span class="token keyword">:</span> count 20 avg 0.51177983 +/- 0.727 min 0.000999321 max 2.04054618 <span class="token function">sum</span> 10.2355966
+<span class="token comment" spellcheck="true"># range, mid point, percentile, count</span>
+<span class="token operator">>=</span> 0.000999321 <span class="token operator">&lt;=</span> 0.001 , 0.000999661 , 5.00, 1
+<span class="token operator">></span> 0.003 <span class="token operator">&lt;=</span> 0.004 , 0.0035 , 10.00, 1
+<span class="token operator">></span> 0.004 <span class="token operator">&lt;=</span> 0.005 , 0.0045 , 20.00, 2
+<span class="token operator">></span> 0.005 <span class="token operator">&lt;=</span> 0.006 , 0.0055 , 25.00, 1
+<span class="token operator">></span> 0.007 <span class="token operator">&lt;=</span> 0.008 , 0.0075 , 35.00, 2
+<span class="token operator">></span> 0.008 <span class="token operator">&lt;=</span> 0.009 , 0.0085 , 40.00, 1
+<span class="token operator">></span> 0.014 <span class="token operator">&lt;=</span> 0.016 , 0.015 , 45.00, 1
+<span class="token operator">></span> 0.016 <span class="token operator">&lt;=</span> 0.018 , 0.017 , 50.00, 1
+<span class="token operator">></span> 0.025 <span class="token operator">&lt;=</span> 0.03 , 0.0275 , 55.00, 1
+<span class="token operator">></span> 0.1 <span class="token operator">&lt;=</span> 0.12 , 0.11 , 60.00, 1
+<span class="token operator">></span> 0.14 <span class="token operator">&lt;=</span> 0.16 , 0.15 , 65.00, 1
+<span class="token operator">></span> 0.8 <span class="token operator">&lt;=</span> 0.9 , 0.85 , 70.00, 1
+<span class="token operator">></span> 0.9 <span class="token operator">&lt;=</span> 1 , 0.95 , 75.00, 1
+<span class="token operator">></span> 1 <span class="token operator">&lt;=</span> 2 , 1.5 , 95.00, 4
+<span class="token operator">></span> 2 <span class="token operator">&lt;=</span> 2.04055 , 2.02027 , 100.00, 1
+<span class="token comment" spellcheck="true"># target 50% 0.018</span>
+<span class="token comment" spellcheck="true"># target 75% 1</span>
+<span class="token comment" spellcheck="true"># target 90% 1.75</span>
+<span class="token comment" spellcheck="true"># target 99% 2.03244</span>
+<span class="token comment" spellcheck="true"># target 99.9% 2.03974</span>
+Error cases <span class="token keyword">:</span> count 12 avg 0.020801126 +/- 0.03857 min 0.000999321 max 0.146605165 <span class="token function">sum</span> 0.24961351
+<span class="token comment" spellcheck="true"># range, mid point, percentile, count</span>
+<span class="token operator">>=</span> 0.000999321 <span class="token operator">&lt;=</span> 0.001 , 0.000999661 , 8.33, 1
+<span class="token operator">></span> 0.003 <span class="token operator">&lt;=</span> 0.004 , 0.0035 , 16.67, 1
+<span class="token operator">></span> 0.004 <span class="token operator">&lt;=</span> 0.005 , 0.0045 , 33.33, 2
+<span class="token operator">></span> 0.005 <span class="token operator">&lt;=</span> 0.006 , 0.0055 , 41.67, 1
+<span class="token operator">></span> 0.007 <span class="token operator">&lt;=</span> 0.008 , 0.0075 , 58.33, 2
+<span class="token operator">></span> 0.008 <span class="token operator">&lt;=</span> 0.009 , 0.0085 , 66.67, 1
+<span class="token operator">></span> 0.014 <span class="token operator">&lt;=</span> 0.016 , 0.015 , 75.00, 1
+<span class="token operator">></span> 0.016 <span class="token operator">&lt;=</span> 0.018 , 0.017 , 83.33, 1
+<span class="token operator">></span> 0.025 <span class="token operator">&lt;=</span> 0.03 , 0.0275 , 91.67, 1
+<span class="token operator">></span> 0.14 <span class="token operator">&lt;=</span> 0.146605 , 0.143303 , 100.00, 1
+<span class="token comment" spellcheck="true"># target 50% 0.0075</span>
+<span class="token comment" spellcheck="true"># target 75% 0.016</span>
+<span class="token comment" spellcheck="true"># target 90% 0.029</span>
+<span class="token comment" spellcheck="true"># target 99% 0.145813</span>
+<span class="token comment" spellcheck="true"># target 99.9% 0.146526</span>
+Sockets used: 12 <span class="token punctuation">(</span>for perfect keepalive, would be 2<span class="token punctuation">)</span>
+Uniform: false, Jitter: <span class="token boolean">false</span>
+IP addresses distribution:
+47.253.221.71:443: 2
+Code 200 <span class="token keyword">:</span> 8 <span class="token punctuation">(</span>40.0 %<span class="token punctuation">)</span>
+Code 503 <span class="token keyword">:</span> 12 <span class="token punctuation">(</span>60.0 %<span class="token punctuation">)</span>
+Response Header Sizes <span class="token keyword">:</span> count 20 avg 92.25 +/- 113 min 0 max 231 <span class="token function">sum</span> 1845
+Response Body/Total Sizes <span class="token keyword">:</span> count 20 avg 11177.25 +/- 1.349e+04 min 159 max 27709 <span class="token function">sum</span> 223545
+All <span class="token keyword">done</span> 20 calls <span class="token punctuation">(</span>plus 0 warmup<span class="token punctuation">)</span> 511.780 ms avg, 3.9 qps
+</code></pre>
+<p>可以看到日志输出有40%是正常的200 60%的503</p>
+<pre class=" language-bash"><code class="language-bash">Code 200 <span class="token keyword">:</span> 8 <span class="token punctuation">(</span>40.0 %<span class="token punctuation">)</span>
+Code 503 <span class="token keyword">:</span> 12 <span class="token punctuation">(</span>60.0 %<span class="token punctuation">)</span>
+</code></pre>
+<p>关闭熔断器重新测试,业务正常</p>
+<pre class=" language-yaml"><code class="language-yaml">kubectl exec "$FORTIO_POD" <span class="token punctuation">-</span>c fortio <span class="token punctuation">-</span><span class="token punctuation">-</span> /usr/bin/fortio load <span class="token punctuation">-</span>c 2 <span class="token punctuation">-</span>qps 0 <span class="token punctuation">-</span>n 20 <span class="token punctuation">-</span>loglevel Warning https<span class="token punctuation">:</span>//www.huhuhahei.cn
+07<span class="token punctuation">:</span>43<span class="token punctuation">:</span>52 I logger.go<span class="token punctuation">:</span>128<span class="token punctuation">></span> Log level is now 3 Warning (was 2 Info)
+Fortio 1.32.0 running at 0 queries per second<span class="token punctuation">,</span> 2<span class="token punctuation">-</span><span class="token punctuation">></span>2 procs<span class="token punctuation">,</span> for 20 calls<span class="token punctuation">:</span> https<span class="token punctuation">:</span>//www.huhuhahei.cn
+Starting at max qps with 2 thread(s) <span class="token punctuation">[</span>gomax 2<span class="token punctuation">]</span> for exactly 20 calls (10 per thread + 0)
+Ended after 13.996234101s <span class="token punctuation">:</span> 20 calls. qps=1.429
+Aggregated Function Time <span class="token punctuation">:</span> count 20 avg 1.3542445 +/<span class="token punctuation">-</span> 0.783 min 0.100419758 max 2.847801559 sum 27.0848909
+<span class="token comment" spellcheck="true"># range, mid point, percentile, count</span>
+<span class="token punctuation">></span>= 0.10042 &lt;= 0.12 <span class="token punctuation">,</span> <span class="token number">0.11021 </span><span class="token punctuation">,</span> <span class="token number">5.00</span><span class="token punctuation">,</span> <span class="token number">1</span>
+<span class="token punctuation">></span> 0.12 &lt;= 0.14 <span class="token punctuation">,</span> <span class="token number">0.13 </span><span class="token punctuation">,</span> <span class="token number">15.00</span><span class="token punctuation">,</span> <span class="token number">2</span>
+<span class="token punctuation">></span> 0.9 &lt;= 1 <span class="token punctuation">,</span> <span class="token number">0.95 </span><span class="token punctuation">,</span> <span class="token number">30.00</span><span class="token punctuation">,</span> <span class="token number">3</span>
+<span class="token punctuation">></span> 1 &lt;= 2 <span class="token punctuation">,</span> <span class="token number">1.5 </span><span class="token punctuation">,</span> <span class="token number">75.00</span><span class="token punctuation">,</span> <span class="token number">9</span>
+<span class="token punctuation">></span> 2 &lt;= 2.8478 <span class="token punctuation">,</span> <span class="token number">2.4239 </span><span class="token punctuation">,</span> <span class="token number">100.00</span><span class="token punctuation">,</span> <span class="token number">5</span>
+<span class="token comment" spellcheck="true"># target 50% 1.44444</span>
+<span class="token comment" spellcheck="true"># target 75% 2</span>
+<span class="token comment" spellcheck="true"># target 90% 2.50868</span>
+<span class="token comment" spellcheck="true"># target 99% 2.81389</span>
+<span class="token comment" spellcheck="true"># target 99.9% 2.84441</span>
+Error cases <span class="token punctuation">:</span> no data
+Sockets used<span class="token punctuation">:</span> 2 (for perfect keepalive<span class="token punctuation">,</span> would be 2)
+<span class="token key atrule">Uniform</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span class="token punctuation">,</span> <span class="token key atrule">Jitter</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+IP addresses distribution<span class="token punctuation">:</span>
+<span class="token key atrule">47.253.221.71:443</span><span class="token punctuation">:</span> <span class="token number">2</span>
+Code 200 <span class="token punctuation">:</span> 20 (100.0 %)
+Response Header Sizes <span class="token punctuation">:</span> count 20 avg 230.55 +/<span class="token punctuation">-</span> 0.5895 min 229 max 231 sum 4611
+Response Body/Total Sizes <span class="token punctuation">:</span> count 20 avg 27704.95 +/<span class="token punctuation">-</span> 4.018 min 27700 max 27709 sum 554099
+All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation">,</span> 1.4 qps
+</code></pre>
 
                 
             </div>
@@ -862,7 +798,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/4749e8e8/">https://huhuhahei987.github.io/4749e8e8/</a>
+                    <a href="https://huhuhahei987.github.io/523b798e/">https://huhuhahei987.github.io/523b798e/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1357,13 +1293,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/c31d6895/">
+                <a href="/33557e2f/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="DestnationRule应用">
+                        <img src="/medias/featureimages/54.jpg" class="responsive-img" alt="Istio-ServiceEntry应用">
                         
-                        <span class="card-title">DestnationRule应用</span>
+                        <span class="card-title">Istio-ServiceEntry应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1374,7 +1310,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-24
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                         </span>
                         <span class="publish-author">
                             
@@ -1410,13 +1346,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/43f7287c/">
+                <a href="/411d992e/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/54.jpg" class="responsive-img" alt="IstioGateway应用">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Istio-Gateway应用">
                         
-                        <span class="card-title">IstioGateway应用</span>
+                        <span class="card-title">Istio-Gateway应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1427,7 +1363,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                             </span>
                         <span class="publish-author">
                             
@@ -1643,7 +1579,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">74.2k</span>
+                        class="white-color">73.4k</span>
             
             
             

@@ -4,8 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IstioServiceEntry应用, huhuhahei">
-    <meta name="description" content="一.ServiceEntry详解ServiceEntry允许将其他条目添加到 Istio 的内部服务注册表中，以便网格中自动发现的服务可以访问&amp;#x2F;路由到这些手动指定的服务。服务条目描述了服务的属性（DNS 名称、VIP、端口、协议、">
+    <meta name="keywords" content="Istio-Gateway应用, huhuhahei">
+    <meta name="description" content="一.简介在实际使用中更多的是配置 HTTPS 等安全的外部访问。例如，在这个场景中，将网格内的 HTTPS 服务通过 HTTPS 协议发布。这样在浏览器端中输入“https://weather.com”就可以访问到这个服务
+
+二.配置1.体">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +21,7 @@
 
     
 
-    <title>IstioServiceEntry应用 | huhuhahei</title>
+    <title>Istio-Gateway应用 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -292,12 +294,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/43.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IstioServiceEntry应用</h1>
+                    <h1 class="description center-align post-title">Istio-Gateway应用</h1>
                 </div>
             </div>
         </div>
@@ -442,7 +444,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-24
+                    2022-07-01
                 </div>
                 
 
@@ -451,14 +453,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    300
+                    859
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -478,89 +480,168 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-ServiceEntry详解"><a href="#一-ServiceEntry详解" class="headerlink" title="一.ServiceEntry详解"></a>一.ServiceEntry详解</h1><p><code>ServiceEntry</code>允许将其他条目添加到 Istio 的内部服务注册表中，以便网格中自动发现的服务可以访问&#x2F;路由到这些手动指定的服务。服务条目描述了服务的属性（DNS 名称、VIP、端口、协议、端点）</p>
-<h3 id="1-配置一个内部服务访问外部api的入口"><a href="#1-配置一个内部服务访问外部api的入口" class="headerlink" title="1.配置一个内部服务访问外部api的入口"></a>1.配置一个内部服务访问外部api的入口</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceEntry
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> external<span class="token punctuation">-</span>svc<span class="token punctuation">-</span>https
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> api.dropboxapi.com
-  <span class="token punctuation">-</span> www.googleapis.com
-  <span class="token punctuation">-</span> api.facebook.com
-  <span class="token key atrule">location</span><span class="token punctuation">:</span> MESH_EXTERNAL
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">443</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> https
-    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TLS
-  <span class="token key atrule">resolution</span><span class="token punctuation">:</span> DNS
+                <h1 id="一-简介"><a href="#一-简介" class="headerlink" title="一.简介"></a>一.简介</h1><p>在实际使用中更多的是配置 HTTPS 等安全的外部访问。例如，在这个场景中，将网格内的 HTTPS 服务通过 HTTPS 协议发布。这样在浏览器端中输入“<a target="_blank" rel="noopener" href="https://weather.com/">https://weather.com</a>”就可以访问到这个服务</p>
+<p><img src="https://static001.geekbang.org/wechat/images/78/78d61c7538d43755b0643769a8eca24d.png" alt="img"></p>
+<h1 id="二-配置"><a href="#二-配置" class="headerlink" title="二.配置"></a>二.配置</h1><h3 id="1-体系结构"><a href="#1-体系结构" class="headerlink" title="1.体系结构"></a>1.体系结构</h3><p>对比k8s ingress-nginx</p>
+<pre class=" language-bash"><code class="language-bash">gateway-controller    <span class="token operator">&lt;</span>-<span class="token operator">></span>   ingress-controller <span class="token punctuation">(</span>实际的pod<span class="token punctuation">)</span>
+istio-ingressgateway  <span class="token operator">&lt;</span>-<span class="token operator">></span>   nginx-ingress-controller  <span class="token punctuation">(</span>一种实现<span class="token punctuation">)</span>
+gateway               <span class="token operator">&lt;</span>-<span class="token operator">></span>   ingress <span class="token punctuation">(</span>配置<span class="token punctuation">)</span>
 </code></pre>
-<h3 id="2-配置一个集群外的MongoDB添加到Istio集群中"><a href="#2-配置一个集群外的MongoDB添加到Istio集群中" class="headerlink" title="2.配置一个集群外的MongoDB添加到Istio集群中"></a>2.配置一个集群外的MongoDB添加到Istio集群中</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceEntry
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> external<span class="token punctuation">-</span>svc<span class="token punctuation">-</span>mongocluster
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> mymongodb.somedomain <span class="token comment" spellcheck="true"># not used</span>
-  <span class="token key atrule">addresses</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> 192.192.192.192/24 <span class="token comment" spellcheck="true"># VIPs</span>
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">27018</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> mongodb
-    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> MONGO
-  <span class="token key atrule">location</span><span class="token punctuation">:</span> MESH_INTERNAL
-  <span class="token key atrule">resolution</span><span class="token punctuation">:</span> STATIC
-  <span class="token key atrule">endpoints</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">address</span><span class="token punctuation">:</span> 2.2.2.2
-  <span class="token punctuation">-</span> <span class="token key atrule">address</span><span class="token punctuation">:</span> 3.3.3.3
+<h3 id="2-配置Gateway"><a href="#2-配置Gateway" class="headerlink" title="2.配置Gateway"></a>2.配置Gateway</h3><p>如果需要<code>istio-ingressgateway</code>作为外网的访问入口,就需要将<code>Gateway</code>的网络设置为<code>hostNetwork</code></p>
+<p>需要添加一下两个配置</p>
+<pre class=" language-bash"><code class="language-bash">dnsPolicy: ClusterFirstWithHostNet
+hostNetwork: <span class="token boolean">true</span>
 </code></pre>
-<p>和相关的 DestinationRule</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> mtls<span class="token punctuation">-</span>mongocluster
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">host</span><span class="token punctuation">:</span> mymongodb.somedomain
-  <span class="token key atrule">trafficPolicy</span><span class="token punctuation">:</span>
-    <span class="token key atrule">tls</span><span class="token punctuation">:</span>
-      <span class="token key atrule">mode</span><span class="token punctuation">:</span> MUTUAL
-      <span class="token key atrule">clientCertificate</span><span class="token punctuation">:</span> /etc/certs/myclientcert.pem
-      <span class="token key atrule">privateKey</span><span class="token punctuation">:</span> /etc/certs/client_private_key.pem
-      <span class="token key atrule">caCertificates</span><span class="token punctuation">:</span> /etc/certs/rootcacerts.pem
+<p>设置完成后有一个问题需要处理,默认情况下<code>Gateway</code>监听的端口是8080和8443,如果对外提供服务的话需要使用iptables将入口的80和443流量转发到8080和8443</p>
+<pre class=" language-bash"><code class="language-bash">iptables -t nat -A PREROUTING -p tcp --dport 443  -j REDIRECT --to-port 8443
+iptables -t nat -A PREROUTING -p tcp --dport 80  -j REDIRECT --to-port 8080
 </code></pre>
-<h3 id="3-配置出口Egress"><a href="#3-配置出口Egress" class="headerlink" title="3.配置出口Egress"></a>3.配置出口Egress</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceEntry
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> external<span class="token punctuation">-</span>svc<span class="token punctuation">-</span>httpbin
-  <span class="token key atrule">namespace</span> <span class="token punctuation">:</span> egress
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> httpbin.com
-  <span class="token key atrule">exportTo</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token string">"."</span>
-  <span class="token key atrule">location</span><span class="token punctuation">:</span> MESH_EXTERNAL
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> http
-    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTP
-  <span class="token key atrule">resolution</span><span class="token punctuation">:</span> DNS
+<p>这样配置还有个缺点,就是控制器是deploy,如果重启迁移到其他的节点的话,如果没有<code>iptables</code>规则,就无法访问了</p>
+<p>所以建议使用<code>nodeName: k8s-nacos-001</code> 限制调度到指定节点,或者将deploy修改为ds</p>
+<p>配置完成后可以查看本地监听是否正常</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">netstat</span> -anpt <span class="token operator">|</span> <span class="token function">grep</span> -w 8443
+tcp        0      0 0.0.0.0:8443            0.0.0.0:*               LISTEN      11965/envoy         
+tcp        0      0 172.24.3.99:8443        123.52.19.50:51796      ESTABLISHED 11965/envoy         
+tcp        0      0 172.24.3.99:8443        123.52.19.50:52967      ESTABLISHED 11965/envoy 
+<span class="token function">netstat</span> -anpt <span class="token operator">|</span> <span class="token function">grep</span> -w 8080
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      11965/envoy         
+tcp        0      0 172.24.3.99:8080        1.193.82.222:6698       ESTABLISHED 11965/envoy         
+tcp        0      0 172.24.3.99:8080        1.193.82.222:6750       ESTABLISHED 11965/envoy
 </code></pre>
-<p>定义一个Gateway来处理出口流量</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<h3 id="3-配置服务通过Gateway"><a href="#3-配置服务通过Gateway" class="headerlink" title="3.配置服务通过Gateway"></a>3.配置服务通过Gateway</h3><p>以<code>nginx</code>为例</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Gateway配置</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Gateway
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
- <span class="token key atrule">name</span><span class="token punctuation">:</span> istio<span class="token punctuation">-</span>egressgateway
- <span class="token key atrule">namespace</span><span class="token punctuation">:</span> istio<span class="token punctuation">-</span>system
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>http<span class="token punctuation">-</span>gateway
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
- <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-   <span class="token key atrule">istio</span><span class="token punctuation">:</span> egressgateway
- <span class="token key atrule">servers</span><span class="token punctuation">:</span>
- <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span>
-     <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
-     <span class="token key atrule">name</span><span class="token punctuation">:</span> http
-     <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTP
-   <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-   <span class="token punctuation">-</span> <span class="token string">"*"</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">istio</span><span class="token punctuation">:</span> ingressgateway
+  <span class="token key atrule">servers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> www.huhuhahei.cn
+      <span class="token key atrule">port</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTP
+<span class="token punctuation">---</span>
+<span class="token comment" spellcheck="true">#VirtualService配置</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>http<span class="token punctuation">-</span>vs
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>http<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> www.huhuhahei.cn
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">route</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+            <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php.default.svc.cluster.local
+            <span class="token key atrule">port</span><span class="token punctuation">:</span>
+              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
+          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token punctuation">---</span>
+<span class="token comment" spellcheck="true">#DestinationRule配置</span>
+<span class="token comment" spellcheck="true">#DestinationRule配置</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+ <span class="token key atrule">name</span><span class="token punctuation">:</span> kode
+ <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> kode.default.svc.cluster.local
+  <span class="token key atrule">trafficPolicy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">portLevelSettings</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span>
+        <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">tls</span><span class="token punctuation">:</span>
+        <span class="token key atrule">mode</span><span class="token punctuation">:</span> DISABLE
+</code></pre>
+<h3 id="4-配置https访问"><a href="#4-配置https访问" class="headerlink" title="4.配置https访问"></a>4.配置https访问</h3><p>添加证书到Gateway</p>
+<pre class=" language-bash"><code class="language-bash">kubectl create -n istio-system secret tls istio-ingressgateway-certs --key private.key  --cert public.pem
+</code></pre>
+<p>在IngressGateway中查看证书是否添加成功</p>
+<pre class=" language-bash"><code class="language-bash">kubectl <span class="token function">exec</span> -it -n istio-system <span class="token punctuation">$(</span>kubectl -n istio-system get pods -l istio<span class="token operator">=</span>ingressgateway -o jsonpath<span class="token operator">=</span><span class="token string">'{.items[0].metadata.name}'</span><span class="token punctuation">)</span> -- <span class="token function">ls</span> -al /etc/istio/ingressgateway-certs
+drwxrwsrwt 3 root istio-proxy  120 May 21 10:53 <span class="token keyword">.</span>
+drwxr-xr-x 1 root root        4096 May 21 10:53 <span class="token punctuation">..</span>
+drwxr-sr-x 2 root istio-proxy   80 May 21 10:53 <span class="token punctuation">..</span>2022_05_21_10_53_29.239795056
+lrwxrwxrwx 1 root root          31 May 21 10:53 <span class="token punctuation">..</span>data -<span class="token operator">></span> <span class="token punctuation">..</span>2022_05_21_10_53_29.239795056
+lrwxrwxrwx 1 root root          14 May 21 10:53 tls.crt -<span class="token operator">></span> <span class="token punctuation">..</span>data/tls.crt
+lrwxrwxrwx 1 root root          14 May 21 10:53 tls.key -<span class="token operator">></span> <span class="token punctuation">..</span>data/tls.key
+</code></pre>
+<p>Gateway中配置证书</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#Gateway</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Gateway
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">istio</span><span class="token punctuation">:</span> ingressgateway
+  <span class="token key atrule">servers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> www.huhuhahei.cn
+    <span class="token key atrule">port</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">443</span>
+      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTPS
+    <span class="token key atrule">tls</span><span class="token punctuation">:</span>
+      <span class="token key atrule">mode</span><span class="token punctuation">:</span> SIMPLE
+      <span class="token key atrule">privateKey</span><span class="token punctuation">:</span> /etc/istio/ingressgateway<span class="token punctuation">-</span>certs/tls.key
+      <span class="token key atrule">serverCertificate</span><span class="token punctuation">:</span> /etc/istio/ingressgateway<span class="token punctuation">-</span>certs/tls.crt
+<span class="token punctuation">---</span>
+<span class="token comment" spellcheck="true">#VS</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>vs
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> www.huhuhahei.cn
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>php.default.svc.cluster.local
+        <span class="token key atrule">port</span><span class="token punctuation">:</span>
+          <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">100</span>
+</code></pre>
+<p>这样域名http和https都可以访问</p>
+<h1 id="二-Gateway配置详解"><a href="#二-Gateway配置详解" class="headerlink" title="二.Gateway配置详解"></a>二.Gateway配置详解</h1><h3 id="1-配置http强制调整https"><a href="#1-配置http强制调整https" class="headerlink" title="1.配置http强制调整https"></a>1.配置http强制调整https</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Gateway
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>gateway
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">servers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span>
+        <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">443</span>
+        <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTPS
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>https
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> www.huhuhahei.cn
+      <span class="token key atrule">tls</span><span class="token punctuation">:</span>
+        <span class="token key atrule">mode</span><span class="token punctuation">:</span> SIMPLE
+        <span class="token key atrule">serverCertificate</span><span class="token punctuation">:</span> /etc/istio/ingressgateway<span class="token punctuation">-</span>certs/tls.crt
+        <span class="token key atrule">privateKey</span><span class="token punctuation">:</span> /etc/istio/ingressgateway<span class="token punctuation">-</span>certs/tls.key
+    <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span>
+        <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token key atrule">protocol</span><span class="token punctuation">:</span> HTTP
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>http
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> www.huhuhahei.cn
+      <span class="token key atrule">tls</span><span class="token punctuation">:</span>
+        <span class="token key atrule">httpsRedirect</span><span class="token punctuation">:</span> <span class="token boolean important">true    </span><span class="token comment" spellcheck="true"># 301http跳转https</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">istio</span><span class="token punctuation">:</span> ingressgateway
 </code></pre>
 
                 
@@ -588,7 +669,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/420bfc8f/">https://huhuhahei987.github.io/420bfc8f/</a>
+                    <a href="https://huhuhahei987.github.io/411d992e/">https://huhuhahei987.github.io/411d992e/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1083,13 +1164,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/c2586a0/">
+                <a href="/523b798e/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/54.jpg" class="responsive-img" alt="NACOS部署">
+                        <img src="/medias/featureimages/28.jpg" class="responsive-img" alt="Istio-流量控制">
                         
-                        <span class="card-title">NACOS部署</span>
+                        <span class="card-title">Istio-流量控制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1100,14 +1181,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
@@ -1117,12 +1198,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
-                    <a href="/tags/k8s/">
-                        <span class="chip bg-color">k8s</span>
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
                     </a>
                     
                 </div>
@@ -1136,13 +1217,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/c31d6895/">
+                <a href="/80e3be02/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="DestnationRule应用">
+                        <img src="/medias/featureimages/38.jpg" class="responsive-img" alt="Istio-DestnationRule应用">
                         
-                        <span class="card-title">DestnationRule应用</span>
+                        <span class="card-title">Istio-DestnationRule应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1153,7 +1234,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                             </span>
                         <span class="publish-author">
                             
@@ -1369,7 +1450,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">74.2k</span>
+                        class="white-color">73.4k</span>
             
             
             
