@@ -1,0 +1,1811 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Istio 简介, huhuhahei">
+    <meta name="description" content="一.Istio 简介1.Istio是什么
+Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Mesh形态的用于服务治理的开放平台。
+
+根据Istio官方的介绍，服务治理涉及连接（Connect）、安全（Se">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>Istio 简介 | huhuhahei</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">huhuhahei</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>主页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>存档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友链</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-tools" style="zoom: 0.6;"></i>
+      
+      <span>工具</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a target="_blank" rel="noopener" href="http://kode.huhuhahei.cn">
+          
+          <span>Kode</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">huhuhahei</div>
+        <div class="logo-desc">
+            
+            huhuhahei
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			主页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			存档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友链
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-tools"></i>
+			
+			工具
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a target="_blank" rel="noopener" href="http://kode.huhuhahei.cn " style="margin-left:75px">
+				  
+		          <span>Kode</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/47.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Istio 简介</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
+                            </a>
+                        
+                            <a href="/tags/Istio/">
+                                <span class="chip bg-color">Istio</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Istio/" class="post-category">
+                                Istio
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-07-01
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一-Istio-简介"><a href="#一-Istio-简介" class="headerlink" title="一.Istio 简介"></a>一.Istio 简介</h1><h2 id="1-Istio是什么"><a href="#1-Istio是什么" class="headerlink" title="1.Istio是什么"></a>1.Istio是什么</h2><blockquote>
+<p>Istio 是一个<code>与Kubernetes紧密结合</code>的<code>适用于云原生场景</code>的<code>Service Mesh形态的</code>用于<code>服务治理</code>的开放平台。</p>
+</blockquote>
+<p>根据Istio官方的介绍，服务治理涉及连接（Connect）、安全（Secure）、策略执行（Control）和可观察性（Observe）。</p>
+<ul>
+<li><code>连接</code>：Istio通过集中配置的流量规则控制服务间的流量和调用，实现负载均衡、熔断、故障注入、重试、重定向等服务治理功能。</li>
+<li><code>安全</code>：Istio提供透明的认证机制、通道加密、服务访问授权等安全能力，可增强服务访问的安全性。</li>
+<li><code>策略执行</code>：Istio通过可动态插拔、可扩展的策略实现访问控制、速率限制、配额管理、服务计费等能力。</li>
+<li><code>可观察性</code>：动态获取服务运行数据和输出，提供强大的调用链、监控和调用日志收集输出的能力。配合可视化工具，可方便运维人员了解服务的运行状态，发现并解决问题。</li>
+</ul>
+<h1 id="2-Istio的重要能力"><a href="#2-Istio的重要能力" class="headerlink" title="2. Istio的重要能力"></a>2. Istio的重要能力</h1><ul>
+<li><code>服务运行可观察性</code>：监控应用及网络相关数据，将相关指标与日志记录发送至任意收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。</li>
+<li><code>弹性与效率</code>：提供了统一的方法配置重试、负载均衡、流量控制和断路器等来解决网络可靠性低所造成的各类常见故障，更轻松地运维高弹性服务网格。</li>
+<li><code>研发人员生产力</code>：确保研发人员专注于基于已选择的编程语言构建业务功能，不用在代码中处理分布式系统的问题，从而极大地提升生产能力。</li>
+<li><code>策略驱动型运营</code>：解耦开发与运维团队的工作，在无须更改代码的前提下提升安全性、监控能力、扩展性与服务拓扑水平。运营人员能够不依赖开发提供的能力精确控制生成流量。</li>
+<li><code>默认安全</code>：允许运营人员配置TLS双向认证并保护各服务之间的所有通信，并且开发人员和运维人员不用维护证书，以应对分布式计算中经常存在的大量网络安全问题。</li>
+<li><code>增量适用</code>：考虑到网络中运行的各服务的透明性，允许团队按照自己的节奏和需求逐步适用各项功能，例如先观察服务运行情况再进行服务治理等。</li>
+</ul>
+<h1 id="3-Istio与服务治理"><a href="#3-Istio与服务治理" class="headerlink" title="3. Istio与服务治理"></a>3. Istio与服务治理</h1><p>Istio是一个服务治理平台，治理的是服务间的访问，只要有访问就可以治理，不在乎这个服务是不是所谓的微服务，也不要求跑在其上的代码是否是微服务化的。</p>
+<h2 id="3-1-关于微服务"><a href="#3-1-关于微服务" class="headerlink" title="3.1 关于微服务"></a>3.1 关于微服务</h2><blockquote>
+<p>微服务是以一组小型服务来开发单个应用程序的方法，每个服务都运行在自己的进程中，服务间采用轻量级通信机制（通常用HTTP资源API）。这些服务围绕业务能力构建并可通过全自动部署机制独立部署，还共用一个最小型的集中式管理，可用不同的语言开发，并使用不同的数据存储技术.<br>——————————Martin Fowler</p>
+</blockquote>
+<p>微服务本质上是分而治之、化繁为简的哲学智慧在计算机领域的体现。</p>
+<h3 id="3-1-1-微服务带来的好处："><a href="#3-1-1-微服务带来的好处：" class="headerlink" title="3.1.1 微服务带来的好处："></a>3.1.1 微服务带来的好处：</h3><ul>
+<li><code>从开发视角来看</code>：每个服务的功能更内聚，可以在微服务内设计和扩展功能，并且采用不同的开发语言及开发工具；</li>
+<li><code>从运维视角来看</code>：在微服务化后，每个服务都在独立的进程里，可以自运维；更重要的是，微服务化是单一变更的基础，迭代速度更快，上线风险更小；</li>
+<li><code>从组织管理视角来看</code>：将团队安装微服务切分成小组取代服务大组也有利于敏捷开发。</li>
+</ul>
+<h3 id="3-1-2-微服务的缺点："><a href="#3-1-2-微服务的缺点：" class="headerlink" title="3.1.2 微服务的缺点："></a>3.1.2 微服务的缺点：</h3><ul>
+<li>服务数量变多，业务本身的规模和复杂度并没有变少，反而变多。</li>
+<li>在分布式系统中，网络可靠性、通信安全、网络时延、网络拓扑变化等都成立我们要关注的内容。</li>
+<li>微服务机制带来了大量的工作，比如服务如何请求目标服务，需要引入服务发现和负载均衡等，以及对跨进程的分布式调用栈进行分布式调用链路追踪。</li>
+</ul>
+<p>总之，简单的事情突然变得复杂了。</p>
+<h2 id="3-2-服务治理的三种形态"><a href="#3-2-服务治理的三种形态" class="headerlink" title="3.2 服务治理的三种形态"></a>3.2 服务治理的三种形态</h2><p>服务治理的演变至少经过了以下三种形态。</p>
+<h3 id="3-2-1-第一种形态：在应用程序中包含治理逻辑"><a href="#3-2-1-第一种形态：在应用程序中包含治理逻辑" class="headerlink" title="3.2.1 第一种形态：在应用程序中包含治理逻辑"></a>3.2.1 第一种形态：在应用程序中包含治理逻辑</h3><p>自己写代码去实现服务发现和治理的逻辑。<br> <code>缺点</code>：</p>
+<ol>
+<li>功能简单；</li>
+<li>实现成本高，存在大量重复代码；</li>
+<li>维护和升级困难；</li>
+</ol>
+<h3 id="3-2-1-第二种形态：治理逻辑独立的代码"><a href="#3-2-1-第二种形态：治理逻辑独立的代码" class="headerlink" title="3.2.1 第二种形态：治理逻辑独立的代码"></a>3.2.1 第二种形态：治理逻辑独立的代码</h3><p>典型代表：Spring Cloud Eureka<br> <code>优点</code>：</p>
+<ol>
+<li>在代码上解耦了业务和治理逻辑</li>
+</ol>
+<p><code>缺点</code>：<br> 业务代码和SDK还是要一起编译，业务代码和治理逻辑孩子同一个进程内，这就导致几个问题：</p>
+<ol>
+<li>业务代码必须和SDK基于同一种语言，即语言绑定；</li>
+<li>治理逻辑升级时，还需要用户的整个服务升级；</li>
+<li>SDK对开发人员来说有较高的学习门槛。</li>
+</ol>
+<h3 id="3-2-3-第三种形态：治理逻辑独立的进程"><a href="#3-2-3-第三种形态：治理逻辑独立的进程" class="headerlink" title="3.2.3 第三种形态：治理逻辑独立的进程"></a>3.2.3 第三种形态：治理逻辑独立的进程</h3><p>把治理逻辑彻底从用户的业务代码中剥离出来，即Sidecar模式。<br> <code>优点</code>：</p>
+<ol>
+<li>用户的代码和治理逻辑都以独立的进程存在，两者的代码和运行都无耦合，这样可以做到与开发语言无关，升级也相互独立；</li>
+<li>在对已存在的系统进行微服务治理时，只需搭配Sidecar即可，对原服务无需做任何修改；</li>
+<li>可以对老系统渐进式升级改造，先对部分服务进行微服务化。</li>
+</ol>
+<h3 id="3-2-3-三种服务治理形态的比较"><a href="#3-2-3-三种服务治理形态的比较" class="headerlink" title="3.2.3 三种服务治理形态的比较"></a>3.2.3 三种服务治理形态的比较</h3><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>业务逻辑侵入</th>
+<th>业务代码侵入</th>
+<th>业务进程侵入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在应用程序中包含治理逻辑</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>治理逻辑独立的代码</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>治理逻辑独立的进程</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody></table>
+<h1 id="4-Istio与服务网格"><a href="#4-Istio与服务网格" class="headerlink" title="4. Istio与服务网格"></a>4. Istio与服务网格</h1><p>业界比较认同的是William Morgan关于服务网关（Service Mesh）的一段定义，这里提取和解释该定义中的几个关键字来讲解服务网格的特点：</p>
+<ul>
+<li><code>基础设施</code>：服务网格是一种处理服务间通信的基础设施层。</li>
+<li><code>云原生</code>：服务网格尤其适用于在云原生场景下帮助应用程序在复杂的服务拓扑间可靠地传递请求。</li>
+<li><code>网络代理</code>：在实际使用用，服务网格一般是通过一组轻量级网络代理来执行治理逻辑的。</li>
+<li><code>对应用透明</code>：轻量网络代理与应用程序部署在一起，但应用感知不到代理的存在，还是使用原来的方式工作。</li>
+</ul>
+<p>经典的服务网格示意图如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13618762-1cd975df189fbf48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>经典的服务网格示意图</p>
+<h2 id="4-1-时代选择服务网格"><a href="#4-1-时代选择服务网格" class="headerlink" title="4.1 时代选择服务网格"></a>4.1 时代选择服务网格</h2><blockquote>
+<p>在云原生时代，随着采用各种语言开发的服务剧增，应用间的访问拓扑更加复杂，治理需求也越来越多。原来的那种嵌入在应用中的治理功能无论是从形态、动态性还是可扩展性来说都不能满足需求，迫切需要一种具备云原生动态、弹性特定的应用治理基础设施。</p>
+</blockquote>
+<p>首先，从单个应用来看，Sidecar与应用程序的解耦带来的<code>应用完全无侵入</code>、<code>开发语言无关</code>等特点解除了开发语言的约束，从而极大降低了应用开发者的开发成本。</p>
+<p>然后，从全局来看，在多个服务间有复杂的互相访问时才有服务治理的需求。即我们关注的这些Sidecar组成的网格，对网格内的服务间访问进行管理，引用还是按照本来的方式进行互相访问，<code>每个应用程序的Inbound流量和Outbound流量都要经过Sidecar代理，并在Sidecar上执行治理动作</code>。</p>
+<p>最后，Sidecar是网格动作的执行体，全局的管理规则和网格内的元数据维护通过一个统一的控制面实现，如下图所示，只有数据面的Sidecar和控制面有联系，应用感知不到Sidecar，更不会和控制面有任何联系，用户的业务和控制面彻底解耦。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13618762-85223d2341fb3406.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400/format/webp" alt="img"></p>
+<p>服务网格的统一控制面</p>
+<h2 id="4-2-服务网格带来的新问题"><a href="#4-2-服务网格带来的新问题" class="headerlink" title="4.2 服务网格带来的新问题"></a>4.2 服务网格带来的新问题</h2><p>服务网格确实有很多优势，正所谓没有免费的午餐，这种形态在服务的访问链路上多引入的两跳也是不容回避的问题。</p>
+<ul>
+<li>增加了两处延迟和可能的故障点；</li>
+<li>多出来的这两跳对应访问性能、整体可靠性及整个系统的复杂度都带来了新的挑战。</li>
+</ul>
+<p>针对性能和资源损耗，网格提供商提供的方案一般是这样解决的：</p>
+<ol>
+<li><code>通过保证转发代理的轻量和高性能降低时延影响</code>，尤其是考虑到后端实际使用的应用程序一般比代理更重，叠加代理并不会明显影响应用的访问性能；</li>
+<li>另外，对于这些高性能的代理，只有消耗足够的资源总能达到期望的性能，特殊是云原生场景下服务的弹性特点使得服务实例的弹性扩展变得非常方便，通过<code>扩展实例数量</code>总是能得到期望的访问性能。</li>
+</ol>
+<h2 id="4-3-服务网格选择Istio"><a href="#4-3-服务网格选择Istio" class="headerlink" title="4.3 服务网格选择Istio"></a>4.3 服务网格选择Istio</h2><ul>
+<li>在控制面上，Istio作为一种全新的设计，在功能、形态、架构和扩展性上提供了远超服务网格的能力范围；</li>
+<li>Istio基于xDS协议提供了一套标准的控制面规范，想数据面传递服务信息和治理规范；</li>
+<li>Istio的早期版本使用Envoy V1版本的API，即RESTful方式，其新版本使用Envoy V2版本的API，即gRPC协议；</li>
+<li>Envoy是用C++开发的，其性能和资源占用比用Rust开发的Linkerd Proxy更好，更能满足服务网格中对透明代理的轻量高性能的要求；</li>
+<li>Envoy提供L3&#x2F;L4过滤器、HTTP L7过滤器、支持HTTP&#x2F;2、HTTP L7路由及gRPC、MongoDB、DynamoDB等协议；</li>
+<li>Envoy有服务发现、健康检查、高级LB、前端代理等能力，具有极好的可观察性、动态配置功能；</li>
+<li>Envoy是一个可高度定制化的程序，通过Filter机制提供了高度扩展性，还支持热重启，其代码基于模块化编码，易于测试；</li>
+<li>在大厂支持上，Istio由谷歌和IBM共同推出，从应用场景的分析规划到本身的定位，从自身架构的设计到与周边生态的结合，都有着比较严密的论证；</li>
+<li>Istio与Kubernetes无缝结合，Istio称为架构的默认部分，就像容器和Kubernetes已经成为云原生架构的默认部分一样。</li>
+</ul>
+<h2 id="4-4-Istio与Kubernetes"><a href="#4-4-Istio与Kubernetes" class="headerlink" title="4.4 Istio与Kubernetes"></a>4.4 Istio与Kubernetes</h2><p>Kubernetes的Service基于每个节点的kube-proxy从kube-apiserver上获取Service和Endpoint的信息，并将对Service的请求经过负载均衡转发到对应的Endpoint上。</p>
+<p>但Kubernetes只提供了4层负载均衡能力，无法基于应用层的信息进行负载均衡，更不能提供应用层的流量管理，在服务运行管理上也只提供了基本的探针机制，并不能提供服务访问的指标和调用链追踪这种应用的服务运行诊断能力。</p>
+<p>Istio复用了Kubernetes Service的定义，在实现上进行了更细粒度的控制。</p>
+<p>Istio的服务发现就是从kube-apiserver中获取Service和Endpoint，然后将其转换成Istio服务模型的Service和ServiceInstance，但是其数据面组件不再是kube-proxy，而是在每个Pod里部署的Sidecar，也可以将其看作每个服务实例的Proxy。</p>
+<p>通过拦截Pod的Inbound流量和Outbound流量，并在Sidecar上解析各种应用层协议，Istio可以提供真正的应用层治理、监控和安全等能力。</p>
+<p>总之，Istio和Kubernetes从设计理念、使用体验、系统架构甚至代码风格等小细节来看，关系都非常紧密，甚至有人认为Istio就是Kubernetes团队开发的Kubernetes可插拔的增强特性。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13618762-16b88481a0ae8424.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1160/format/webp" alt="img"></p>
+<h1 id="二-Istio部署"><a href="#二-Istio部署" class="headerlink" title="二.Istio部署"></a>二.Istio部署</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515121116461.png" alt="image-20220515121116461"></p>
+<h2 id="1-下载Istioctl"><a href="#1-下载Istioctl" class="headerlink" title="1.下载Istioctl"></a>1.下载Istioctl</h2><pre class=" language-bash"><code class="language-bash">curl -L https://istio.io/downloadIstio <span class="token operator">|</span> sh -
+<span class="token comment" spellcheck="true">#这里建议直接参考官方文档下载</span>
+<span class="token function">wget</span> kode.huhuhahei.cn/kodexplorer/tar包/Istio-1.4/istio-1.4.0-linux.tar.gz
+</code></pre>
+<h2 id="2-文件简介"><a href="#2-文件简介" class="headerlink" title="2.文件简介"></a>2.文件简介</h2><pre class=" language-bash"><code class="language-bash">total 24
+drwxr-x---  2 root root    22 Nov 14  2019 bin            <span class="token comment" spellcheck="true">#istioctl命令目录</span>
+drwxr-xr-x  6 root root    79 Nov 14  2019 <span class="token function">install</span>        <span class="token comment" spellcheck="true">#安装文件目录这里使用的k8s安装</span>
+-rw-r--r--  1 root root 11348 Nov 14  2019 LICENSE
+-rw-r-----  1 root root   675 Nov 14  2019 manifest.yaml
+-rw-r--r--  1 root root  6080 Nov 14  2019 README.md
+drwxr-xr-x 19 root root   307 Nov 14  2019 samples
+drwxr-x---  3 root root    99 Nov 14  2019 tools           <span class="token comment" spellcheck="true">#常用工具目录</span>
+</code></pre>
+<h2 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h2><pre class=" language-bash"><code class="language-bash">istioctl manifest apply --set profile<span class="token operator">=</span>demo
+<span class="token comment" spellcheck="true">#安装是比较慢的 需要耐心等待</span>
+</code></pre>
+<h2 id="4-检测安装状态"><a href="#4-检测安装状态" class="headerlink" title="4.检测安装状态"></a>4.检测安装状态</h2><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#安装完成可以输入yaml文件然后监测安装是否成功</span>
+istioctl manifest generate --set profile<span class="token operator">=</span>demo <span class="token operator">></span> /tmp/demo.yaml
+istioctl verify-install -f /tmp/demo.yaml
+<span class="token comment" spellcheck="true">#检测是否安装成功</span>
+Service: jaeger-query.istio-system checked successfully
+Service: jaeger-collector.istio-system checked successfully
+Service: jaeger-agent.istio-system checked successfully
+Service: zipkin.istio-system checked successfully
+Service: tracing.istio-system checked successfully
+Checked 23 crds
+Checked 9 Istio Deployments
+Istio is installed successfully
+</code></pre>
+<p>也可以查看pod是否都是运行正常</p>
+<pre><code>NAME                                      READY   STATUS    RESTARTS   AGE
+grafana-6b65874977-5tfcn                  1/1     Running   0          78m
+istio-citadel-f74b87856-bgv6k             1/1     Running   0          78m
+istio-egressgateway-c56696f94-pj2k7       1/1     Running   0          78m
+istio-galley-566bcc7758-wwpvp             1/1     Running   0          78m
+istio-ingressgateway-6b9987bf94-9ktgj     1/1     Running   0          78m
+istio-pilot-677c9c688f-xm6sd              1/1     Running   0          78m
+istio-policy-58fb4d586c-gnpkw             1/1     Running   12         78m
+istio-sidecar-injector-85657c7bcb-8ps2p   1/1     Running   1          78m
+istio-telemetry-666b985499-5f6fx          1/1     Running   10         78m
+istio-tracing-c66d67cd9-p6dlj             1/1     Running   0          78m
+kiali-8559969566-9h2gp                    1/1     Running   1          78m
+prometheus-66c5887c86-hb42s               1/1     Running   0          78m
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">huhuhahei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://huhuhahei987.github.io/82740f3b/">https://huhuhahei987.github.io/82740f3b/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">huhuhahei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
+                                </a>
+                            
+                                <a href="/tags/Istio/">
+                                    <span class="chip bg-color">Istio</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'PlL7PTOEFbb4sKCNW554HhjR-gzGzoHsz',
+        appKey: 'zmpbolsESrAY8NP47XwGseKd',
+        serverURLs: 'https://pll7ptoe.lc-cn-n1-shared.com',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'en',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/82740f3b/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="Istio 简介">
+                        
+                        <span class="card-title">Istio 简介</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/fdf20d39/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Ceph详解">
+                        
+                        <span class="card-title">Ceph详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Ceph/" class="post-category">
+                                    Ceph
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/Ceph/">
+                        <span class="chip bg-color">Ceph</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="/about" target="_blank">huhuhahei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">66.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "6";
+                        var startDate = "3";
+                        var startHour = "11";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-Hans';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-Hans') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-Hans') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script type="text/javascript">
+        //只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        if (windowWidth > 768) {
+            document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+        }
+        </script>
+
+    <!-- 冒泡 -->
+    
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+        </script>
+    
+
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    
+
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+    <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+    </a>
+  </div>
+
+  <div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+  </div>
+  
+  <script>
+    function switchNightMode() {
+      $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+          $('body').hasClass('DarkMode') 
+          ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+          : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+          setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+              $(this).remove()
+            })
+          }, 2e3)
+        })
+    }
+  </script>
+<script>
+    /* 模式判断 */
+    if (localStorage.getItem('isDark') === '1') {
+        document.body.classList.add('DarkMode');
+        $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+    } else {
+        document.body.classList.remove('DarkMode');
+        $('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+    }
+</script>
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
+
+</html>
