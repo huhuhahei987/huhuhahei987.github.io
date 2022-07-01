@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-15
+                    2022-07-01
                 </div>
                 
 
@@ -555,7 +555,7 @@ nginx-v2-b6c55c89-dzq4z           3/3     Running   0          150m    app<span 
           <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">50</span>
 </code></pre>
 <p>kiali查看可以发现流量是转发到不同版本的后端的</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135233931.png" alt="image-20220524135233931"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135233931.png" alt="image-20220524135233931"></p>
 <h1 id="二-模拟注入故障"><a href="#二-模拟注入故障" class="headerlink" title="二.模拟注入故障"></a>二.模拟注入故障</h1><h3 id="1-注入-HTTP-延迟故障"><a href="#1-注入-HTTP-延迟故障" class="headerlink" title="1.注入 HTTP 延迟故障"></a>1.注入 HTTP 延迟故障</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -584,7 +584,7 @@ nginx-v2-b6c55c89-dzq4z           3/3     Running   0          150m    app<span 
             <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token number">100       </span><span class="token comment" spellcheck="true">#注入的百分比</span>
 </code></pre>
 <p>kiali可以查看到访问的平均延迟升高到9.75s</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135615542.png" alt="image-20220524135615542"></p>
+<p><img src="/Users/lyh/blog/source/_posts/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524135615542.png" alt="image-20220524135615542"></p>
 <h3 id="2-注入http-abort-故障"><a href="#2-注入http-abort-故障" class="headerlink" title="2.注入http abort 故障"></a>2.注入http abort 故障</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -613,7 +613,7 @@ nginx-v2-b6c55c89-dzq4z           3/3     Running   0          150m    app<span 
             <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token number">100       </span><span class="token comment" spellcheck="true">#注入的百分比</span>
 </code></pre>
 <p>kiali查看可以发现访问全是5xx</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524140439472.png" alt="image-20220524140439472"></p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220524140439472.png" alt="image-20220524140439472"></p>
 <h1 id="三-基于用户认证"><a href="#三-基于用户认证" class="headerlink" title="三.基于用户认证"></a>三.基于用户认证</h1><pre class=" language-bash"><code class="language-bash">kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 </code></pre>
 <p>yaml文件如下</p>
@@ -640,9 +640,9 @@ nginx-v2-b6c55c89-dzq4z           3/3     Running   0          150m    app<span 
         <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
 </code></pre>
 <p>再次访问booinfo发现只能访问到reviews v1服务</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143700189.png" alt="image-20220515143700189"></p>
+<p><img src="/Users/lyh/blog/source/_posts/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143700189.png" alt="image-20220515143700189"></p>
 <p>登陆json用户 再次访问 发现只能访问到reviews v2服务</p>
-<p><img src="/huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143910759.png" alt="image-20220515143910759">清理</p>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515143910759.png" alt="image-20220515143910759">清理</p>
 <pre class=" language-bash"><code class="language-bash">kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 </code></pre>
 <h1 id="四-熔断器配置"><a href="#四-熔断器配置" class="headerlink" title="四.熔断器配置"></a>四.熔断器配置</h1><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
@@ -1289,17 +1289,18 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/509abbe3/">
+                <a href="/d519214d/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/53.jpg" class="responsive-img" alt="Istio卸载">
+                        <img src="/medias/featureimages/55.jpg" class="responsive-img" alt="Istio流量控制">
                         
-                        <span class="card-title">Istio卸载</span>
+                        <span class="card-title">Istio流量控制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1309,9 +1310,9 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1324,6 +1325,7 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1346,13 +1348,13 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/d9de2d8b/">
+                <a href="/9a96ca61/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/49.jpg" class="responsive-img" alt="Istis实践之Bookinfo">
+                        <img src="/medias/featureimages/46.jpg" class="responsive-img" alt="K8s 通过Comfigmap导入ENV">
                         
-                        <span class="card-title">Istis实践之Bookinfo</span>
+                        <span class="card-title">K8s 通过Comfigmap导入ENV</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1363,14 +1365,14 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Istio/" class="post-category">
-                                    Istio
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
@@ -1382,10 +1384,6 @@ All done 20 calls (plus 0 warmup) 1354.245 ms avg<span class="token punctuation"
                     
                     <a href="/tags/K8s/">
                         <span class="chip bg-color">K8s</span>
-                    </a>
-                    
-                    <a href="/tags/Istio/">
-                        <span class="chip bg-color">Istio</span>
                     </a>
                     
                 </div>
