@@ -1,0 +1,1988 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="IstioVirtualService应用, huhuhahei">
+    <meta name="description" content="一.VS详解1.配置路由重写默认将所有 HTTP 流量路由到标签为“版本：v1”的评论服务的 pod。此外，路径以 &amp;#x2F;wpcatalog&amp;#x2F; 或 &amp;#x2F;consumercatalog&amp;#x2F; 开头的 HTTP 请">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>IstioVirtualService应用 | huhuhahei</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">huhuhahei</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>主页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>存档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友链</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-tools" style="zoom: 0.6;"></i>
+      
+      <span>工具</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a target="_blank" rel="noopener" href="http://kode.huhuhahei.cn">
+          
+          <span>Kode</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">huhuhahei</div>
+        <div class="logo-desc">
+            
+            huhuhahei
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			主页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			存档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友链
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-tools"></i>
+			
+			工具
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a target="_blank" rel="noopener" href="http://kode.huhuhahei.cn " style="margin-left:75px">
+				  
+		          <span>Kode</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/26.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">IstioVirtualService应用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
+                            </a>
+                        
+                            <a href="/tags/Istio/">
+                                <span class="chip bg-color">Istio</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Istio/" class="post-category">
+                                Istio
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-24
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    9 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一-VS详解"><a href="#一-VS详解" class="headerlink" title="一.VS详解"></a>一.VS详解</h1><h3 id="1-配置路由重写"><a href="#1-配置路由重写" class="headerlink" title="1.配置路由重写"></a>1.配置路由重写</h3><p>默认将所有 HTTP 流量路由到标签为“版本：v1”的评论服务的 pod。此外，路径以 &#x2F;wpcatalog&#x2F; 或 &#x2F;consumercatalog&#x2F; 开头的 HTTP 请求将被重写为 &#x2F;newcatalog 并发送到标签为“version: v2”的 pod</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> reviews<span class="token punctuation">-</span>route
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> reviews.prod.svc.cluster.local
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"reviews-v2-routes"</span>
+    <span class="token key atrule">match</span><span class="token punctuation">:</span>                       <span class="token comment" spellcheck="true">#匹配下面两个路径</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/wpcatalog"</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/consumercatalog"</span>
+    <span class="token key atrule">rewrite</span><span class="token punctuation">:</span>
+      <span class="token key atrule">uri</span><span class="token punctuation">:</span> <span class="token string">"/newcatalog"</span>        <span class="token comment" spellcheck="true">#转发到v2版本的pod的这个路径</span>
+    <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews.prod.svc.cluster.local
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"reviews-v1-route"</span>      <span class="token comment" spellcheck="true">#默认情况下请求转发到此路径</span>
+    <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews.prod.svc.cluster.local
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+</code></pre>
+<h3 id="2-服务配置跨域"><a href="#2-服务配置跨域" class="headerlink" title="2.服务配置跨域"></a>2.服务配置跨域</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+    <span class="token key atrule">corsPolicy</span><span class="token punctuation">:</span>
+      <span class="token key atrule">allowOrigins</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">exact</span><span class="token punctuation">:</span> example.com           <span class="token comment" spellcheck="true">#允许跨域的域名</span>
+      <span class="token key atrule">allowMethods</span><span class="token punctuation">:</span>                  <span class="token comment" spellcheck="true">#允许跨域的请求</span>
+      <span class="token punctuation">-</span> POST
+      <span class="token punctuation">-</span> GET
+      <span class="token key atrule">allowCredentials</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+      <span class="token key atrule">allowHeaders</span><span class="token punctuation">:</span>                  <span class="token comment" spellcheck="true">#允许的Headers</span>
+      <span class="token punctuation">-</span> X<span class="token punctuation">-</span>Foo<span class="token punctuation">-</span>Bar
+      <span class="token key atrule">maxAge</span><span class="token punctuation">:</span> <span class="token string">"24h"</span>                  <span class="token comment" spellcheck="true">#有效期</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>类型</th>
+<th align="center">描述</th>
+<th align="center">必需的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>allowOrigin</code></td>
+<td><code>string[]</code></td>
+<td align="center">允许执行 CORS 请求的源列表。内容将被序列化到 Access-Control-Allow-Origin 标头中。通配符 * 将允许所有来源。</td>
+<td align="center">不</td>
+</tr>
+<tr>
+<td><code>allowMethods</code></td>
+<td><code>string[]</code></td>
+<td align="center">允许访问资源的 HTTP 方法列表。内容将被序列化到 Access-Control-Allow-Methods 标头中。</td>
+<td align="center">不</td>
+</tr>
+<tr>
+<td><code>allowHeaders</code></td>
+<td><code>string[]</code></td>
+<td align="center">请求资源时可以使用的 HTTP 标头列表。序列化为 Access-Control-Allow-Headers 标头。</td>
+<td align="center">不</td>
+</tr>
+<tr>
+<td><code>exposeHeaders</code></td>
+<td><code>string[]</code></td>
+<td align="center">允许浏览器访问的 HTTP 标头白名单。序列化为 Access-Control-Expose-Headers 标头。</td>
+<td align="center">不</td>
+</tr>
+<tr>
+<td><code>maxAge</code></td>
+<td><code>Duration</code></td>
+<td align="center">指定预检请求的结果可以缓存多长时间。翻译为<code>Access-Control-Max-Age</code>标题。</td>
+<td align="center">不</td>
+</tr>
+<tr>
+<td><code>allowCredentials</code></td>
+<td><code>BoolValue</code></td>
+<td align="center">指示是否允许调用者使用凭据发送实际请求（而不是预检）。翻译为 <code>Access-Control-Allow-Credentials</code>标题。</td>
+<td align="center">不</td>
+</tr>
+</tbody></table>
+<h3 id="3-配置路径转发"><a href="#3-配置路径转发" class="headerlink" title="3.配置路径转发"></a>3.配置路径转发</h3><p>HttpMatchRequest 指定要满足的一组标准，以便将规则应用于 HTTP 请求。例如，以下内容将规则限制为仅匹配 URL 路径以 &#x2F;ratings&#x2F;v2&#x2F; 开头的请求，并且请求包含<code>end-user</code>带有 value 的自定义标头<code>jason</code></p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>             <span class="token comment" spellcheck="true">#匹配headers</span>
+        <span class="token key atrule">end-user</span><span class="token punctuation">:</span>
+          <span class="token key atrule">exact</span><span class="token punctuation">:</span> jason
+      <span class="token key atrule">uri</span><span class="token punctuation">:</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> <span class="token string">"/ratings/v2/"</span>     <span class="token comment" spellcheck="true">#匹配路径</span>
+      <span class="token key atrule">ignoreUriCase</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>场地</th>
+<th>类型</th>
+<th>描述</th>
+<th>必需的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>分配给匹配项的名称。匹配的名称将与父路由的名称连接，并将记录在与该路由匹配的请求的访问日志中。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>uri</code></td>
+<td><code>StringMatch</code></td>
+<td>匹配值的 URI 区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配<strong>注意：</strong><code>ignore_uri_case</code>可以通过标志启用不区分大小写的匹配 。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>scheme</code></td>
+<td><code>StringMatch</code></td>
+<td>URI Scheme 值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td><code>StringMatch</code></td>
+<td>HTTP 方法值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>authority</code></td>
+<td><code>StringMatch</code></td>
+<td>HTTP 授权值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td><code>map&lt;string, StringMatch&gt;</code></td>
+<td>标题键必须为小写并使用连字符作为分隔符，例如<em>x-request-id</em>。标头值区分大小写，格式如下：<code>exact: &quot;value&quot;</code>用于精确的字符串匹配<code>prefix: &quot;value&quot;</code>用于基于前缀的匹配<code>regex: &quot;value&quot;</code>用于 ECMAscript 样式的基于正则表达式的匹配<strong>注意：</strong><code>uri</code>、<code>scheme</code>、<code>method</code>和键<code>authority</code>将被忽略。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>uint32</code></td>
+<td>指定正在寻址的主机上的端口。许多服务只公开单个端口或使用它们支持的协议标记端口，在这些情况下，不需要显式选择端口。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>sourceLabels</code></td>
+<td><code>map&lt;string, string&gt;</code></td>
+<td>一个或多个标签，用于限制规则对具有给定标签的工作负载的适用性。如果 VirtualService 在顶部指定了网关列表，则它必须包含保留的网关 <code>mesh</code>以使该字段适用。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>queryParams</code></td>
+<td><code>map&lt;string, StringMatch&gt;</code></td>
+<td>查询参数进行匹配。例如： - 对于像“?key&#x3D;true”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>exact: &quot;true&quot;</code>。- 对于像“?key”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>exact: &quot;&quot;</code>。- 对于像“?key&#x3D;123”这样的查询参数，映射键将是“key”，字符串匹配可以定义为<code>regex: &quot;\d+$&quot;</code>。请注意，此配置仅匹配“123”之类的值，而不匹配“a123”或“123a”。<strong>注意：</strong> <code>prefix</code>目前不支持匹配。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>ignoreUriCase</code></td>
+<td><code>bool</code></td>
+<td>用于指定 URI 匹配是否不区分大小写的标志。<strong>注意：</strong><code>exact</code>只有在和<code>prefix</code> URI 匹配的情况下才会忽略大小写。</td>
+<td>不</td>
+</tr>
+</tbody></table>
+<h3 id="4-配置301重定向"><a href="#4-配置301重定向" class="headerlink" title="4.配置301重定向"></a>4.配置301重定向</h3><p>HTTPRedirect 可用于向调用者发送 301 重定向响应，其中 Authority&#x2F;Host 和响应中的 URI 可以与指定的值交换。例如，以下规则将评级服务上的 &#x2F;v1&#x2F;getProductRatings API 请求重定向到 bookratings 服务提供的 &#x2F;v1&#x2F;bookRatings</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
+        <span class="token key atrule">exact</span><span class="token punctuation">:</span> /v1/getProductRatings
+    <span class="token key atrule">redirect</span><span class="token punctuation">:</span>
+      <span class="token key atrule">uri</span><span class="token punctuation">:</span> /v1/bookRatings
+      <span class="token key atrule">authority</span><span class="token punctuation">:</span> newratings.default.svc.cluster.local
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>场地</th>
+<th>类型</th>
+<th>描述</th>
+<th>必需的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>uri</code></td>
+<td><code>string</code></td>
+<td>在重定向时，使用此值覆盖 URL 的路径部分。请注意，无论请求 URI 是否匹配为确切路径或前缀，都将替换整个路径。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>authority</code></td>
+<td><code>string</code></td>
+<td>在重定向时，使用此值覆盖 URL 的授权&#x2F;主机部分。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>redirectCode</code></td>
+<td><code>uint32</code></td>
+<td>在重定向时，指定要在重定向响应中使用的 HTTP 状态代码。默认响应代码为 MOVED_PERMANENTLY (301)。</td>
+<td>不</td>
+</tr>
+</tbody></table>
+<h3 id="5-配置HTTP重试"><a href="#5-配置HTTP重试" class="headerlink" title="5.配置HTTP重试"></a>5.配置HTTP重试</h3><p>描述 HTTP 请求失败时要使用的重试策略。例如，以下规则将调用 rating:v1 服务时的最大重试次数设置为 3，每次重试尝试超时 2 秒。</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings<span class="token punctuation">-</span>route
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ratings.prod.svc.cluster.local
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings.prod.svc.cluster.local
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+    <span class="token key atrule">retries</span><span class="token punctuation">:</span>
+      <span class="token key atrule">attempts</span><span class="token punctuation">:</span> <span class="token number">3</span>
+      <span class="token key atrule">perTryTimeout</span><span class="token punctuation">:</span> 2s
+      <span class="token key atrule">retryOn</span><span class="token punctuation">:</span> gateway<span class="token punctuation">-</span>error<span class="token punctuation">,</span>connect<span class="token punctuation">-</span>failure<span class="token punctuation">,</span>refused<span class="token punctuation">-</span>stream
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>场地</th>
+<th>类型</th>
+<th>描述</th>
+<th>必需的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>attempts</code></td>
+<td><code>int32</code></td>
+<td>给定请求的重试次数。重试间隔将自动确定（25ms+）。实际重试次数取决于 httpReqTimeout。</td>
+<td>是的</td>
+</tr>
+<tr>
+<td><code>perTryTimeout</code></td>
+<td><code>Duration</code></td>
+<td>给定请求的每次重试超时。格式：1h&#x2F;1m&#x2F;1s&#x2F;1ms。必须 &gt;&#x3D;1 毫秒。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>retryOn</code></td>
+<td><code>string</code></td>
+<td>指定重试发生的条件。可以使用“,”分隔列表指定一个或多个策略。有关更多详细信息，请参阅<a target="_blank" rel="noopener" href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/router_filter#x-envoy-retry-on">重试策略</a> 和<a target="_blank" rel="noopener" href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/router_filter#x-envoy-retry-grpc-on">gRPC 重试策略</a>。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="6-HTTP路由"><a href="#6-HTTP路由" class="headerlink" title="6.HTTP路由"></a>6.HTTP路由</h3><table>
+<thead>
+<tr>
+<th>场地</th>
+<th>类型</th>
+<th>描述</th>
+<th>必需的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>为调试目的分配给路由的名称。路由的名称将与匹配的名称连接，并将记录在访问日志中以匹配此路由&#x2F;匹配的请求。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>match</code></td>
+<td><code>HTTPMatchRequest[]</code></td>
+<td>激活规则需要满足的匹配条件。单个匹配块内的所有条件都具有 AND 语义，而匹配块列表具有 OR 语义。如果任何一个匹配块成功，则匹配该规则。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>route</code></td>
+<td><code>HTTPRouteDestination[]</code></td>
+<td>http 规则可以重定向或转发（默认）流量。转发目标可以是服务的多个版本之一（参见文档开头的词汇表）。与服务版本相关的权重决定了它接收的流量比例。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>redirect</code></td>
+<td><code>HTTPRedirect</code></td>
+<td>http 规则可以重定向或转发（默认）流量。如果在规则中指定了流量直通选项，则路由&#x2F;重定向将被忽略。重定向原语可用于将 HTTP 301 重定向发送到不同的 URI 或授权。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>rewrite</code></td>
+<td><code>HTTPRewrite</code></td>
+<td>重写 HTTP URI 和授权标头。Rewrite 不能与 Redirect 原语一起使用。转发前会进行重写。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>Duration</code></td>
+<td>HTTP 请求超时。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>retries</code></td>
+<td><code>HTTPRetry</code></td>
+<td>HTTP 请求的重试策略。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>fault</code></td>
+<td><code>HTTPFaultInjection</code></td>
+<td>故障注入策略应用于客户端的 HTTP 流量。请注意，在客户端启用故障时，将不会启用超时或重试。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>mirror</code></td>
+<td><code>Destination</code></td>
+<td>除了将请求转发到预期目标之外，还将 HTTP 流量镜像到另一个目标。镜像流量是在尽力而为的基础上，边车&#x2F;网关在从原始目的地返回响应之前不会等待镜像集群响应。将为镜像目的地生成统计信息。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>mirrorPercent</code></td>
+<td><code>UInt32Value</code></td>
+<td>由<code>mirror</code>字段镜像的流量百分比。如果没有这个字段，所有的流量（100%）都会被镜像。最大值为 100。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>corsPolicy</code></td>
+<td><code>CorsPolicy</code></td>
+<td>跨域资源共享策略 (CORS)。有关跨源资源共享的更多详细信息，请参阅 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> 。</td>
+<td>不</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td><code>Headers</code></td>
+<td>标头操作规则</td>
+<td>不</td>
+</tr>
+</tbody></table>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">huhuhahei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://huhuhahei987.github.io/4749e8e8/">https://huhuhahei987.github.io/4749e8e8/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">huhuhahei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
+                                </a>
+                            
+                                <a href="/tags/Istio/">
+                                    <span class="chip bg-color">Istio</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'PlL7PTOEFbb4sKCNW554HhjR-gzGzoHsz',
+        appKey: 'zmpbolsESrAY8NP47XwGseKd',
+        serverURLs: 'https://pll7ptoe.lc-cn-n1-shared.com',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'en',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!-- 直达评论 -->
+<div id="to_comment" class="comment-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#vcomments" title="直达评论">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/c31d6895/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/47.jpg" class="responsive-img" alt="DestnationRule应用">
+                        
+                        <span class="card-title">DestnationRule应用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/43f7287c/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/54.jpg" class="responsive-img" alt="IstioGateway应用">
+                        
+                        <span class="card-title">IstioGateway应用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="/about" target="_blank">huhuhahei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">74.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "6";
+                        var startDate = "3";
+                        var startHour = "11";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-Hans';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-Hans') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-Hans') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+    <script type="text/javascript">
+        //只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        if (windowWidth > 768) {
+            document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+        }
+        </script>
+
+    <!-- 冒泡 -->
+    
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+        </script>
+    
+
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    
+
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+    <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+    </a>
+  </div>
+
+  <div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+  </div>
+  
+  <script>
+    function switchNightMode() {
+      $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+          $('body').hasClass('DarkMode') 
+          ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+          : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+          setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+              $(this).remove()
+            })
+          }, 2e3)
+        })
+    }
+  </script>
+<script>
+    /* 模式判断 */
+    if (localStorage.getItem('isDark') === '1') {
+        document.body.classList.add('DarkMode');
+        $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+    } else {
+        document.body.classList.remove('DarkMode');
+        $('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+    }
+</script>
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
+
+</html>
