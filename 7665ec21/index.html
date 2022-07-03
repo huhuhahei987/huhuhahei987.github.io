@@ -509,7 +509,7 @@ jps (JVM Process Status）: 类似 UNIX 的 ps 命令。用户查看所有 Java 
 <pre class=" language-bash"><code class="language-bash">jstat -<span class="token operator">&lt;</span>option<span class="token operator">></span> <span class="token punctuation">[</span>-t<span class="token punctuation">]</span> <span class="token punctuation">[</span>-h<span class="token operator">&lt;</span>lines<span class="token operator">></span><span class="token punctuation">]</span> <span class="token operator">&lt;</span>vmid<span class="token operator">></span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>interval<span class="token operator">></span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>count<span class="token operator">></span><span class="token punctuation">]</span><span class="token punctuation">]</span>
 </code></pre>
 <p>比如 <code>jstat -gc -h3 31736 1000 10</code>表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部。</p>
-<pre><code>jstat -gc -h3 1 1000 10
+<pre class=" language-bash"><code class="language-bash">jstat -gc -h3 1 1000 10
  S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT    CGC    CGCT     GCT   
 25088.0 25088.0  0.0   8996.0 201024.0 91785.3   501624.0   393269.6  195240.0 185525.6 26240.0 22619.2    491   15.240   6      2.737   -          -   17.977
 25088.0 25088.0  0.0   8996.0 201024.0 91801.5   501624.0   393269.6  195240.0 185525.6 26240.0 22619.2    491   15.240   6      2.737   -          -   17.977
