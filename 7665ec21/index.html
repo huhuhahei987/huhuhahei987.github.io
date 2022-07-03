@@ -521,8 +521,8 @@ jps (JVM Process Status）: 类似 UNIX 的 ps 命令。用户查看所有 Java 
 </code></pre>
 <h4 id="jinfo-实时地查看和调整虚拟机各项参数"><a href="#jinfo-实时地查看和调整虚拟机各项参数" class="headerlink" title="jinfo 实时地查看和调整虚拟机各项参数"></a>jinfo 实时地查看和调整虚拟机各项参数</h4><p><code>jinfo vmid</code> :输出当前 jvm 进程的全部参数和系统属性 (第一部分是系统的属性，第二部分是 JVM 的参数)。</p>
 <p><code>jinfo -flag name vmid</code> :输出对应名称的参数的具体值。比如输出 MaxHeapSize、查看当前 jvm 进程是否开启打印 GC 日志 ( -XX:PrintGCDetails :详细 GC 日志模式，这两个都是默认关闭的)。</p>
-<pre><code>jinfo  -flag MaxHeapSize 1
--XX:MaxHeapSize=8329887744
+<pre class=" language-bash"><code class="language-bash">jinfo  -flag MaxHeapSize 1
+-XX:MaxHeapSize<span class="token operator">=</span>8329887744
 jinfo  -flag PrintGC 1
 -XX:-PrintGC
 </code></pre>
@@ -551,7 +551,7 @@ jinfo  -flag  PrintGC 1
 <li>怎样直接从JVM内查找某个类的实例？</li>
 </ol>
 <h4 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h4><p>在<code>dockerfile</code>中下载<code>arthas</code> <code>jar</code>包</p>
-<pre><code>RUN wget https://arthas.aliyun.com/arthas-boot.jar
+<pre class=" language-bash"><code class="language-bash">RUN <span class="token function">wget</span> https://arthas.aliyun.com/arthas-boot.jar
 </code></pre>
 <p>安装后在服务内<code>java -jar arthas-boot.jar</code>启动即可</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>INFO<span class="token punctuation">]</span> arthas-boot version: 3.6.2
