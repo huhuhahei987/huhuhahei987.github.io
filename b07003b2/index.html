@@ -4,9 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="记录一个nacos部署报错处理过程, huhuhahei">
-    <meta name="description" content="K8s默认只有ready的pod才能被作为svc的后端,但有时希望即使pod没有准备就绪，服务发现机制也能够发现所有匹配服务标签选择器的pod针对这个需求可以配置一个注释
-service.alpha.kubernetes.io/tolera">
+    <meta name="keywords" content="kubeadm 安装k8s集群, huhuhahei">
+    <meta name="description" content="一 安装1.1 简介kubeadm是官方社区推出的一个用于快速部署 kubernetes 集群的工具，这个工具能通过两条指令完成一个kubernetes集群的部署；
+
+创建一个Master节点：
+
+kubeadm init
+
+
+将Node节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +26,7 @@ service.alpha.kubernetes.io/tolera">
 
     
 
-    <title>记录一个nacos部署报错处理过程 | huhuhahei</title>
+    <title>kubeadm 安装k8s集群 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -293,12 +299,12 @@ service.alpha.kubernetes.io/tolera">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/49.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/35.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">记录一个nacos部署报错处理过程</h1>
+                    <h1 class="description center-align post-title">kubeadm 安装k8s集群</h1>
                 </div>
             </div>
         </div>
@@ -414,12 +420,12 @@ service.alpha.kubernetes.io/tolera">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/K8s/">
-                                <span class="chip bg-color">K8s</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                <span class="chip bg-color">开源项目</span>
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
                             </a>
                         
                     </div>
@@ -430,8 +436,8 @@ service.alpha.kubernetes.io/tolera">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                开源项目
+                            <a href="/categories/K8s/" class="post-category">
+                                K8s
                             </a>
                         
                     </div>
@@ -443,7 +449,7 @@ service.alpha.kubernetes.io/tolera">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-08
+                    2022-07-05
                 </div>
                 
 
@@ -452,7 +458,7 @@ service.alpha.kubernetes.io/tolera">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    591
+                    499
                 </div>
                 
 
@@ -479,66 +485,80 @@ service.alpha.kubernetes.io/tolera">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>K8s默认只有ready的pod才能被作为svc的后端,但有时希望即使pod没有准备就绪，服务发现机制也能够发现所有匹配服务标签选择器的pod<br>针对这个需求可以配置一个注释</p>
-<pre class=" language-bash"><code class="language-bash">service.alpha.kubernetes.io/tolerate-unready-endpoints：true
+                <h2 id="一-安装"><a href="#一-安装" class="headerlink" title="一 安装"></a>一 安装</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h3><p><code>kubeadm</code>是官方社区推出的一个用于快速部署 <code>kubernetes</code> 集群的工具，这个工具能通过两条指令完成一个<code>kubernetes</code>集群的部署；</p>
+<ul>
+<li>创建一个Master节点：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">kubeadm init
 </code></pre>
-<p>表示允许将未就绪的pod作为后端服务<br>Nacos的svc就需要这个配置</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>headless
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> nacos
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nacos
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">service.alpha.kubernetes.io/tolerate-unready-endpoints</span><span class="token punctuation">:</span> <span class="token string">'true'</span>
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> server
-      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8848</span>
-      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">8848</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> client<span class="token punctuation">-</span>rpc
-      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9848</span>
-      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9848</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> raft<span class="token punctuation">-</span>rpc
-      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9849</span>
-      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9849</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> old<span class="token punctuation">-</span>raft<span class="token punctuation">-</span>rpc
-      <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">7848</span>
-      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">7848</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nacos
-  <span class="token key atrule">clusterIP</span><span class="token punctuation">:</span> None
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> ClusterIP
-  <span class="token key atrule">sessionAffinity</span><span class="token punctuation">:</span> None
+<ul>
+<li>将Node节点加入到Master集群中：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>Master节点的IP和端口<span class="token operator">></span>
 </code></pre>
-<p>但是今日部署新的集群发现会出现这个报错</p>
-<pre class=" language-bash"><code class="language-bash">2022/05/10 19:04:03 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:04 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:05 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:06 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:07 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:08 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:09 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:10 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:11 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:12 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:13 lookup nacos-headless on 192.168.0.10:53: no such host
-2022/05/10 19:04:14 lookup nacos-headless on 192.168.0.10:53: no such host
+<h3 id="1-2-环境准备"><a href="#1-2-环境准备" class="headerlink" title="1.2 环境准备"></a>1.2 环境准备</h3><h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><pre class=" language-bash"><code class="language-bash">systemctl stop firewalld
+systemctl disable firewalld
 </code></pre>
-<p>看报错是无法解析svc的域名 但是这个域名又不太对 svc的域名不应该是这个呀::(怒)这个报错上网搜索也没有记录 一顿操作后看到新的集群是1.20版本的 忽然想到是不是有地方和新版本不适配呢</p>
-<p>上网一搜还真找到 这个注释可能会在新版本被去掉<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/05/2014853700.png"></p>
-<p>于是添加新的字段<code> publishNotReadyAddresses: true</code><br>再次启动果然启动成功了</p>
-<pre class=" language-bash"><code class="language-bash">NAME      READY   STATUS    RESTARTS   AGE
-nacos-0   1/1     Running   0          5m31s
-nacos-1   1/1     Running   0          4m9s
-nacos-2   1/1     Running   0          2m10s
+<h5 id="关闭selinux"><a href="#关闭selinux" class="headerlink" title="关闭selinux"></a>关闭selinux</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">sed</span> -i <span class="token string">'s/enforcing/disabled/'</span> /etc/selinux/config <span class="token comment" spellcheck="true">#永久</span>
+setenforce 0 <span class="token comment" spellcheck="true">#临时</span>
 </code></pre>
-<p>不禁感叹 真的是一个小配置 能让人忙活一下午:@(内伤)<br>记录下 看看是否有人会碰到这个问题</p>
+<h5 id="关闭swap"><a href="#关闭swap" class="headerlink" title="关闭swap"></a>关闭swap</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">sed</span> -ri <span class="token string">'s/.*swap.*/#&amp;/'</span> /etc/fstab #永久
+swapoff -a <span class="token comment" spellcheck="true">#临时</span>
+</code></pre>
+<h5 id="添加hosts"><a href="#添加hosts" class="headerlink" title="添加hosts"></a>添加hosts</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">>></span> /etc/hosts <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+192.168.0.10 k8smaster
+192.168.0.11 k8snode
+EOF</span>
+</code></pre>
+<h5 id="设置网桥参数"><a href="#设置网桥参数" class="headerlink" title="设置网桥参数"></a>设置网桥参数</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">></span> /etc/sysctl.d/k8s.conf <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF</span>
+sysctl --system <span class="token comment" spellcheck="true">#生效</span>
+</code></pre>
+<h5 id="时间同步"><a href="#时间同步" class="headerlink" title="时间同步"></a>时间同步</h5><pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> ntpdate -y
+ntpdate time.windows.com
+</code></pre>
+<h3 id="1-3-安装docker"><a href="#1-3-安装docker" class="headerlink" title="1.3 安装docker"></a>1.3 安装docker</h3><h5 id="下载docker-yum源"><a href="#下载docker-yum源" class="headerlink" title="下载docker yum源"></a>下载docker yum源</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+</code></pre>
+<h5 id="安装指定版本docker"><a href="#安装指定版本docker" class="headerlink" title="安装指定版本docker"></a>安装指定版本docker</h5><pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> docker-ce-19.03.13 -y
+</code></pre>
+<h5 id="配置加速器加速下载"><a href="#配置加速器加速下载" class="headerlink" title="配置加速器加速下载"></a>配置加速器加速下载</h5><pre class=" language-bash"><code class="language-bash">/etc/docker/daemon.json
+<span class="token punctuation">{</span>
+<span class="token string">"registry-mirrors"</span><span class="token keyword">:</span> <span class="token punctuation">[</span><span class="token string">"https://registry.docker-cn.com"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h5 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h5><pre class=" language-bash"><code class="language-bash">systemctl <span class="token function">enable</span> docker.service
+</code></pre>
+<h3 id="1-4-安装k8s"><a href="#1-4-安装k8s" class="headerlink" title="1.4 安装k8s"></a>1.4 安装k8s</h3><h5 id="添加k8s的阿里云YUM源"><a href="#添加k8s的阿里云YUM源" class="headerlink" title="添加k8s的阿里云YUM源"></a>添加k8s的阿里云YUM源</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">></span> /etc/yum.repos.d/kubernetes.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF</span>
+</code></pre>
+<h5 id="安装-kubeadm，kubelet-和-kubectl"><a href="#安装-kubeadm，kubelet-和-kubectl" class="headerlink" title="安装 kubeadm，kubelet 和 kubectl"></a>安装 kubeadm，kubelet 和 kubectl</h5><pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> kubelet-1.19.4 kubeadm-1.19.4 kubectl-1.19.4 -y
+systemctl <span class="token function">enable</span> kubelet.service
+</code></pre>
+<h2 id="二-创建集群"><a href="#二-创建集群" class="headerlink" title="二 创建集群"></a>二 创建集群</h2><h3 id="2-1-master节点操作"><a href="#2-1-master节点操作" class="headerlink" title="2.1 master节点操作"></a>2.1 master节点操作</h3><pre class=" language-bash"><code class="language-bash">kubeadm init --apiserver-advertise-address<span class="token operator">=</span>192.168.172.134 --image-repository registry.aliyuncs.com/google_containers --kubernetes-version v1.19.4 --service-cidr<span class="token operator">=</span>10.96.0.0/12 --pod-network-cidr<span class="token operator">=</span>10.244.0.0/16
+</code></pre>
+<p>拷贝文件到node节点</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p <span class="token variable">$HOME</span>/.kube
+<span class="token function">sudo</span> <span class="token function">cp</span> -i /etc/kubernetes/admin.conf <span class="token variable">$HOME</span>/.kube/config
+<span class="token function">sudo</span> <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span><span class="token keyword">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -g<span class="token variable">)</span></span> <span class="token variable">$HOME</span>/.kube/config
+</code></pre>
+<h3 id="2-2-node节点操作"><a href="#2-2-node节点操作" class="headerlink" title="2.2 node节点操作"></a>2.2 node节点操作</h3><pre class=" language-bash"><code class="language-bash">kubeadm <span class="token function">join</span> 192.168.172.132:6443 --token wa5bif.zfuvbesevdfvf4of \
+
+--discovery-token-ca-cert-hash sha256:87cf5828d54dd80da13c4b57c57360370ea0267a7cc3991989ca3006cf3e44d8
+</code></pre>
+<h3 id="2-3-添加网络插件"><a href="#2-3-添加网络插件" class="headerlink" title="2.3 添加网络插件"></a>2.3 添加网络插件</h3><h5 id="下载kube-flannel-yml文件"><a href="#下载kube-flannel-yml文件" class="headerlink" title="下载kube-flannel.yml文件"></a>下载kube-flannel.yml文件</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre>
+<h5 id="交付k8s"><a href="#交付k8s" class="headerlink" title="交付k8s"></a>交付k8s</h5><pre class=" language-bash"><code class="language-bash">kubectl apply -f kube-flannel.yml
+</code></pre>
+<p>kubectl get nodes查看集群状态 就会变为ready</p>
 
                 
             </div>
@@ -565,7 +585,7 @@ nacos-2   1/1     Running   0          2m10s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/5d7d0bc/">https://huhuhahei987.github.io/5d7d0bc/</a>
+                    <a href="https://huhuhahei987.github.io/b07003b2/">https://huhuhahei987.github.io/b07003b2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -603,12 +623,12 @@ nacos-2   1/1     Running   0          2m10s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/K8s/">
-                                    <span class="chip bg-color">K8s</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
-                                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                                    <span class="chip bg-color">开源项目</span>
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
                                 </a>
                             
                         </div>
@@ -1056,70 +1076,18 @@ nacos-2   1/1     Running   0          2m10s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/7b9f226b/">
+                <a href="/b07003b2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Goproxy 代理部署">
+                        <img src="/medias/featureimages/35.jpg" class="responsive-img" alt="kubeadm 安装k8s集群">
                         
-                        <span class="card-title">Goproxy 代理部署</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/Go/">
-                        <span class="chip bg-color">Go</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2d5d1649/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/42.jpg" class="responsive-img" alt="Fortio压测工具配置">
-                        
-                        <span class="card-title">Fortio压测工具配置</span>
+                        <span class="card-title">kubeadm 安装k8s集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1130,7 +1098,7 @@ nacos-2   1/1     Running   0          2m10s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-05
                             </span>
                         <span class="publish-author">
                             
@@ -1144,11 +1112,69 @@ nacos-2   1/1     Running   0          2m10s
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
                     <a href="/tags/K8s/">
                         <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/7665ec21/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="java 日常故障排查">
+                        
+                        <span class="card-title">java 日常故障排查</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
