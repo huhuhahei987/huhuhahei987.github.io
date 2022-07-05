@@ -481,14 +481,14 @@ $ istioctl manifest">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>卸载会删除RBAC权限，istio-system命名空间及其下的所有资源。可以忽略不存在的资源的错误（因为它们可能已被分层删除）。</p>
-<pre><code>$ kubectl delete -f samples/addons
-$ istioctl manifest generate --set profile=demo | kubectl delete --ignore-not-found=true -f -
+<pre class=" language-bash"><code class="language-bash">$ kubectl delete -f samples/addons
+$ istioctl manifest generate --set profile<span class="token operator">=</span>demo <span class="token operator">|</span> kubectl delete --ignore-not-found<span class="token operator">=</span>true -f -
 </code></pre>
 <p>默认情况下，不删除istio-system名称空间。 如果不再需要，请使用以下命令将其删除：</p>
-<pre><code>$ kubectl delete namespace istio-system
+<pre class=" language-bash"><code class="language-bash">$ kubectl delete namespace istio-system
 </code></pre>
 <p>默认情况下，Istio自动注入Envoy sidecar代理的标签不会被删除。如果不再需要，请使用以下命令将其删除。</p>
-<pre><code>$ kubectl label namespace default istio-injection-
+<pre class=" language-bash"><code class="language-bash">$ kubectl label namespace default istio-injection-
 </code></pre>
 
                 
