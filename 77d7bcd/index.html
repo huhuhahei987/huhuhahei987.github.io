@@ -449,7 +449,7 @@ wget -O /etc/yum.repos.d/centos-base.repo http">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    164
+                    165
                 </div>
                 
 
@@ -479,7 +479,7 @@ wget -O /etc/yum.repos.d/centos-base.repo http">
                 <h3 id="1-1-配置第三方yum源"><a href="#1-1-配置第三方yum源" class="headerlink" title="1.1 配置第三方yum源"></a>1.1 配置第三方yum源</h3><pre class=" language-bash"><code class="language-bash">yum -y <span class="token function">install</span> yum-utils
 <span class="token function">mv</span> /etc/yum.repos.d/dvd.repo<span class="token punctuation">{</span>,.bak<span class="token punctuation">}</span>
 <span class="token function">wget</span> -O /etc/yum.repos.d/centos-base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-yum-config-manager --add-repo http://mirrors.aliyun.com/dockerce/linux/centos/docker-ce.repo
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 </code></pre>
 <h3 id="1-2-生成缓存"><a href="#1-2-生成缓存" class="headerlink" title="1.2 生成缓存"></a>1.2 生成缓存</h3><pre class=" language-bash"><code class="language-bash">yum makecache fast
 yum repolist
