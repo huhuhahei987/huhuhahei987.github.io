@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>java如何服务优雅从nacos中关闭</title>
+      <link href="/666e2e4a/"/>
+      <url>/666e2e4a/</url>
+      
+        <content type="html"><![CDATA[<h3 id="1-1-前言"><a href="#1-1-前言" class="headerlink" title="1.1 前言"></a>1.1 前言</h3><blockquote><p>在微服务时代,我们直接关闭一个pod,那这部分流量就无法得到正确处理，会影响部分用户.通常来说网关或者注册中心会将我们的服务保持一个心跳，过了心跳超时之后会自动摘除我们的服务，但是有一个问题就是超时时间可能是30秒也可能是60秒，虽然不会影响我们的系统，但是会产生用户轻微抖动。</p></blockquote><blockquote><p>如果我们在停止前执行一条命令，通知网关或者注册中心这台主机进行下线，那么注册中心就会标记这台主机已经下线，不进行流量转发，用户就不会有任何影响，这就是优雅停止，将滚动更新影响最小化</p></blockquote><h3 id="1-2-PreStop"><a href="#1-2-PreStop" class="headerlink" title="1.2 PreStop"></a>1.2 PreStop</h3><p>这里以<code>Nacos</code>为例</p><p><code>Nacos</code> 目前支持临时实例使用心跳上报方式维持活性，发送心跳的周期默认是 5 秒，<code>Nacos </code>服务端会在 15 秒没收到心跳后将实例设置为不健康，</p><p>在 30 秒没收到心跳时将这个临时实例摘除。这里要注意30秒这个时间</p><p>nacos 服务手动下线方法</p><pre class=" language-bash"><code class="language-bash">curl -X PUT <span class="token string">"http://192.168.0.10:8848/nacos/v1/ns/instance?serviceName=java-test&amp;clusterName=DEFAULT&amp;groupName=test&amp;ip=10.10.90.20&amp;port=8888&amp;enabled=false"</span></code></pre><p>说明：</p><ul><li>192.168.0.10:8848 nacos注册地址</li><li>java-test 注册的应用名称</li><li>10.10.90.20 注册的应用名称所在主机地址</li><li>8888 注册的应用名称使用的端口号</li><li>enabled&#x3D;false 下线，enabled&#x3D;true 上线</li><li>namespaceId 命令空间，默认使用public命名空间则不写这个</li></ul><p>这里是通过脚本先注入到镜像内 然后配置prestop来调用这个脚本</p><pre class=" language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>NACOS_DISCOVERY_ADDR<span class="token operator">=</span>`printenv <span class="token operator">|</span> <span class="token function">grep</span> NACOS_DISCOVERY_ADDR <span class="token operator">|</span> <span class="token function">awk</span> -F<span class="token string">','</span> <span class="token string">'{print <span class="token variable">$1</span>}'</span> <span class="token operator">|</span> <span class="token function">awk</span> -F<span class="token string">'='</span> <span class="token string">'{print <span class="token variable">$2</span>}'</span><span class="token variable"><span class="token variable">`</span>SERVER_NAME<span class="token operator">=</span>$<span class="token punctuation">{</span>MY_POD_NAME<span class="token punctuation">}</span>PODIP<span class="token operator">=</span>$<span class="token punctuation">{</span>POD_OWN_IP_ADDRESS<span class="token punctuation">}</span>PORT<span class="token operator">=</span><span class="token variable">`</span></span>ss -tnl <span class="token operator">|</span> <span class="token function">grep</span> 0.0.0.0 <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$4</span>}'</span> <span class="token operator">|</span> <span class="token function">awk</span> -F<span class="token string">':'</span> <span class="token string">'{print <span class="token variable">$2</span>}'</span>`<span class="token keyword">echo</span> <span class="token string">"输出必要的环境变量: <span class="token variable">${NACOS_DISCOVERY_ADDR}</span> <span class="token variable">${SERVER_NAME}</span> <span class="token variable">${RUN_ENV}</span> <span class="token variable">${PODIP}</span> <span class="token variable">${PORT}</span>"</span>result<span class="token operator">=</span><span class="token punctuation">$(</span>curl -X PUT <span class="token string">"http://<span class="token variable">${NACOS_DISCOVERY_ADDR}</span>/nacos/v1/ns/instance?serviceName=<span class="token variable">${SERVER_NAME}</span>&amp;clusterName=DEFAULT&amp;groupName=<span class="token variable">${RUN_ENV}</span>&amp;ip=<span class="token variable">${PODIP}</span>&amp;port=<span class="token variable">${PORT}</span>&amp;enabled=false"</span><span class="token punctuation">)</span><span class="token keyword">echo</span> <span class="token string">"输出curl执行结果result:<span class="token variable">${result}</span>"</span><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">${result}</span> <span class="token operator">=</span> <span class="token string">"ok"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>  <span class="token keyword">echo</span> <span class="token string">"执行成功"</span>  <span class="token function">sleep</span> 45  <span class="token keyword">exit</span> 0<span class="token keyword">else</span>  <span class="token keyword">echo</span> <span class="token string">"执行失败"</span>  <span class="token keyword">exit</span> 1<span class="token keyword">fi</span></code></pre><p>将脚本添加到基础镜像中</p><pre class=" language-bash"><code class="language-bash">ADD preStop.sh /tmp/pre_stop.shRUN <span class="token function">chmod</span> 777 /tmp/pre_stop.sh</code></pre><h3 id="1-3-yaml添加配置"><a href="#1-3-yaml添加配置" class="headerlink" title="1.3 yaml添加配置"></a>1.3 yaml添加配置</h3><pre class=" language-yaml"><code class="language-yaml">          <span class="token key atrule">lifecycle</span><span class="token punctuation">:</span>            <span class="token key atrule">preStop</span><span class="token punctuation">:</span>              <span class="token key atrule">exec</span><span class="token punctuation">:</span>                <span class="token key atrule">command</span><span class="token punctuation">:</span>                  <span class="token punctuation">-</span> /bin/sh                  <span class="token punctuation">-</span> <span class="token string">'-c'</span>                  <span class="token punctuation">-</span> /tmp/pre_stop.sh</code></pre><p>再次重启服务将会发现老服务会先处于下线状态 持续45s后才会正常关闭</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> K8s </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kubeadm 安装k8s集群</title>
       <link href="/b07003b2/"/>
       <url>/b07003b2/</url>
