@@ -4,9 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Goproxy 代理部署, huhuhahei">
-    <meta name="description" content="goproxy安装配置(这次下载的是商业版本的)
-curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/master/install_aut">
+    <meta name="keywords" content="jenkins k8s搭建, huhuhahei">
+    <meta name="description" content="1.1 前言
+本文主要介绍在k8s部署测试使用的jenkins 生产环境推荐使用多节点 或者其他方式部署
+
+2.1 部署搭建准备持久化数据卷我这里使用的storageclass作为底层存储 当然也可以使用nfs
+kind: Persiste">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +23,7 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
     
 
-    <title>Goproxy 代理部署 | huhuhahei</title>
+    <title>jenkins k8s搭建 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -308,12 +311,12 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/51.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Goproxy 代理部署</h1>
+                    <h1 class="description center-align post-title">jenkins k8s搭建</h1>
                 </div>
             </div>
         </div>
@@ -429,12 +432,12 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/DevOps/">
+                                <span class="chip bg-color">DevOps</span>
                             </a>
                         
-                            <a href="/tags/Go/">
-                                <span class="chip bg-color">Go</span>
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
                             </a>
                         
                     </div>
@@ -445,8 +448,8 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/DevOps/" class="post-category">
+                                DevOps
                             </a>
                         
                     </div>
@@ -458,7 +461,7 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-08
+                    2022-08-04
                 </div>
                 
 
@@ -467,14 +470,14 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    209
+                    498
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -494,34 +497,184 @@ curl -L https://mirrors.host900.com/https://github.com/snail007/goproxy/blob/mas
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>goproxy安装配置(这次下载的是商业版本的)</strong></p>
-<pre class=" language-yaml"><code class="language-yaml">curl <span class="token punctuation">-</span>L https<span class="token punctuation">:</span>//mirrors.host900.com/https<span class="token punctuation">:</span>//github.com/snail007/goproxy/blob/master/install_auto_commercial.sh <span class="token punctuation">|</span> bash
+                <h3 id="1-1-前言"><a href="#1-1-前言" class="headerlink" title="1.1 前言"></a>1.1 前言</h3><blockquote>
+<p>本文主要介绍在k8s部署测试使用的jenkins 生产环境推荐使用多节点 或者其他方式部署</p>
+</blockquote>
+<h3 id="2-1-部署搭建"><a href="#2-1-部署搭建" class="headerlink" title="2.1 部署搭建"></a>2.1 部署搭建</h3><h4 id="准备持久化数据卷"><a href="#准备持久化数据卷" class="headerlink" title="准备持久化数据卷"></a>准备持久化数据卷</h4><p>我这里使用的storageclass作为底层存储 当然也可以使用nfs</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins<span class="token punctuation">-</span>data
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> ceph<span class="token punctuation">-</span>storageclass
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 10Gi
 </code></pre>
-<p><strong>安装完成，配置目录是&#x2F;etc&#x2F;proxy</strong></p>
-<p><strong>商业版本激活</strong></p>
-<pre class=" language-bash"><code class="language-bash">proxy http
+<h4 id="配置RBAC权限"><a href="#配置RBAC权限" class="headerlink" title="配置RBAC权限"></a>配置RBAC权限</h4><p>这个官网有提供可以去官网下载[jenkins-sa.yaml](wget <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/jenkins-infra/jenkins.io/master/content/doc/tutorials/kubernetes/installing-jenkins-on-kubernetes/jenkins-sa.yaml">https://raw.githubusercontent.com/jenkins-infra/jenkins.io/master/content/doc/tutorials/kubernetes/installing-jenkins-on-kubernetes/jenkins-sa.yaml</a>)</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> jenkins
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">rbac.authorization.kubernetes.io/autoupdate</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">kubernetes.io/bootstrapping</span><span class="token punctuation">:</span> rbac<span class="token punctuation">-</span>defaults
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">'*'</span>
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> statefulsets
+  <span class="token punctuation">-</span> services
+  <span class="token punctuation">-</span> replicationcontrollers
+  <span class="token punctuation">-</span> replicasets
+  <span class="token punctuation">-</span> podtemplates
+  <span class="token punctuation">-</span> podsecuritypolicies
+  <span class="token punctuation">-</span> pods
+  <span class="token punctuation">-</span> pods/log
+  <span class="token punctuation">-</span> pods/exec
+  <span class="token punctuation">-</span> podpreset
+  <span class="token punctuation">-</span> poddisruptionbudget
+  <span class="token punctuation">-</span> persistentvolumes
+  <span class="token punctuation">-</span> persistentvolumeclaims
+  <span class="token punctuation">-</span> jobs
+  <span class="token punctuation">-</span> endpoints
+  <span class="token punctuation">-</span> deployments
+  <span class="token punctuation">-</span> deployments/scale
+  <span class="token punctuation">-</span> daemonsets
+  <span class="token punctuation">-</span> cronjobs
+  <span class="token punctuation">-</span> configmaps
+  <span class="token punctuation">-</span> namespaces
+  <span class="token punctuation">-</span> events
+  <span class="token punctuation">-</span> secrets
+  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> create
+  <span class="token punctuation">-</span> get
+  <span class="token punctuation">-</span> watch
+  <span class="token punctuation">-</span> delete
+  <span class="token punctuation">-</span> list
+  <span class="token punctuation">-</span> patch
+  <span class="token punctuation">-</span> update
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">""</span>
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> nodes
+  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> get
+  <span class="token punctuation">-</span> list
+  <span class="token punctuation">-</span> watch
+  <span class="token punctuation">-</span> update
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">rbac.authorization.kubernetes.io/autoupdate</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">kubernetes.io/bootstrapping</span><span class="token punctuation">:</span> rbac<span class="token punctuation">-</span>defaults
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> Group
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> system<span class="token punctuation">:</span>serviceaccounts<span class="token punctuation">:</span>jenkins
 </code></pre>
-<p><strong>执行完上面的命令不需要操作会自动停止然后再目录下回出现一个.txt结尾的问题件,里面的内容就是机器码</strong></p>
-<p><strong>激活方法参考</strong></p>
-<p><a target="_blank" rel="noopener" href="https://snail007.host900.com/goproxy/page/free_vs_commercial/">https://snail007.host900.com/goproxy/page/free_vs_commercial&#x2F;</a></p>
-<p><strong>服务启动</strong></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">nohup</span> proxy http -a test:123456:0:0 -t tcp -p <span class="token string">"0.0.0.0:8081"</span> -T tcp -P <span class="token string">"0.0.0.0:8080"</span> <span class="token operator">&amp;</span>
+<h3 id="DeployMent配置"><a href="#DeployMent配置" class="headerlink" title="DeployMent配置"></a>DeployMent配置</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> jenkins
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> jenkins
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> jenkins/jenkins<span class="token punctuation">:</span>2.346.2
+        <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>                     
+          <span class="token key atrule">runAsUser</span><span class="token punctuation">:</span> <span class="token number">0                      </span><span class="token comment" spellcheck="true">#设置以ROOT用户运行容器</span>
+          <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true                  </span><span class="token comment" spellcheck="true">#拥有特权</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> jnlp
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">50000</span>
+        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 2Gi
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"2000m"</span>
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> LIMITS_MEMORY
+          <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+            <span class="token key atrule">resourceFieldRef</span><span class="token punctuation">:</span>
+              <span class="token key atrule">resource</span><span class="token punctuation">:</span> limits.memory
+              <span class="token key atrule">divisor</span><span class="token punctuation">:</span> 1Mi
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"JAVA_OPTS"</span>                 <span class="token comment" spellcheck="true">#设置变量，指定时区和 jenkins slave 执行者设置</span>
+          <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token string">" 
+                   -Xmx$(LIMITS_MEMORY)m 
+                   -XshowSettings:vm 
+                   -Dhudson.slaves.NodeProvisioner.initialDelay=0
+                   -Dhudson.slaves.NodeProvisioner.MARGIN=50
+                   -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
+                   -Duser.timezone=Asia/Shanghai
+                 "</span>    
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"JENKINS_OPTS"</span>
+          <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token string">"--prefix=/jenkins"</span>         <span class="token comment" spellcheck="true">#设置路径前缀加上 Jenkins</span>
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>                        <span class="token comment" spellcheck="true">#设置要挂在的目录</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> data
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/jenkins_home
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> data
+        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> jenkins<span class="token punctuation">-</span>data                 <span class="token comment" spellcheck="true">#设置PVC</span>
 </code></pre>
-<pre class=" language-bash"><code class="language-bash">参数介绍
-
-http 使用http协议进行代理
-
--a 制定用户认证 用户名:密码:最大连接数:速度限制
-
--t 指定协议
-
--p 监听端口
-
--T 后端服务协议
-
--P 后端服务地址和端口
+<h4 id="配置svc"><a href="#配置svc" class="headerlink" title="配置svc"></a>配置svc</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> jenkins
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> jenkins
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080                      </span><span class="token comment" spellcheck="true">#服务端口</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+    <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">32001                 </span><span class="token comment" spellcheck="true">#NodePort方式暴露 Jenkins 端口</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> jnlp
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">50000                     </span><span class="token comment" spellcheck="true">#代理端口</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">50000</span>
+    <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">32002</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> jenkins
 </code></pre>
-<p>官方文档<a target="_blank" rel="noopener" href="https://snail007.host900.com/goproxy/manual/zh/#/?id=_2tcp%e4%bb%a3%e7%90%86">goproxy</a></p>
+<h3 id="3-1-交付K8s"><a href="#3-1-交付K8s" class="headerlink" title="3.1 交付K8s"></a>3.1 交付K8s</h3><pre class=" language-bash"><code class="language-bash"> kubectl apply -f <span class="token keyword">.</span>
+</code></pre>
+<p>待pod启动完成即可</p>
+<h3 id="4-1-展示"><a href="#4-1-展示" class="headerlink" title="4.1 展示"></a>4.1 展示</h3><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/08/Xnip2022-08-04_11-25-44.jpg"></p>
 
                 
             </div>
@@ -548,7 +701,7 @@ http 使用http协议进行代理
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/7b9f226b/">https://huhuhahei987.github.io/7b9f226b/</a>
+                    <a href="https://huhuhahei987.github.io/bf262451/">https://huhuhahei987.github.io/bf262451/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -586,12 +739,12 @@ http 使用http协议进行代理
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/DevOps/">
+                                    <span class="chip bg-color">DevOps</span>
                                 </a>
                             
-                                <a href="/tags/Go/">
-                                    <span class="chip bg-color">Go</span>
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
                                 </a>
                             
                         </div>
@@ -1039,17 +1192,18 @@ http 使用http协议进行代理
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2eab2259/">
+                <a href="/bf262451/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Nginx代理添加缓存">
+                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="jenkins k8s搭建">
                         
-                        <span class="card-title">Nginx代理添加缓存</span>
+                        <span class="card-title">jenkins k8s搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1059,30 +1213,31 @@ http 使用http协议进行代理
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/DevOps/" class="post-category">
+                                    DevOps
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/DevOps/">
+                        <span class="chip bg-color">DevOps</span>
                     </a>
                     
-                    <a href="/tags/Nginx/">
-                        <span class="chip bg-color">Nginx</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
@@ -1096,13 +1251,13 @@ http 使用http协议进行代理
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/5d7d0bc/">
+                <a href="/666e2e4a/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/49.jpg" class="responsive-img" alt="记录一个nacos部署报错处理过程">
+                        <img src="/medias/featureimages/43.jpg" class="responsive-img" alt="java如何服务优雅从nacos中关闭">
                         
-                        <span class="card-title">记录一个nacos部署报错处理过程</span>
+                        <span class="card-title">java如何服务优雅从nacos中关闭</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1113,14 +1268,14 @@ http 使用http协议进行代理
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    开源项目
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
@@ -1134,8 +1289,8 @@ http 使用http协议进行代理
                         <span class="chip bg-color">K8s</span>
                     </a>
                     
-                    <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">开源项目</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
