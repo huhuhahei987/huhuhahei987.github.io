@@ -4,11 +4,30 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Istio 简介, huhuhahei">
-    <meta name="description" content="一.Istio 简介1.Istio是什么
-Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Mesh形态的用于服务治理的开放平台。
+    <meta name="keywords" content="redis 搭建Sentinel集群, huhuhahei">
+    <meta name="description" content="1.服务规划
 
-根据Istio官方的介绍，服务治理涉及连接（Connect）、安全（Se">
+
+主机名
+ip
+redis port
+角色
+sentinel port
+
+
+
+redis-01
+172.17.0.78
+6379
+master
+26379
+
+
+Redis-02
+172.17.0.77
+6379
+slave
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +41,7 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
 
     
 
-    <title>Istio 简介 | huhuhahei</title>
+    <title>redis 搭建Sentinel集群 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -310,12 +329,12 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/47.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/40.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Istio 简介</h1>
+                    <h1 class="description center-align post-title">redis 搭建Sentinel集群</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +450,12 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/K8s/">
-                                <span class="chip bg-color">K8s</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="/tags/Istio/">
-                                <span class="chip bg-color">Istio</span>
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
                             </a>
                         
                     </div>
@@ -447,8 +466,8 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Istio/" class="post-category">
-                                Istio
+                            <a href="/categories/redis/" class="post-category">
+                                redis
                             </a>
                         
                     </div>
@@ -460,7 +479,7 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-01
+                    2022-08-08
                 </div>
                 
 
@@ -469,14 +488,14 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    409
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    2 分
                 </div>
                 
 
@@ -496,182 +515,103 @@ Istio 是一个与Kubernetes紧密结合的适用于云原生场景的Service Me
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-Istio-简介"><a href="#一-Istio-简介" class="headerlink" title="一.Istio 简介"></a>一.Istio 简介</h1><h2 id="1-Istio是什么"><a href="#1-Istio是什么" class="headerlink" title="1.Istio是什么"></a>1.Istio是什么</h2><blockquote>
-<p>Istio 是一个<code>与Kubernetes紧密结合</code>的<code>适用于云原生场景</code>的<code>Service Mesh形态的</code>用于<code>服务治理</code>的开放平台。</p>
-</blockquote>
-<p>根据Istio官方的介绍，服务治理涉及连接（Connect）、安全（Secure）、策略执行（Control）和可观察性（Observe）。</p>
-<ul>
-<li><code>连接</code>：Istio通过集中配置的流量规则控制服务间的流量和调用，实现负载均衡、熔断、故障注入、重试、重定向等服务治理功能。</li>
-<li><code>安全</code>：Istio提供透明的认证机制、通道加密、服务访问授权等安全能力，可增强服务访问的安全性。</li>
-<li><code>策略执行</code>：Istio通过可动态插拔、可扩展的策略实现访问控制、速率限制、配额管理、服务计费等能力。</li>
-<li><code>可观察性</code>：动态获取服务运行数据和输出，提供强大的调用链、监控和调用日志收集输出的能力。配合可视化工具，可方便运维人员了解服务的运行状态，发现并解决问题。</li>
-</ul>
-<h1 id="2-Istio的重要能力"><a href="#2-Istio的重要能力" class="headerlink" title="2. Istio的重要能力"></a>2. Istio的重要能力</h1><ul>
-<li><code>服务运行可观察性</code>：监控应用及网络相关数据，将相关指标与日志记录发送至任意收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。</li>
-<li><code>弹性与效率</code>：提供了统一的方法配置重试、负载均衡、流量控制和断路器等来解决网络可靠性低所造成的各类常见故障，更轻松地运维高弹性服务网格。</li>
-<li><code>研发人员生产力</code>：确保研发人员专注于基于已选择的编程语言构建业务功能，不用在代码中处理分布式系统的问题，从而极大地提升生产能力。</li>
-<li><code>策略驱动型运营</code>：解耦开发与运维团队的工作，在无须更改代码的前提下提升安全性、监控能力、扩展性与服务拓扑水平。运营人员能够不依赖开发提供的能力精确控制生成流量。</li>
-<li><code>默认安全</code>：允许运营人员配置TLS双向认证并保护各服务之间的所有通信，并且开发人员和运维人员不用维护证书，以应对分布式计算中经常存在的大量网络安全问题。</li>
-<li><code>增量适用</code>：考虑到网络中运行的各服务的透明性，允许团队按照自己的节奏和需求逐步适用各项功能，例如先观察服务运行情况再进行服务治理等。</li>
-</ul>
-<h1 id="3-Istio与服务治理"><a href="#3-Istio与服务治理" class="headerlink" title="3. Istio与服务治理"></a>3. Istio与服务治理</h1><p>Istio是一个服务治理平台，治理的是服务间的访问，只要有访问就可以治理，不在乎这个服务是不是所谓的微服务，也不要求跑在其上的代码是否是微服务化的。</p>
-<h2 id="3-1-关于微服务"><a href="#3-1-关于微服务" class="headerlink" title="3.1 关于微服务"></a>3.1 关于微服务</h2><blockquote>
-<p>微服务是以一组小型服务来开发单个应用程序的方法，每个服务都运行在自己的进程中，服务间采用轻量级通信机制（通常用HTTP资源API）。这些服务围绕业务能力构建并可通过全自动部署机制独立部署，还共用一个最小型的集中式管理，可用不同的语言开发，并使用不同的数据存储技术.<br>——————————Martin Fowler</p>
-</blockquote>
-<p>微服务本质上是分而治之、化繁为简的哲学智慧在计算机领域的体现。</p>
-<h3 id="3-1-1-微服务带来的好处："><a href="#3-1-1-微服务带来的好处：" class="headerlink" title="3.1.1 微服务带来的好处："></a>3.1.1 微服务带来的好处：</h3><ul>
-<li><code>从开发视角来看</code>：每个服务的功能更内聚，可以在微服务内设计和扩展功能，并且采用不同的开发语言及开发工具；</li>
-<li><code>从运维视角来看</code>：在微服务化后，每个服务都在独立的进程里，可以自运维；更重要的是，微服务化是单一变更的基础，迭代速度更快，上线风险更小；</li>
-<li><code>从组织管理视角来看</code>：将团队安装微服务切分成小组取代服务大组也有利于敏捷开发。</li>
-</ul>
-<h3 id="3-1-2-微服务的缺点："><a href="#3-1-2-微服务的缺点：" class="headerlink" title="3.1.2 微服务的缺点："></a>3.1.2 微服务的缺点：</h3><ul>
-<li>服务数量变多，业务本身的规模和复杂度并没有变少，反而变多。</li>
-<li>在分布式系统中，网络可靠性、通信安全、网络时延、网络拓扑变化等都成立我们要关注的内容。</li>
-<li>微服务机制带来了大量的工作，比如服务如何请求目标服务，需要引入服务发现和负载均衡等，以及对跨进程的分布式调用栈进行分布式调用链路追踪。</li>
-</ul>
-<p>总之，简单的事情突然变得复杂了。</p>
-<h2 id="3-2-服务治理的三种形态"><a href="#3-2-服务治理的三种形态" class="headerlink" title="3.2 服务治理的三种形态"></a>3.2 服务治理的三种形态</h2><p>服务治理的演变至少经过了以下三种形态。</p>
-<h3 id="3-2-1-第一种形态：在应用程序中包含治理逻辑"><a href="#3-2-1-第一种形态：在应用程序中包含治理逻辑" class="headerlink" title="3.2.1 第一种形态：在应用程序中包含治理逻辑"></a>3.2.1 第一种形态：在应用程序中包含治理逻辑</h3><p>自己写代码去实现服务发现和治理的逻辑。<br> <code>缺点</code>：</p>
-<ol>
-<li>功能简单；</li>
-<li>实现成本高，存在大量重复代码；</li>
-<li>维护和升级困难；</li>
-</ol>
-<h3 id="3-2-1-第二种形态：治理逻辑独立的代码"><a href="#3-2-1-第二种形态：治理逻辑独立的代码" class="headerlink" title="3.2.1 第二种形态：治理逻辑独立的代码"></a>3.2.1 第二种形态：治理逻辑独立的代码</h3><p>典型代表：Spring Cloud Eureka<br> <code>优点</code>：</p>
-<ol>
-<li>在代码上解耦了业务和治理逻辑</li>
-</ol>
-<p><code>缺点</code>：<br> 业务代码和SDK还是要一起编译，业务代码和治理逻辑孩子同一个进程内，这就导致几个问题：</p>
-<ol>
-<li>业务代码必须和SDK基于同一种语言，即语言绑定；</li>
-<li>治理逻辑升级时，还需要用户的整个服务升级；</li>
-<li>SDK对开发人员来说有较高的学习门槛。</li>
-</ol>
-<h3 id="3-2-3-第三种形态：治理逻辑独立的进程"><a href="#3-2-3-第三种形态：治理逻辑独立的进程" class="headerlink" title="3.2.3 第三种形态：治理逻辑独立的进程"></a>3.2.3 第三种形态：治理逻辑独立的进程</h3><p>把治理逻辑彻底从用户的业务代码中剥离出来，即Sidecar模式。<br> <code>优点</code>：</p>
-<ol>
-<li>用户的代码和治理逻辑都以独立的进程存在，两者的代码和运行都无耦合，这样可以做到与开发语言无关，升级也相互独立；</li>
-<li>在对已存在的系统进行微服务治理时，只需搭配Sidecar即可，对原服务无需做任何修改；</li>
-<li>可以对老系统渐进式升级改造，先对部分服务进行微服务化。</li>
-</ol>
-<h3 id="3-2-3-三种服务治理形态的比较"><a href="#3-2-3-三种服务治理形态的比较" class="headerlink" title="3.2.3 三种服务治理形态的比较"></a>3.2.3 三种服务治理形态的比较</h3><table>
+                <h3 id="1-服务规划"><a href="#1-服务规划" class="headerlink" title="1.服务规划"></a>1.服务规划</h3><table>
 <thead>
 <tr>
-<th>形态</th>
-<th>业务逻辑侵入</th>
-<th>业务代码侵入</th>
-<th>业务进程侵入</th>
+<th>主机名</th>
+<th>ip</th>
+<th>redis port</th>
+<th>角色</th>
+<th>sentinel port</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>在应用程序中包含治理逻辑</td>
-<td>Y</td>
-<td>Y</td>
-<td>Y</td>
+<td>redis-01</td>
+<td>172.17.0.78</td>
+<td>6379</td>
+<td>master</td>
+<td>26379</td>
 </tr>
 <tr>
-<td>治理逻辑独立的代码</td>
-<td>N</td>
-<td>N</td>
-<td>Y</td>
+<td>Redis-02</td>
+<td>172.17.0.77</td>
+<td>6379</td>
+<td>slave</td>
+<td>26379</td>
 </tr>
 <tr>
-<td>治理逻辑独立的进程</td>
-<td>N</td>
-<td>N</td>
-<td>N</td>
+<td>Redis-03</td>
+<td>172.17.0.76</td>
+<td>6379</td>
+<td>slave</td>
+<td>26379</td>
 </tr>
 </tbody></table>
-<h1 id="4-Istio与服务网格"><a href="#4-Istio与服务网格" class="headerlink" title="4. Istio与服务网格"></a>4. Istio与服务网格</h1><p>业界比较认同的是William Morgan关于服务网关（Service Mesh）的一段定义，这里提取和解释该定义中的几个关键字来讲解服务网格的特点：</p>
-<ul>
-<li><code>基础设施</code>：服务网格是一种处理服务间通信的基础设施层。</li>
-<li><code>云原生</code>：服务网格尤其适用于在云原生场景下帮助应用程序在复杂的服务拓扑间可靠地传递请求。</li>
-<li><code>网络代理</code>：在实际使用用，服务网格一般是通过一组轻量级网络代理来执行治理逻辑的。</li>
-<li><code>对应用透明</code>：轻量网络代理与应用程序部署在一起，但应用感知不到代理的存在，还是使用原来的方式工作。</li>
-</ul>
-<p>经典的服务网格示意图如下图所示：</p>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/13618762-1cd975df189fbf48.jpg"></p>
-<p>经典的服务网格示意图</p>
-<h2 id="4-1-时代选择服务网格"><a href="#4-1-时代选择服务网格" class="headerlink" title="4.1 时代选择服务网格"></a>4.1 时代选择服务网格</h2><blockquote>
-<p>在云原生时代，随着采用各种语言开发的服务剧增，应用间的访问拓扑更加复杂，治理需求也越来越多。原来的那种嵌入在应用中的治理功能无论是从形态、动态性还是可扩展性来说都不能满足需求，迫切需要一种具备云原生动态、弹性特定的应用治理基础设施。</p>
-</blockquote>
-<p>首先，从单个应用来看，Sidecar与应用程序的解耦带来的<code>应用完全无侵入</code>、<code>开发语言无关</code>等特点解除了开发语言的约束，从而极大降低了应用开发者的开发成本。</p>
-<p>然后，从全局来看，在多个服务间有复杂的互相访问时才有服务治理的需求。即我们关注的这些Sidecar组成的网格，对网格内的服务间访问进行管理，引用还是按照本来的方式进行互相访问，<code>每个应用程序的Inbound流量和Outbound流量都要经过Sidecar代理，并在Sidecar上执行治理动作</code>。</p>
-<p>最后，Sidecar是网格动作的执行体，全局的管理规则和网格内的元数据维护通过一个统一的控制面实现，如下图所示，只有数据面的Sidecar和控制面有联系，应用感知不到Sidecar，更不会和控制面有任何联系，用户的业务和控制面彻底解耦。</p>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/13618762-85223d2341fb3406.jpg"></p>
-<p>服务网格的统一控制面</p>
-<h2 id="4-2-服务网格带来的新问题"><a href="#4-2-服务网格带来的新问题" class="headerlink" title="4.2 服务网格带来的新问题"></a>4.2 服务网格带来的新问题</h2><p>服务网格确实有很多优势，正所谓没有免费的午餐，这种形态在服务的访问链路上多引入的两跳也是不容回避的问题。</p>
-<ul>
-<li>增加了两处延迟和可能的故障点；</li>
-<li>多出来的这两跳对应访问性能、整体可靠性及整个系统的复杂度都带来了新的挑战。</li>
-</ul>
-<p>针对性能和资源损耗，网格提供商提供的方案一般是这样解决的：</p>
-<ol>
-<li><code>通过保证转发代理的轻量和高性能降低时延影响</code>，尤其是考虑到后端实际使用的应用程序一般比代理更重，叠加代理并不会明显影响应用的访问性能；</li>
-<li>另外，对于这些高性能的代理，只有消耗足够的资源总能达到期望的性能，特殊是云原生场景下服务的弹性特点使得服务实例的弹性扩展变得非常方便，通过<code>扩展实例数量</code>总是能得到期望的访问性能。</li>
-</ol>
-<h2 id="4-3-服务网格选择Istio"><a href="#4-3-服务网格选择Istio" class="headerlink" title="4.3 服务网格选择Istio"></a>4.3 服务网格选择Istio</h2><ul>
-<li>在控制面上，Istio作为一种全新的设计，在功能、形态、架构和扩展性上提供了远超服务网格的能力范围；</li>
-<li>Istio基于xDS协议提供了一套标准的控制面规范，想数据面传递服务信息和治理规范；</li>
-<li>Istio的早期版本使用Envoy V1版本的API，即RESTful方式，其新版本使用Envoy V2版本的API，即gRPC协议；</li>
-<li>Envoy是用C++开发的，其性能和资源占用比用Rust开发的Linkerd Proxy更好，更能满足服务网格中对透明代理的轻量高性能的要求；</li>
-<li>Envoy提供L3&#x2F;L4过滤器、HTTP L7过滤器、支持HTTP&#x2F;2、HTTP L7路由及gRPC、MongoDB、DynamoDB等协议；</li>
-<li>Envoy有服务发现、健康检查、高级LB、前端代理等能力，具有极好的可观察性、动态配置功能；</li>
-<li>Envoy是一个可高度定制化的程序，通过Filter机制提供了高度扩展性，还支持热重启，其代码基于模块化编码，易于测试；</li>
-<li>在大厂支持上，Istio由谷歌和IBM共同推出，从应用场景的分析规划到本身的定位，从自身架构的设计到与周边生态的结合，都有着比较严密的论证；</li>
-<li>Istio与Kubernetes无缝结合，Istio称为架构的默认部分，就像容器和Kubernetes已经成为云原生架构的默认部分一样。</li>
-</ul>
-<h2 id="4-4-Istio与Kubernetes"><a href="#4-4-Istio与Kubernetes" class="headerlink" title="4.4 Istio与Kubernetes"></a>4.4 Istio与Kubernetes</h2><p>Kubernetes的Service基于每个节点的kube-proxy从kube-apiserver上获取Service和Endpoint的信息，并将对Service的请求经过负载均衡转发到对应的Endpoint上。</p>
-<p>但Kubernetes只提供了4层负载均衡能力，无法基于应用层的信息进行负载均衡，更不能提供应用层的流量管理，在服务运行管理上也只提供了基本的探针机制，并不能提供服务访问的指标和调用链追踪这种应用的服务运行诊断能力。</p>
-<p>Istio复用了Kubernetes Service的定义，在实现上进行了更细粒度的控制。</p>
-<p>Istio的服务发现就是从kube-apiserver中获取Service和Endpoint，然后将其转换成Istio服务模型的Service和ServiceInstance，但是其数据面组件不再是kube-proxy，而是在每个Pod里部署的Sidecar，也可以将其看作每个服务实例的Proxy。</p>
-<p>通过拦截Pod的Inbound流量和Outbound流量，并在Sidecar上解析各种应用层协议，Istio可以提供真正的应用层治理、监控和安全等能力。</p>
-<p>总之，Istio和Kubernetes从设计理念、使用体验、系统架构甚至代码风格等小细节来看，关系都非常紧密，甚至有人认为Istio就是Kubernetes团队开发的Kubernetes可插拔的增强特性。</p>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/13618762-16b88481a0ae8424.jpg"></p>
-<h1 id="二-Istio部署"><a href="#二-Istio部署" class="headerlink" title="二.Istio部署"></a>二.Istio部署</h1><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/07/image-20220515121116461.png"></p>
-<h2 id="1-下载Istioctl"><a href="#1-下载Istioctl" class="headerlink" title="1.下载Istioctl"></a>1.下载Istioctl</h2><pre class=" language-bash"><code class="language-bash">curl -L https://istio.io/downloadIstio <span class="token operator">|</span> sh -
-<span class="token comment" spellcheck="true">#这里建议直接参考官方文档下载</span>
-<span class="token function">wget</span> kode.huhuhahei.cn/kodexplorer/tar包/Istio-1.4/istio-1.4.0-linux.tar.gz
+<p>本文主要介绍sentinel 和主从配置 <a target="_blank" rel="noopener" href="https://www.huhuhahei.cn/1ce736fe/">redis 一主两从集群搭建</a></p>
+<h3 id="2-redis配置主从"><a href="#2-redis配置主从" class="headerlink" title="2.redis配置主从"></a>2.redis配置主从</h3><p>只需要在两个从节点执行一下命令</p>
+<pre><code>127.0.0.1:6379&gt; slaveof 172.17.0.78 6379
+OK
+127.0.0.1:6379&gt; 
 </code></pre>
-<h2 id="2-文件简介"><a href="#2-文件简介" class="headerlink" title="2.文件简介"></a>2.文件简介</h2><pre class=" language-bash"><code class="language-bash">total 24
-drwxr-x---  2 root root    22 Nov 14  2019 bin            <span class="token comment" spellcheck="true">#istioctl命令目录</span>
-drwxr-xr-x  6 root root    79 Nov 14  2019 <span class="token function">install</span>        <span class="token comment" spellcheck="true">#安装文件目录这里使用的k8s安装</span>
--rw-r--r--  1 root root 11348 Nov 14  2019 LICENSE
--rw-r-----  1 root root   675 Nov 14  2019 manifest.yaml
--rw-r--r--  1 root root  6080 Nov 14  2019 README.md
-drwxr-xr-x 19 root root   307 Nov 14  2019 samples
-drwxr-x---  3 root root    99 Nov 14  2019 tools           <span class="token comment" spellcheck="true">#常用工具目录</span>
+<p>两个均执行完成后可以查看主从复制状态</p>
+<pre class=" language-bash"><code class="language-bash">info replication
+<span class="token comment" spellcheck="true"># Replication</span>
+role:master
+connected_slaves:2
+slave0:ip<span class="token operator">=</span>172.17.0.77,port<span class="token operator">=</span>6379,state<span class="token operator">=</span>online,offset<span class="token operator">=</span>701751,lag<span class="token operator">=</span>1
+slave1:ip<span class="token operator">=</span>172.17.0.76,port<span class="token operator">=</span>6379,state<span class="token operator">=</span>online,offset<span class="token operator">=</span>701765,lag<span class="token operator">=</span>0
+master_failover_state:no-failover
+master_replid:cc2aa24cae22cd9148aa2baaa1439f1c62dac128
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:701765
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:701765
 </code></pre>
-<h2 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h2><pre class=" language-bash"><code class="language-bash">istioctl manifest apply --set profile<span class="token operator">=</span>demo
-<span class="token comment" spellcheck="true">#安装是比较慢的 需要耐心等待</span>
+<h3 id="3-sentinel配置"><a href="#3-sentinel配置" class="headerlink" title="3.sentinel配置"></a>3.sentinel配置</h3><p>默认redis的源码目录是有sentinel的配置的 我们只需要将配置文件复制到相应目录启动即可</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span>  /opt/redis-6.2.6/sentinel.conf /usr/local/redis/conf/sentinel_26379.conf
 </code></pre>
-<h2 id="4-检测安装状态"><a href="#4-检测安装状态" class="headerlink" title="4.检测安装状态"></a>4.检测安装状态</h2><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#安装完成可以输入yaml文件然后监测安装是否成功</span>
-istioctl manifest generate --set profile<span class="token operator">=</span>demo <span class="token operator">></span> /tmp/demo.yaml
-istioctl verify-install -f /tmp/demo.yaml
-<span class="token comment" spellcheck="true">#检测是否安装成功</span>
-Service: jaeger-query.istio-system checked successfully
-Service: jaeger-collector.istio-system checked successfully
-Service: jaeger-agent.istio-system checked successfully
-Service: zipkin.istio-system checked successfully
-Service: tracing.istio-system checked successfully
-Checked 23 crds
-Checked 9 Istio Deployments
-Istio is installed successfully
+<p>配置文件</p>
+<pre class=" language-bash"><code class="language-bash">port 26379
+daemonize <span class="token function">yes</span>
+<span class="token comment" spellcheck="true">#需要改为yes 否则不是后台运行</span>
+pidfile <span class="token string">"/var/run/redis-sentinel_26379.pid"</span>
+logfile <span class="token string">"/usr/local/redis/log/sentinel_26379.log"</span>
+<span class="token function">dir</span> <span class="token string">"/tmp"</span>
+sentinel monitor mymaster 172.17.0.78 6379 2
+
+sentinel auth-pass mymaster XbNaw1d2kFUw
+sentinel config-epoch mymaster 3
+sentinel leader-epoch mymaster 4
+acllog-max-len 128
+
+sentinel deny-scripts-reconfig <span class="token function">yes</span>
+sentinel resolve-hostnames no
+sentinel announce-hostnames no
+<span class="token comment" spellcheck="true"># Generated by CONFIG REWRITE</span>
+protected-mode no
+
+user default on nopass ~* <span class="token operator">&amp;</span>* +@all
+sentinel myid 173915edb665a620743e0bcd83265e78e74f5838
+sentinel current-epoch 3
+sentinel known-replica mymaster 172.17.0.77 6379
+sentinel known-replica mymaster 172.17.0.76 6379
+sentinel known-sentinel mymaster 172.17.0.76 26379 46ee2470e473a0ade94efdac51da190e8019fc9b
+sentinel known-sentinel mymaster 172.17.0.77 26379 868edf41daea6b9518660398f8905d2bf1d6d7bc
 </code></pre>
-<p>也可以查看pod是否都是运行正常</p>
-<pre class=" language-bash"><code class="language-bash">NAME                                      READY   STATUS    RESTARTS   AGE
-grafana-6b65874977-5tfcn                  1/1     Running   0          78m
-istio-citadel-f74b87856-bgv6k             1/1     Running   0          78m
-istio-egressgateway-c56696f94-pj2k7       1/1     Running   0          78m
-istio-galley-566bcc7758-wwpvp             1/1     Running   0          78m
-istio-ingressgateway-6b9987bf94-9ktgj     1/1     Running   0          78m
-istio-pilot-677c9c688f-xm6sd              1/1     Running   0          78m
-istio-policy-58fb4d586c-gnpkw             1/1     Running   12         78m
-istio-sidecar-injector-85657c7bcb-8ps2p   1/1     Running   1          78m
-istio-telemetry-666b985499-5f6fx          1/1     Running   10         78m
-istio-tracing-c66d67cd9-p6dlj             1/1     Running   0          78m
-kiali-8559969566-9h2gp                    1/1     Running   1          78m
-prometheus-66c5887c86-hb42s               1/1     Running   0          78m
+<p>可以连接sentinel查看状态</p>
+<pre class=" language-bash"><code class="language-bash">info sentinel
+<span class="token comment" spellcheck="true"># Sentinel</span>
+sentinel_masters:1
+sentinel_tilt:0
+sentinel_running_scripts:0
+sentinel_scripts_queue_length:0
+sentinel_simulate_failure_flags:0
+master0:name<span class="token operator">=</span>youpin898master,status<span class="token operator">=</span>ok,address<span class="token operator">=</span>172.17.0.78:6379,slaves<span class="token operator">=</span>2,sentinels<span class="token operator">=</span>3
 </code></pre>
+<p>至此集群已经搭建完成</p>
 
                 
             </div>
@@ -698,7 +638,7 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/82740f3b/">https://huhuhahei987.github.io/82740f3b/</a>
+                    <a href="https://huhuhahei987.github.io/f2fbd0c8/">https://huhuhahei987.github.io/f2fbd0c8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -736,12 +676,12 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/K8s/">
-                                    <span class="chip bg-color">K8s</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
-                                <a href="/tags/Istio/">
-                                    <span class="chip bg-color">Istio</span>
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
                                 </a>
                             
                         </div>
@@ -1189,17 +1129,18 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/9a96ca61/">
+                <a href="/f2fbd0c8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/46.jpg" class="responsive-img" alt="K8s 通过Comfigmap导入ENV">
+                        <img src="/medias/featureimages/40.jpg" class="responsive-img" alt="redis 搭建Sentinel集群">
                         
-                        <span class="card-title">K8s 通过Comfigmap导入ENV</span>
+                        <span class="card-title">redis 搭建Sentinel集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1209,26 +1150,31 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/redis/" class="post-category">
+                                    redis
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/K8s/">
-                        <span class="chip bg-color">K8s</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>
@@ -1242,13 +1188,13 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/fdf20d39/">
+                <a href="/1ce736fe/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Ceph详解">
+                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="redis 一主两从集群搭建">
                         
-                        <span class="card-title">Ceph详解</span>
+                        <span class="card-title">redis 一主两从集群搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1259,14 +1205,14 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-08
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Ceph/" class="post-category">
-                                    Ceph
+                            <a href="/categories/redis/" class="post-category">
+                                    redis
                                 </a>
                             
                             
@@ -1280,8 +1226,8 @@ prometheus-66c5887c86-hb42s               1/1     Running   0          78m
                         <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/Ceph/">
-                        <span class="chip bg-color">Ceph</span>
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>
