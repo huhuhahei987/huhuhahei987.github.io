@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>记录一个生产Nacos注册中心连接失败的问题</title>
+      <link href="/7b74f61c/"/>
+      <url>/7b74f61c/</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>昨日开发同事需要创建一个新的服务,服务创建完成发现启动的时候有问题,无法正常连接nacos的注册中心.和开发沟通了下知道这个服务的<code>nacos-client</code>版本是2.x的 看了下dev环境的也是2.x的</p><h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>根据一下报错搜索,大部分结论都是2.x的客户端请求了 1.x的服务端导致的 很明显不符合这次的情况</p><p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/08/731EDA8F-F1E8-40DB-8735-ABF32CC4927C.png"></p><p>再次查看报错发现有个关键信息</p><pre class=" language-bash"><code class="language-bash">Nacos cluster is running with 1.X mode, can't accept gRPC request temporarily. Please check the server status or close Double <span class="token function">write</span> to force <span class="token function">open</span> 2.0 mode. Detail https://nacos.io/en-us/docs/2.0.0-upgrading.html.</code></pre><p>明明我们的集群是2.x的 但是日志报错显示是1.x的 </p><p>再次google发现可能是参数问题导致虽然是2.0.0版本，但是集群状态并没有升级到2.0 使用的仍然是1.X体系。</p><p>需要用下面的命令修改下</p><pre class=" language-bash"><code class="language-bash">curl -X PUT <span class="token string">'localhost:8848/nacos/v1/ns/operator/switches?entry=doubleWriteEnabled&amp;value=false'</span></code></pre><p>执行完成重启服务后发现真的就可以了 </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nacos </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+            <tag> Nacos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux 出现大量time_wait解决方法</title>
       <link href="/10144a6b/"/>
       <url>/10144a6b/</url>
