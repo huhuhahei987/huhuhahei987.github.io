@@ -377,11 +377,11 @@
                 </a>
                 
                 
-                <a href="/tags/DevOps/" title="DevOps: 5">
+                <a href="/tags/DevOps/" title="DevOps: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="DevOps" style="background-color: #F5EEF8;">DevOps
-                        <span class="tag-length">5</span>
+                        <span class="tag-length">6</span>
                     </span>
                 </a>
                 
@@ -449,11 +449,11 @@
                 </a>
                 
                 
-                <a href="/tags/k8s/" title="k8s: 16">
+                <a href="/tags/k8s/" title="k8s: 17">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
                             data-tagname="k8s" style="background-color: #85C1E9;">k8s
-                        <span class="tag-length">16</span>
+                        <span class="tag-length">17</span>
                     </span>
                 </a>
                 
@@ -664,6 +664,38 @@
 
     <article id="articles" class="container articles">
         <div class="row tags-posts">
+            
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="k8s, ingress" data-aos="fade-up">
+                <div class="card">
+                    <a href="/3033822e/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/49.jpg" class="responsive-img" alt="K8s配置ingress-nginx暴露服务">
+                            
+                            <span class="card-title">K8s配置ingress-nginx暴露服务</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/k8s/" class="post-category">
+                                k8s
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             
             <div class="article tag-post col s12 m6 l4" data-tags="k8s" data-aos="fade-up">
@@ -958,7 +990,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">79.4k</span>
+                        class="white-color">80.7k</span>
             
             
             
@@ -1301,33 +1333,7 @@ $(function () {
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1}});</script></body>
 
 </html>
-ch results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
+                   str += "</li>";
                         }
                     });
                     str += "</ul>";

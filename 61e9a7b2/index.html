@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="K8s Operater部署prometheus, huhuhahei">
-    <meta name="description" content="一、简介1.1 Prometheus Operator工作原理从概念上来讲Operator就是针对管理特定应用程序的，在Kubernetes基本的Resource和Controller的概念上，以扩展Kubernetes api的形式。帮助">
+    <meta name="keywords" content="chaos 压测平台, huhuhahei">
+    <meta name="description" content="简介Chaos Mesh 是一个开源的云原生混沌工程平台，提供丰富的故障模拟类型，具有强大的故障场景编排能力，方便用户在开发测试中以及生产环境中模拟现实世界中可能出现的各类异常，帮助用户发现系统潜在的问题。Chaos Mesh 提供完善的可">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +19,7 @@
 
     
 
-    <title>K8s Operater部署prometheus | huhuhahei</title>
+    <title>chaos 压测平台 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -307,12 +307,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">K8s Operater部署prometheus</h1>
+                    <h1 class="description center-align post-title">chaos 压测平台</h1>
                 </div>
             </div>
         </div>
@@ -428,8 +428,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Prometheus/">
-                                <span class="chip bg-color">Prometheus</span>
+                            <a href="/tags/DevOps/">
+                                <span class="chip bg-color">DevOps</span>
                             </a>
                         
                             <a href="/tags/k8s/">
@@ -444,8 +444,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Monitor/" class="post-category">
-                                Monitor
+                            <a href="/categories/DevOps/" class="post-category">
+                                DevOps
                             </a>
                         
                     </div>
@@ -457,7 +457,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-08
+                    2022-08-30
                 </div>
                 
 
@@ -466,14 +466,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    817
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 
@@ -493,56 +493,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h3 id="1-1-Prometheus-Operator工作原理"><a href="#1-1-Prometheus-Operator工作原理" class="headerlink" title="1.1 Prometheus Operator工作原理"></a>1.1 Prometheus Operator工作原理</h3><p>从概念上来讲Operator就是针对管理特定应用程序的，在Kubernetes基本的Resource和Controller的概念上，以扩展Kubernetes api的形式。帮助用户创建，配置和管理复杂的有状态应用程序。从而实现特定应用程序的常见操作以及运维自动化。</p>
-<p>在Kubernetes中我们使用Deployment、DamenSet，StatefulSet来管理应用Workload，使用Service，Ingress来管理应用的访问方式，使用ConfigMap和Secret来管理应用配置。我们在集群中对这些资源的创建，更新，删除的动作都会被转换为事件(Event)，Kubernetes的Controller Manager负责监听这些事件并触发相应的任务来满足用户的期望。这种方式我们成为声明式，用户只需要关心应用程序的最终状态，其它的都通过Kubernetes来帮助我们完成，通过这种方式可以大大简化应用的配置管理复杂度。</p>
-<p>而除了这些原生的Resource资源以外，Kubernetes还允许用户添加自己的自定义资源(Custom Resource)。并且通过实现自定义Controller来实现对Kubernetes的扩展。</p>
-<p>如下所示，是Prometheus Operator的架构示意图：<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/814160233.png"><br>Prometheus的本质就是一组用户自定义的CRD资源以及Controller的实现，Prometheus Operator负责监听这些自定义资源的变化，并且根据这些资源的定义自动化地完成如Prometheus Server自身以及配置的自动化管理工作。</p>
-<h3 id="1-2-Prometheus-Operator作用"><a href="#1-2-Prometheus-Operator作用" class="headerlink" title="1.2 Prometheus Operator作用"></a>1.2 Prometheus Operator作用</h3><p>要了解Prometheus Operator能做什么，其实就是要了解Prometheus Operator为我们提供了哪些自定义的Kubernetes资源，列出了Prometheus Operator目前提供的️4类资源：</p>
+                <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>Chaos Mesh</code> 是一个开源的云原生混沌工程平台，提供丰富的故障模拟类型，具有强大的故障场景编排能力，方便用户在开发测试中以及生产环境中模拟现实世界中可能出现的各类异常，帮助用户发现系统潜在的问题。<code>Chaos Mesh</code> 提供完善的可视化操作，旨在降低用户进行混沌工程的门槛。用户可以方便地在<code>Web UI</code>界面上设计自己的混沌场景，以及监控混沌实验的运行状态。</p>
+<h3 id="核心优势"><a href="#核心优势" class="headerlink" title="核心优势"></a>核心优势</h3><p>Chaos Mesh 作为业内领先的混沌测试平台，具备以下核心优势：</p>
 <ul>
-<li>Prometheus：声明式创建和管理Prometheus Server实例；</li>
-<li>ServiceMonitor：负责声明式的管理监控配置；</li>
-<li>PrometheusRule：负责声明式的管理告警配置；</li>
-<li>Alertmanager：声明式的创建和管理Alertmanager实例。</li>
+<li>核心能力稳固：<code>Chaos Mesh</code> 起源于 <code>TiDB</code> 的核心测试平台，发布初期即继承了大量 <code>TiDB</code> 已有的测试经验。</li>
+<li>被充分验证：<code>Chaos Mesh</code> 被众多公司以及组织所使用，例如腾讯和美团等；同时被用于众多知名分布式系统的测试体系中，例如 <code>Apache APISIX </code>和 <code>RabbitMQ</code> 等。</li>
+<li>系统易用性强：图形化操作和基于 <code>Kubernetes</code> 的使用方式，充分利用了自动化能力。</li>
+<li>云原生：<code>Chaos Mesh</code> 原生支持 <code>Kubernetes</code> 环境，提供了强悍的自动化能力。</li>
+<li>丰富的故障模拟场景：Chaos Mesh 几乎涵盖了分布式测试体系中基础故障模拟的绝大多数场景。</li>
+<li>灵活的实验编排能力：用户可以通过平台设计自己的混沌实验场景，场景可包含多个混沌实验编排，以及应用状态检查等。</li>
+<li>安全性高：<code>Chaos Mesh</code> 具有多层次安全控制设计，提供高安全性。</li>
+<li>活跃的社区：<code>Chaos Mesh</code> 为全球知名开源混沌测试平台，<code>CNCF</code> 开源基金会孵化项目。</li>
+<li>强大的扩展能力：<code>Chaos Mesh</code> 为故障测试类型扩展和功能扩展提供了充分的扩展能力。</li>
 </ul>
-<p>简言之，Prometheus Operator能够帮助用户自动化的创建以及管理Prometheus Server以及其相应的配置。</p>
-<h1 id="二、实战配置"><a href="#二、实战配置" class="headerlink" title="二、实战配置"></a>二、实战配置</h1><h3 id="2-1部署Prometheus-Operator"><a href="#2-1部署Prometheus-Operator" class="headerlink" title="2.1部署Prometheus Operator"></a>2.1部署Prometheus Operator</h3><pre class=" language-docker"><code class="language-docker"><span class="token comment" spellcheck="true">#github项目地址，直接使用git拉下来即可</span>
-https<span class="token punctuation">:</span>//github.com/prometheus<span class="token punctuation">-</span>operator/kube<span class="token punctuation">-</span>prometheus
-<span class="token punctuation">[</span>root@k8smaster ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true">#git clone https://github.com/prometheus-operator/kube-prometheus</span>
-<span class="token comment" spellcheck="true">#主要使用项目目录为`manifests`</span>
-<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># pwd</span>
-/root/kube<span class="token punctuation">-</span>prometheus/manifests
-<span class="token comment" spellcheck="true">#开始创建所有服务</span>
-<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span>kubectl create <span class="token punctuation">-</span>f ./setup
-<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span>kubectl create <span class="token punctuation">-</span>f .
-<span class="token comment" spellcheck="true">#部署完成确认</span>
-<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl -n monitoring get all</span>
-NAME                                       READY   STATUS    RESTARTS   AGE
-pod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>0                    2/2     Running   0          13d
-pod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>1                    2/2     Running   0          13d
-pod/alertmanager<span class="token punctuation">-</span>main<span class="token punctuation">-</span>2                    2/2     Running   0          13d
-pod/blackbox<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>6798fb5bb4<span class="token punctuation">-</span>64knd     3/3     Running   0          13d
-pod/grafana<span class="token punctuation">-</span>77f997786c<span class="token punctuation">-</span>4gbrh               1/1     Running   0          3h58m
-pod/kube<span class="token punctuation">-</span>state<span class="token punctuation">-</span>metrics<span class="token punctuation">-</span>bdb774b4d<span class="token punctuation">-</span>mkrvk     3/3     Running   0          13d
-pod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>hn54g                    2/2     Running   0          13d
-pod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>jjxmr                    2/2     Running   0          13d
-pod/node<span class="token punctuation">-</span>exporter<span class="token punctuation">-</span>qnppx                    2/2     Running   0          13d
-pod/prometheus<span class="token punctuation">-</span>adapter<span class="token punctuation">-</span>5b8db7955f<span class="token punctuation">-</span>6s97n    1/1     Running   0          13d
-pod/prometheus<span class="token punctuation">-</span>adapter<span class="token punctuation">-</span>5b8db7955f<span class="token punctuation">-</span>bp9bb    1/1     Running   0          13d
-pod/prometheus<span class="token punctuation">-</span>k8s<span class="token punctuation">-</span>0                       2/2     Running   0          5h20m
-pod/prometheus<span class="token punctuation">-</span>k8s<span class="token punctuation">-</span>1                       2/2     Running   0          5h20m
-pod/prometheus<span class="token punctuation">-</span>operator<span class="token punctuation">-</span>5685494db7<span class="token punctuation">-</span>tphkp   2/2     Running   0          13d
-<span class="token punctuation">...</span><span class="token punctuation">...</span>.
+<h3 id="架构概览"><a href="#架构概览" class="headerlink" title="架构概览"></a>架构概览</h3><p><code>Chaos Mesh</code> 基于 <code>Kubernetes CRD (Custom Resource Definition) </code>构建，根据不同的故障类型定义多个 CRD 类型，并为不同的 CRD 对象实现单独的 <code>Controller</code> 以管理不同的混沌实验。<code>Chaos Mesh</code> 主要包含以下三个组件:</p>
+<ul>
+<li><code>Chaos Dashboard</code>：Chaos Mesh 的可视化组件，提供了一套用户友好的 Web 界面，用户可通过该界面对混沌实验进行操作和观测。同时，Chaos Dashboard 还提供了 RBAC 权限管理机制。</li>
+<li><code>Chaos Controller Manager</code>：Chaos Mesh 的核心逻辑组件，主要负责混沌实验的调度与管理。该组件包含多个 CRD Controller，例如 Workflow Controller、Scheduler Controller 以及各类故障类型的 Controller。</li>
+<li><code>Chaos Daemon</code>：Chaos Mesh 的主要执行组件。Chaos Daemon 以 DaemonSet 的方式运行，默认拥有 Privileged 权限（可以关闭）。该组件主要通过侵入目标 Pod Namespace 的方式干扰具体的网络设备、文件系统、内核等。</li>
+</ul>
+<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/09/architecture-76301820de324f79d79db310b11b9246.png"></p>
+<p><code>Chaos Mesh</code> 的整体架构如上图所展示，可以自上而下分为三个部分：</p>
+<ul>
+<li>用户输入和观测的部分。用户输入以用户操作 (User) 为起点到达 Kubernetes API Server。用户不直接和 Chaos Mesh 的 Controller 交互，一切用户操作最终都将反映为某个 Chaos 资源的变更（比如 NetworkChaos 资源的变更）。</li>
+<li>监听资源变化、调度 Workflow 和开展混沌实验的部分。Chaos Mesh 的 Controller 只接受来自 Kubernetes API Server 的事件，这种事件描述某个 Chaos 资源的变更，例如新的 Workflow 对象或者 Chaos 对象被创建。</li>
+<li>具体节点故障的注入部分。该部分主要由 Chaos Daemon 组件负责，接受来自 Chaos Controller Manager 组件的指令，侵入到目标 Pod 的 Namespace 下，执行具体的故障注入。例如设置 TC 网络规则，启动 stress-ng 进程抢占 CPU 或内存资源等。</li>
+</ul>
+<h3 id="部署安装"><a href="#部署安装" class="headerlink" title="部署安装"></a>部署安装</h3><p>在 Helm 仓库中添加 Chaos Mesh 仓库：</p>
+<pre class=" language-bash"><code class="language-bash">helm repo add chaos-mesh https://charts.chaos-mesh.org
 </code></pre>
-<h3 id="2-2-web界面查看"><a href="#2-2-web界面查看" class="headerlink" title="2.2 web界面查看"></a>2.2 web界面查看</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#通过查看server端口访问web界面</span>
-<span class="token punctuation">[</span>root@k8smaster manifests<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># kubectl get svc -n monitoring</span>
-NAME                    TYPE        CLUSTER<span class="token punctuation">-</span>IP       EXTERNAL<span class="token punctuation">-</span>IP   PORT(S)
-prometheus<span class="token punctuation">-</span>k8s          NodePort    10.107.194.41    &lt;none<span class="token punctuation">></span>        9090<span class="token punctuation">:</span>32523/TC
+<p>执行如下命令显示可以安装的 charts：</p>
+<pre class=" language-bash"><code class="language-bash">helm search repo chaos-mesh
 </code></pre>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/586635708.png"></p>
-<blockquote>
-<p>所有监控都正常即可打开grafana查看服务自带的监控面板</p>
-</blockquote>
-<p><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2021/09/1635828218.png"></p>
+<p>创建chaos mesh空间</p>
+<pre class=" language-bash"><code class="language-bash">kubectl create ns chaos-testing
+</code></pre>
+<p>安装</p>
+<pre class=" language-bash"><code class="language-bash">helm <span class="token function">install</span> chaos-mesh chaos-mesh/chaos-mesh -n<span class="token operator">=</span>chaos-testing
+</code></pre>
+<p>查看安装结果</p>
+<pre class=" language-bash"><code class="language-bash">kubectl get po -n chaos-testing 
+NAME                                        READY   STATUS    RESTARTS   AGE
+chaos-controller-manager-59f8fbff8c-676dk   1/1     Running   0          3d
+chaos-controller-manager-59f8fbff8c-fh5rg   1/1     Running   0          3d
+chaos-controller-manager-59f8fbff8c-szxcm   1/1     Running   0          3d
+chaos-daemon-6sq9d                          1/1     Running   0          3d
+chaos-daemon-6sw9f                          1/1     Running   0          3d
+chaos-daemon-9kf28                          1/1     Running   0          3d
+chaos-daemon-9wfr2                          1/1     Running   0          3d
+chaos-daemon-d28cr                          1/1     Running   0          3d
+chaos-daemon-dvfrf                          1/1     Running   0          3d
+chaos-daemon-fnqb7                          1/1     Running   0          3d
+chaos-daemon-qmhhb                          1/1     Running   0          3d
+chaos-daemon-qq694                          1/1     Running   0          3d
+chaos-daemon-vcljq                          1/1     Running   0          3d
+chaos-daemon-xls68                          1/1     Running   0          3d
+chaos-dashboard-576f555c86-7cqjv            1/1     Running   0          3d
+</code></pre>
+<p>登陆ui界面 dashboard的2333对应的端口</p>
+<pre class=" language-bash"><code class="language-bash">kubectl get svc -n chaos-testing 
+NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>                                 AGE
+chaos-daemon                    ClusterIP   None             <span class="token operator">&lt;</span>none<span class="token operator">></span>        31767/TCP,31766/TCP                     3d3h
+chaos-dashboard                 NodePort    192.168.21.201   <span class="token operator">&lt;</span>none<span class="token operator">></span>        2333:30615/TCP,2334:30433/TCP           3d3h
+chaos-mesh-controller-manager   ClusterIP   192.168.22.228   <span class="token operator">&lt;</span>none<span class="token operator">></span>        443/TCP,10081/TCP,10082/TCP,10080/TCP   3d3h
+</code></pre>
 
                 
             </div>
@@ -569,7 +583,7 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/1fd45d82/">https://huhuhahei987.github.io/1fd45d82/</a>
+                    <a href="https://huhuhahei987.github.io/61e9a7b2/">https://huhuhahei987.github.io/61e9a7b2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -607,8 +621,8 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Prometheus/">
-                                    <span class="chip bg-color">Prometheus</span>
+                                <a href="/tags/DevOps/">
+                                    <span class="chip bg-color">DevOps</span>
                                 </a>
                             
                                 <a href="/tags/k8s/">
@@ -1060,17 +1074,18 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/e5fe49d2/">
+                <a href="/61e9a7b2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Linux部署Alertmanager对prometheus监控进行告警">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="chaos 压测平台">
                         
-                        <span class="card-title">Linux部署Alertmanager对prometheus监控进行告警</span>
+                        <span class="card-title">chaos 压测平台</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1080,34 +1095,31 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Monitor/" class="post-category">
-                                    Monitor
+                            <a href="/categories/DevOps/" class="post-category">
+                                    DevOps
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/DevOps/">
+                        <span class="chip bg-color">DevOps</span>
                     </a>
                     
-                    <a href="/tags/Prometheus/">
-                        <span class="chip bg-color">Prometheus</span>
-                    </a>
-                    
-                    <a href="/tags/Alertmanager/">
-                        <span class="chip bg-color">Alertmanager</span>
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>
@@ -1121,13 +1133,13 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/985781f7/">
+                <a href="/978c032f/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/52.jpg" class="responsive-img" alt="Docker部署cadvisor监控容器">
+                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="ubuntu 安装Openresty">
                         
-                        <span class="card-title">Docker部署cadvisor监控容器</span>
+                        <span class="card-title">ubuntu 安装Openresty</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1138,14 +1150,14 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Monitor/" class="post-category">
-                                    Monitor
+                            <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
                                 </a>
                             
                             
@@ -1155,12 +1167,12 @@ prometheus<span class="token punctuation">-</span>k8s          NodePort    10.10
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/Prometheus/">
-                        <span class="chip bg-color">Prometheus</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
