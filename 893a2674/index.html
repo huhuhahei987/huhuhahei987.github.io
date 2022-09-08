@@ -470,14 +470,14 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    464
+                    808
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -618,6 +618,15 @@ Location: https://www.huhuhahei.cn
     <span class="token key atrule">nginx.ingress.kubernetes.io/cors-allow-methods</span><span class="token punctuation">:</span> PUT<span class="token punctuation">,</span> GET<span class="token punctuation">,</span> POST<span class="token punctuation">,</span> OPTIONS
     <span class="token key atrule">nginx.ingress.kubernetes.io/cors-allow-origin</span><span class="token punctuation">:</span> <span class="token string">'*'</span>
 </code></pre>
+<h3 id="六-配置限速"><a href="#六-配置限速" class="headerlink" title="六.配置限速"></a>六.配置限速</h3><ul>
+<li><code>nginx.ingress.kubernetes.io/limit-connections</code>：允许来自单个 IP 地址的并发连接数。超过此限制时返回 503 错误。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-rps</code>：每秒从给定 IP 接受的请求数。突发限制设置为此限制乘以突发倍数，默认倍数为 5。当客户端超过此限制时，返回<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#limit-req-status-code">limit-req-status-code </a>*<strong>default:*</strong> 503。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-rpm</code>：每分钟从给定 IP 接受的请求数。突发限制设置为此限制乘以突发倍数，默认倍数为 5。当客户端超过此限制时，返回<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#limit-req-status-code">limit-req-status-code </a>*<strong>default:*</strong> 503。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-burst-multiplier</code>: 突发大小限制率的乘数。默认突发乘数为 5，此注释覆盖默认乘数。当客户端超过此限制时，返回<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#limit-req-status-code">limit-req-status-code </a>*<strong>default:*</strong> 503。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-rate-after</code>：初始千字节数，之后对给定连接的响应的进一步传输将受到速率限制。此功能必须在启用<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#proxy-buffering">代理缓冲</a>的情况下使用。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-rate</code>：每秒允许发送到给定连接的千字节数。零值禁用速率限制。此功能必须在启用<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#proxy-buffering">代理缓冲</a>的情况下使用。</li>
+<li><code>nginx.ingress.kubernetes.io/limit-whitelist</code>：要从速率限制中排除的客户端 IP 源范围。该值是一个逗号分隔的 CIDR 列表。</li>
+</ul>
 
                 
             </div>
@@ -1421,7 +1430,7 @@ Location: https://www.huhuhahei.cn
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">80.7k</span>
+                        class="white-color">81k</span>
             
             
             
