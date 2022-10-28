@@ -470,14 +470,14 @@ metadata:
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    808
+                    844
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -627,6 +627,12 @@ Location: https://www.huhuhahei.cn
 <li><code>nginx.ingress.kubernetes.io/limit-rate</code>：每秒允许发送到给定连接的千字节数。零值禁用速率限制。此功能必须在启用<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#proxy-buffering">代理缓冲</a>的情况下使用。</li>
 <li><code>nginx.ingress.kubernetes.io/limit-whitelist</code>：要从速率限制中排除的客户端 IP 源范围。该值是一个逗号分隔的 CIDR 列表。</li>
 </ul>
+<h3 id="七-强制跳转https"><a href="#七-强制跳转https" class="headerlink" title="七.强制跳转https"></a>七.强制跳转https</h3><pre class=" language-yaml"><code class="language-yaml">    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/rewrite-target</span><span class="token punctuation">:</span> /
+    <span class="token key atrule">nginx.ingress.kubernetes.io/force-ssl-redirect</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/preserve-trailing-slash</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+</code></pre>
 
                 
             </div>
@@ -1430,7 +1436,7 @@ Location: https://www.huhuhahei.cn
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">81k</span>
+                        class="white-color">81.1k</span>
             
             
             
