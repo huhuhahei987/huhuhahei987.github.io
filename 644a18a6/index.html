@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Node.js环境配置, huhuhahei">
-    <meta name="description" content="一 下载安装包wget kode.huhuhahei.cn/kodexplorer/tar包/Node.js/node-v10.15.3-linux-x64.tar.xz
-
-#官网下载地址 http://maven.apache.org/d">
+    <meta name="keywords" content="Nginx ingress配置限流, huhuhahei">
+    <meta name="description" content="前言ingress作为目前常用的网关服务,在生产业务中难免会遇到很多爬虫的侵扰,这时候配置一些限流策略就成为一个必要的事情.也能保证生产稳定性,避免服务器资源过多损耗.
+限流配置annotations:
+  nginx.ingress.ku">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +21,7 @@
 
     
 
-    <title>Node.js环境配置 | huhuhahei</title>
+    <title>Nginx ingress配置限流 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/41.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Node.js环境配置</h1>
+                    <h1 class="description center-align post-title">Nginx ingress配置限流</h1>
                 </div>
             </div>
         </div>
@@ -430,8 +430,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/K8s/">
+                                <span class="chip bg-color">K8s</span>
                             </a>
                         
                     </div>
@@ -442,8 +442,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/K8s/" class="post-category">
+                                K8s
                             </a>
                         
                     </div>
@@ -455,7 +455,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-08
+                    2022-10-21
                 </div>
                 
 
@@ -464,7 +464,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    95
+                    329
                 </div>
                 
 
@@ -491,20 +491,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一-下载安装包"><a href="#一-下载安装包" class="headerlink" title="一 下载安装包"></a>一 下载安装包</h1><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> kode.huhuhahei.cn/kodexplorer/tar包/Node.js/node-v10.15.3-linux-x64.tar.xz
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>ingress</code>作为目前常用的网关服务,在生产业务中难免会遇到很多爬虫的侵扰,这时候配置一些限流策略就成为一个必要的事情.也能保证生产稳定性,避免服务器资源过多损耗.</p>
+<h3 id="限流配置"><a href="#限流配置" class="headerlink" title="限流配置"></a>限流配置</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-connection</span><span class="token punctuation">:</span> <span class="token number">10 </span><span class="token comment" spellcheck="true">#单个IP的并发请求数</span>
+  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-rps</span><span class="token punctuation">:</span> <span class="token number">5 </span><span class="token comment" spellcheck="true">#每秒限制单个IP访问次数,突发限制为此乘以突发乘数,默认5</span>
+  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-burst-multiplier</span><span class="token punctuation">:</span> <span class="token number">3 </span><span class="token comment" spellcheck="true">#突发限制速率的倍数</span>
+  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-whitelist</span><span class="token punctuation">:</span> x.x.x.x <span class="token comment" spellcheck="true">#限流白名单</span>
+</code></pre>
+<blockquote>
+<p>当我们配置限流后,用户访问当超过每秒15qps后,<code>ingress</code>就会返回503.但是503作为一个服务异常的状态吗,容易影响我们的日志分析结果,所以这里建议将<code>ingress</code>返回的状态吗修改为429</p>
+</blockquote>
+<p>配置如下</p>
+<p>在<code>ingress</code>的<code>nginx-configuration</code>文件中添加</p>
+<pre class=" language-yaml"><code class="language-yaml">  <span class="token key atrule">limit-req-status-code</span><span class="token punctuation">:</span> <span class="token string">'429'</span>
+</code></pre>
+<p>这样限流后返回的就是429,不会影响日志分析结果</p>
+<h3 id="配置针对爬虫的user-agent"><a href="#配置针对爬虫的user-agent" class="headerlink" title="配置针对爬虫的user-agent"></a>配置针对爬虫的<code>user-agent</code></h3><p>默认爬虫的<code>user-agent</code>为<code>python-requests/2.27.1</code></p>
+<p>我们可以在ingress中针对这个<code>user-agent</code>做限制,返回404</p>
+<pre class=" language-yaml"><code class="language-yaml">        <span class="token key atrule">nginx.ingress.kubernetes.io/server-snippet</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+      set $agentflag 0;
 
-<span class="token comment" spellcheck="true">#官网下载地址 http://maven.apache.org/download.cgi</span>
-</code></pre>
-<h1 id="二-解压配置环境"><a href="#二-解压配置环境" class="headerlink" title="二 解压配置环境"></a>二 解压配置环境</h1><pre class=" language-bash"><code class="language-bash"><span class="token function">tar</span> -xvf node-v10.15.3-linux-x64.tar.xz
-<span class="token function">mv</span> node-v10.15.3-linux-x64 nodejs
-<span class="token function">cd</span> nodejs/
-<span class="token function">ln</span> -s /root/nodejs/bin/node /usr/local/bin/node
-<span class="token function">ln</span> -s /root/nodejs/bin/npm /usr/local/bin/npm
-</code></pre>
-<h1 id="三-测试"><a href="#三-测试" class="headerlink" title="三 测试"></a>三 测试</h1><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> -v
-6.4.1
-node -v
-v10.15.3
+              if ($http_user_agent ~* "python<span class="token punctuation">-</span>requests/2.27.1" )<span class="token punctuation">{</span>
+                set $agentflag 1;
+              <span class="token punctuation">}</span>
+
+              if ( $agentflag = 1 ) <span class="token punctuation">{</span>
+                return 404;
+              <span class="token punctuation">}</span>
 </code></pre>
 
                 
@@ -532,7 +545,7 @@ v10.15.3
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/9676ee43/">https://huhuhahei987.github.io/9676ee43/</a>
+                    <a href="https://huhuhahei987.github.io/644a18a6/">https://huhuhahei987.github.io/644a18a6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -570,8 +583,8 @@ v10.15.3
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/K8s/">
+                                    <span class="chip bg-color">K8s</span>
                                 </a>
                             
                         </div>
@@ -1019,17 +1032,18 @@ v10.15.3
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/acda943d/">
+                <a href="/644a18a6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="Rabbitmq集群配置">
+                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Nginx ingress配置限流">
                         
-                        <span class="card-title">Rabbitmq集群配置</span>
+                        <span class="card-title">Nginx ingress配置限流</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1039,30 +1053,27 @@ v10.15.3
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                        <span class="chip bg-color">中间件</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
@@ -1076,13 +1087,13 @@ v10.15.3
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/9f29a45e/">
+                <a href="/61e9a7b2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="Jdk1.8&amp;Maven环境配置">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="chaos 压测平台">
                         
-                        <span class="card-title">Jdk1.8&amp;Maven环境配置</span>
+                        <span class="card-title">chaos 压测平台</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1093,14 +1104,14 @@ v10.15.3
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-30
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/DevOps/" class="post-category">
+                                    DevOps
                                 </a>
                             
                             
@@ -1110,8 +1121,12 @@ v10.15.3
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/DevOps/">
+                        <span class="chip bg-color">DevOps</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>

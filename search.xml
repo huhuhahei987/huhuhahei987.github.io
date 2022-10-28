@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Nginx ingress配置限流</title>
+      <link href="/644a18a6/"/>
+      <url>/644a18a6/</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>ingress</code>作为目前常用的网关服务,在生产业务中难免会遇到很多爬虫的侵扰,这时候配置一些限流策略就成为一个必要的事情.也能保证生产稳定性,避免服务器资源过多损耗.</p><h3 id="限流配置"><a href="#限流配置" class="headerlink" title="限流配置"></a>限流配置</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-connection</span><span class="token punctuation">:</span> <span class="token number">10 </span><span class="token comment" spellcheck="true">#单个IP的并发请求数</span>  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-rps</span><span class="token punctuation">:</span> <span class="token number">5 </span><span class="token comment" spellcheck="true">#每秒限制单个IP访问次数,突发限制为此乘以突发乘数,默认5</span>  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-burst-multiplier</span><span class="token punctuation">:</span> <span class="token number">3 </span><span class="token comment" spellcheck="true">#突发限制速率的倍数</span>  <span class="token key atrule">nginx.ingress.kubernetes.io/limit-whitelist</span><span class="token punctuation">:</span> x.x.x.x <span class="token comment" spellcheck="true">#限流白名单</span></code></pre><blockquote><p>当我们配置限流后,用户访问当超过每秒15qps后,<code>ingress</code>就会返回503.但是503作为一个服务异常的状态吗,容易影响我们的日志分析结果,所以这里建议将<code>ingress</code>返回的状态吗修改为429</p></blockquote><p>配置如下</p><p>在<code>ingress</code>的<code>nginx-configuration</code>文件中添加</p><pre class=" language-yaml"><code class="language-yaml">  <span class="token key atrule">limit-req-status-code</span><span class="token punctuation">:</span> <span class="token string">'429'</span></code></pre><p>这样限流后返回的就是429,不会影响日志分析结果</p><h3 id="配置针对爬虫的user-agent"><a href="#配置针对爬虫的user-agent" class="headerlink" title="配置针对爬虫的user-agent"></a>配置针对爬虫的<code>user-agent</code></h3><p>默认爬虫的<code>user-agent</code>为<code>python-requests/2.27.1</code></p><p>我们可以在ingress中针对这个<code>user-agent</code>做限制,返回404</p><pre class=" language-yaml"><code class="language-yaml">        <span class="token key atrule">nginx.ingress.kubernetes.io/server-snippet</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>      set $agentflag 0;              if ($http_user_agent ~* "python<span class="token punctuation">-</span>requests/2.27.1" )<span class="token punctuation">{</span>                set $agentflag 1;              <span class="token punctuation">}</span>              if ( $agentflag = 1 ) <span class="token punctuation">{</span>                return 404;              <span class="token punctuation">}</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> K8s </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> K8s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>chaos 压测平台</title>
       <link href="/61e9a7b2/"/>
       <url>/61e9a7b2/</url>
