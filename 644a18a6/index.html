@@ -508,7 +508,7 @@
 <p>这样限流后返回的就是429,不会影响日志分析结果</p>
 <h3 id="配置针对爬虫的user-agent"><a href="#配置针对爬虫的user-agent" class="headerlink" title="配置针对爬虫的user-agent"></a>配置针对爬虫的<code>user-agent</code></h3><p>默认爬虫的<code>user-agent</code>为<code>python-requests/2.27.1</code></p>
 <p>我们可以在ingress中针对这个<code>user-agent</code>做限制,返回404</p>
-<pre class=" language-yaml"><code class="language-yaml">        <span class="token key atrule">nginx.ingress.kubernetes.io/server-snippet</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">nginx.ingress.kubernetes.io/server-snippet</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token punctuation">-</span>
       set $agentflag 0;
 
               if ($http_user_agent ~* "python<span class="token punctuation">-</span>requests/2.27.1" )<span class="token punctuation">{</span>
