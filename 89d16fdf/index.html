@@ -450,7 +450,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    392
+                    399
                 </div>
                 
 
@@ -483,12 +483,13 @@
 add_header Content-Encoding <span class="token function">gzip</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="修改反向代理请求的Header"><a href="#修改反向代理请求的Header" class="headerlink" title="修改反向代理请求的Header"></a>修改反向代理请求的Header</h3><p>这里会使用到<code>proxy_set_header</code>来自内置模块<code>ngx_http_proxy_module</code>用来重定义发往代理服务器服务器的请求头</p>
-<h5 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h5><pre class=" language-bash"><code class="language-bash">        proxy_set_header host <span class="token variable">$http_host</span><span class="token punctuation">;</span>
+<h5 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h5><pre class=" language-bash"><code class="language-bash">    proxy_set_header host <span class="token variable">$http_host</span><span class="token punctuation">;</span>
     proxy_set_header x-real-ip <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
     proxy_set_header x-forwarded-for <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="headers-more-nginx-module-模块"><a href="#headers-more-nginx-module-模块" class="headerlink" title="headers-more-nginx-module 模块"></a>headers-more-nginx-module 模块</h3><p>headers-more-nginx-module 模块用于添加、修改或清除 请求&#x2F;响应头，该模块不是nginx自带的，默认不包含该模块，需要另外安装。</p>
 <p>下载和安装方法可以参考这个文章</p>
+<p><a target="_blank" rel="noopener" href="https://www.huhuhahei.cn/6abca5b8/">Nginx 1.78编译安装</a></p>
 <p>该模块主要有4个指令：</p>
 <ul>
 <li>more_set_headers 用于添加、修改、清除响应头</li>
