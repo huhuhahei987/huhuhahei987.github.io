@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Nginx if多条件判断, huhuhahei">
-    <meta name="description" content="前言Nginx默认是不支持直接进行多逻辑判断的,例如如下代码
-        if ($http_user_agent != &#34;curl&#34; &amp;amp;&amp;amp; $remote_addr != &#34;172.16.182.204&#34;) {
-   ">
+    <meta name="keywords" content="Nginx 模块headers-more-nginx-module详解, huhuhahei">
+    <meta name="description" content="前言再用nginx做反向代理的时候,我们经常会有需求需要修改Nginx默认的Header.这时候我们就需要headers-more-nginx-module来实现一些额外的需求
+修改普通请求的Headernginx内置的模块就指出修改响应头">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@
 
     
 
-    <title>Nginx if多条件判断 | huhuhahei</title>
+    <title>Nginx 模块headers-more-nginx-module详解 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/33.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Nginx if多条件判断</h1>
+                    <h1 class="description center-align post-title">Nginx 模块headers-more-nginx-module详解</h1>
                 </div>
             </div>
         </div>
@@ -428,29 +427,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="/tags/Nginx/">
-                                <span class="chip bg-color">Nginx</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -459,7 +441,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-12
+                    2022-11-01
                 </div>
                 
 
@@ -468,14 +450,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    487
+                    392
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -495,90 +477,56 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Nginx默认是不支持直接进行多逻辑判断的,例如如下代码</p>
-<pre class=" language-nginx"><code class="language-nginx">        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token number">403</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>再用nginx做反向代理的时候,我们经常会有需求需要修改Nginx默认的Header.这时候我们就需要<code>headers-more-nginx-module</code>来实现一些额外的需求</p>
+<h3 id="修改普通请求的Header"><a href="#修改普通请求的Header" class="headerlink" title="修改普通请求的Header"></a>修改普通请求的Header</h3><p>nginx内置的模块就指出修改响应头,使用方法为<code>add_header</code>.这是因为nginx默认安装就附带了<code>ngx_http_headers_module</code>,用于设置response header</p>
+<h5 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h5><pre class=" language-bash"><code class="language-bash">add_header Cache-Control no-store<span class="token punctuation">;</span>
+add_header Content-Encoding <span class="token function">gzip</span><span class="token punctuation">;</span>
 </code></pre>
-<p>这样配置<code>nginx -t</code>会提示配置文件有错误</p>
-<pre class=" language-bash"><code class="language-bash">nginx: <span class="token punctuation">[</span>emerg<span class="token punctuation">]</span> invalid condition <span class="token string">"<span class="token variable">$http_user_agent</span>"</span> <span class="token keyword">in</span> /usr/local/nginx/conf/conf.d/proxy.conf:38
-nginx: configuration <span class="token function">file</span> /usr/local/nginx/conf/nginx.conf <span class="token function">test</span> failed
+<h3 id="修改反向代理请求的Header"><a href="#修改反向代理请求的Header" class="headerlink" title="修改反向代理请求的Header"></a>修改反向代理请求的Header</h3><p>这里会使用到<code>proxy_set_header</code>来自内置模块<code>ngx_http_proxy_module</code>用来重定义发往代理服务器服务器的请求头</p>
+<h5 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h5><pre class=" language-bash"><code class="language-bash">        proxy_set_header host <span class="token variable">$http_host</span><span class="token punctuation">;</span>
+    proxy_set_header x-real-ip <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
+    proxy_set_header x-forwarded-for <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
 </code></pre>
-<p>所以需要采取其他的方案</p>
-<h3 id="使用变量实现与运算"><a href="#使用变量实现与运算" class="headerlink" title="使用变量实现与运算"></a>使用变量实现与运算</h3><pre class=" language-bash"><code class="language-bash">        <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">" "</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">"<span class="token variable">${fooo}</span>1"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+<h3 id="headers-more-nginx-module-模块"><a href="#headers-more-nginx-module-模块" class="headerlink" title="headers-more-nginx-module 模块"></a>headers-more-nginx-module 模块</h3><p>headers-more-nginx-module 模块用于添加、修改或清除 请求&#x2F;响应头，该模块不是nginx自带的，默认不包含该模块，需要另外安装。</p>
+<p>下载和安装方法可以参考这个文章</p>
+<p>该模块主要有4个指令：</p>
+<ul>
+<li>more_set_headers 用于添加、修改、清除响应头</li>
+<li>more_clear_headers 用于清除响应头</li>
+<li>more_set_input_headers 用于添加、修改、清除请求头</li>
+<li>more_clear_input_headers 用于清除请求头</li>
+</ul>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><pre class=" language-bash"><code class="language-bash"> <span class="token comment" spellcheck="true"># set the Server output header</span>
+ more_set_headers <span class="token string">'Server: my-server'</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">"<span class="token variable">${fooo}</span>1"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+ <span class="token comment" spellcheck="true"># set and clear output headers</span>
+ location /bar <span class="token punctuation">{</span>
+     more_set_headers <span class="token string">'X-MyHeader: blah'</span> <span class="token string">'X-MyHeader2: foo'</span><span class="token punctuation">;</span>
+     more_set_headers -t <span class="token string">'text/plain text/css'</span> <span class="token string">'Content-Type: text/foo'</span><span class="token punctuation">;</span>
+     more_set_headers -s <span class="token string">'400 404 500 503'</span> -s 413 <span class="token string">'Foo: Bar'</span><span class="token punctuation">;</span>
+     more_clear_headers <span class="token string">'Content-Type'</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$fooo</span> ~* <span class="token string">"11"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> 403<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">#当user_agent不等于curl且客户端地址不是172.16.182.204返回403</span>
-</code></pre>
-<p>访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219 <span class="token comment" spellcheck="true">#满足客户端地址不是172.16.182.204 但是user_agent是curl 所以正常返回</span>
-HTTP/1.1 200 OK
-Date: Sun, 12 Jun 2022 06:27:05 GMT
-Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
-Connection: keep-alive
-Vary: Accept-Encoding
-Expires: Mon, 26 Jul 1997 05:00:00 GMT
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#user_agent不是curl 但是地址是172.16.182.204  正常返回</span>
-HTTP/1.1 200 OK
-Date: Sun, 12 Jun 2022 06:31:42 GMT
-Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
-Connection: keep-alive
-Vary: Accept-Encoding
-Expires: Mon, 26 Jul 1997 05:00:00 GMT
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">
-curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#两个条件都满足 返回403</span>
-HTTP/1.1 403 Forbidden
-Date: Sun, 12 Jun 2022 06:31:10 GMT
-Content-Type: text/html
-Connection: keep-alive
-Vary: Accept-Encoding
-</code></pre>
-<h3 id="使用变量实现逻辑或运算"><a href="#使用变量实现逻辑或运算" class="headerlink" title="使用变量实现逻辑或运算"></a>使用变量实现逻辑或运算</h3><pre class=" language-nginx"><code class="language-nginx">        <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token string">" "</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$http_user_agent</span> <span class="token operator">!=</span> <span class="token string">"curl"</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+     <span class="token comment" spellcheck="true"># your proxy_pass/memcached_pass/or any other config goes here...</span>
+ <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$remote_addr</span> <span class="token operator">!=</span> <span class="token string">"172.16.182.204"</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">set</span> <span class="token variable">$fooo</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+ <span class="token comment" spellcheck="true"># set output headers</span>
+ location /type <span class="token punctuation">{</span>
+     more_set_headers <span class="token string">'Content-Type: text/plain'</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true"># ...</span>
+ <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$fooo</span> <span class="token operator">~</span><span class="token operator">*</span> <span class="token string">"1"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token number">403</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-</code></pre>
-<p>访问测试</p>
-<pre class=" language-bash"><code class="language-bash">curl -I -k  https://172.30.151.219  <span class="token comment" spellcheck="true">#user_agent不正确 </span>
-HTTP/1.1 403 Forbidden
-Date: Sun, 12 Jun 2022 06:35:00 GMT
-Content-Type: text/html
-Connection: keep-alive
-Vary: Accept-Encoding
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219  <span class="token comment" spellcheck="true">#客户端ip地址不正确</span>
-HTTP/1.1 403 Forbidden
-Date: Sun, 12 Jun 2022 06:35:45 GMT
-Content-Type: text/html
-Connection: keep-alive
-Vary: Accept-Encoding
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">curl -I -k -A <span class="token string">"curl"</span> https://172.30.151.219   <span class="token comment" spellcheck="true">#两个都满足访问正常</span>
-HTTP/1.1 200 OK
-Date: Sun, 12 Jun 2022 06:36:25 GMT
-Content-Type: text/html<span class="token punctuation">;</span> charset<span class="token operator">=</span>UTF-8
-Connection: keep-alive
-Vary: Accept-Encoding
-Expires: Mon, 26 Jul 1997 05:00:00 GMT
+ <span class="token comment" spellcheck="true"># set input headers</span>
+ location /foo <span class="token punctuation">{</span>
+     <span class="token keyword">set</span> <span class="token variable">$my_host</span> <span class="token string">'my dog'</span><span class="token punctuation">;</span>
+     more_set_input_headers <span class="token string">'Host: <span class="token variable">$my_host</span>'</span><span class="token punctuation">;</span>
+     more_set_input_headers -t <span class="token string">'text/plain'</span> <span class="token string">'X-Foo: bah'</span><span class="token punctuation">;</span>
+
+     <span class="token comment" spellcheck="true"># now $host and $http_host have their new values...</span>
+     <span class="token comment" spellcheck="true"># ...</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true"># replace input header X-Foo *only* if it already exists</span>
+ more_set_input_headers -r <span class="token string">'X-Foo: howdy'</span><span class="token punctuation">;</span>
 </code></pre>
 
                 
@@ -606,7 +554,7 @@ Expires: Mon, 26 Jul 1997 05:00:00 GMT
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/3ba6a52e/">https://huhuhahei987.github.io/3ba6a52e/</a>
+                    <a href="https://huhuhahei987.github.io/89d16fdf/">https://huhuhahei987.github.io/89d16fdf/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -643,15 +591,7 @@ Expires: Mon, 26 Jul 1997 05:00:00 GMT
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="/tags/Nginx/">
-                                    <span class="chip bg-color">Nginx</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1097,70 +1037,18 @@ Expires: Mon, 26 Jul 1997 05:00:00 GMT
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/d2d0931/">
+                <a href="/89d16fdf/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="MongoDB数据备份和恢复">
+                        <img src="/medias/featureimages/33.jpg" class="responsive-img" alt="Nginx 模块headers-more-nginx-module详解">
                         
-                        <span class="card-title">MongoDB数据备份和恢复</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-13
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Mongo/" class="post-category">
-                                    Mongo
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/Mongo/">
-                        <span class="chip bg-color">Mongo</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/77d7bcd/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="Docker Yum部署">
-                        
-                        <span class="card-title">Docker Yum部署</span>
+                        <span class="card-title">Nginx 模块headers-more-nginx-module详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1171,14 +1059,52 @@ Expires: Mon, 26 Jul 1997 05:00:00 GMT
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            huhuhahei
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/644a18a6/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/41.jpg" class="responsive-img" alt="Nginx ingress配置限流">
+                        
+                        <span class="card-title">Nginx ingress配置限流</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Docker/" class="post-category">
-                                    Docker
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
@@ -1188,8 +1114,8 @@ Expires: Mon, 26 Jul 1997 05:00:00 GMT
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/K8s/">
+                        <span class="chip bg-color">K8s</span>
                     </a>
                     
                 </div>
