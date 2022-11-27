@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Docker清理无用镜像及卷组占用的空间, huhuhahei">
-    <meta name="description" content="生产过程中，总是会遇到服务器磁盘被docker占满的情况比如这样也就跑了几个容器，莫名其妙磁盘就没了::(泪)于是上网找方案
-[root@node01 docker]# docker system df 
-TYPE            T">
+    <meta name="keywords" content="nginx日常调优, huhuhahei">
+    <meta name="description" content="日志收集配置nginx日志格式
+log_format main     &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; $http_host &#39;
+&#39;$status $body_by">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +21,7 @@ TYPE            T">
 
     
 
-    <title>Docker清理无用镜像及卷组占用的空间 | huhuhahei</title>
+    <title>nginx日常调优 | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +309,12 @@ TYPE            T">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/47.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker清理无用镜像及卷组占用的空间</h1>
+                    <h1 class="description center-align post-title">nginx日常调优</h1>
                 </div>
             </div>
         </div>
@@ -430,8 +430,12 @@ TYPE            T">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
                             </a>
                         
                     </div>
@@ -442,8 +446,8 @@ TYPE            T">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Docker/" class="post-category">
-                                Docker
+                            <a href="/categories/Nginx/" class="post-category">
+                                Nginx
                             </a>
                         
                     </div>
@@ -455,7 +459,7 @@ TYPE            T">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-05
+                    2022-11-27
                 </div>
                 
 
@@ -464,14 +468,14 @@ TYPE            T">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    440
+                    316
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -491,68 +495,59 @@ TYPE            T">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>生产过程中，总是会遇到服务器磁盘被docker占满的情况<br>比如这样<br><img src="https://huhuhahei.oss-cn-hangzhou.aliyuncs.com/blog/images/blog/2022/03/479329848.jpg"><br>也就跑了几个容器，莫名其妙磁盘就没了::(泪)<br>于是上网找方案</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system df </span>
-TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
-Images          46        46        14.44GB   435MB <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>
-Containers      121       108       1.359GB   3.478kB <span class="token punctuation">(</span>0%<span class="token punctuation">)</span>
-Local Volumes   32        2         5.273GB   5.273GB <span class="token punctuation">(</span>100%<span class="token punctuation">)</span>
+                <h3 id="日志收集"><a href="#日志收集" class="headerlink" title="日志收集"></a>日志收集</h3><p>配置nginx日志格式</p>
+<pre class=" language-bash"><code class="language-bash">log_format main     <span class="token string">'<span class="token variable">$remote_addr</span> - <span class="token variable">$remote_user</span> [<span class="token variable">$time_local</span>] "<span class="token variable">$request</span>" <span class="token variable">$http_host</span> '</span>
+<span class="token string">'<span class="token variable">$status</span> <span class="token variable">$body_bytes_sent</span> "<span class="token variable">$http_referer</span>" '</span>
+<span class="token string">'"<span class="token variable">$http_user_agent</span>" "<span class="token variable">$http_x_forwarded_for</span>" "<span class="token variable">$request_body</span>" '</span>
+<span class="token string">'<span class="token variable">$upstream_addr</span>'</span> <span class="token string">'"<span class="token variable">$upstream_status</span>" "<span class="token variable">$upstream_cache_status</span>" '</span> <span class="token string">'"<span class="token variable">$upstream_http_content_type</span>" <span class="token variable">$upstream_response_time</span> > <span class="token variable">$request_time</span>'</span><span class="token punctuation">;</span>
 </code></pre>
-<p>这个命令可以查看目前我们可以清理的docker缓存，分别为镜像，容器，数据卷</p>
-<p>可以执行下面的命令清理</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@master ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system prune -a</span>
-WARNING<span class="token operator">!</span> This will remove:
-  - all stopped containers
-  - all networks not used by at least one container
-  - all dangling images
-  - all dangling build cache
-
-Are you sure you want to continue? <span class="token punctuation">[</span>y/N<span class="token punctuation">]</span> y
+<p>配置日志存放目录</p>
+<pre class=" language-bash"><code class="language-bash">access_log  /data/nginx/logs/access.log main<span class="token punctuation">;</span>
 </code></pre>
-<p>-a 参数清理的更加彻底 可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了……所以使用之前一定要想清楚吶。</p>
-<p>清理后发现空间并没有减少 仔细查看发现是32磁盘 但是只有2个再用 在执行这个命令看看</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker volume ls -qf dangling=true</span>
-0d322472e941707dc9cdf72ae21647ace2e866d061781c1b3102f026454ff1bb
-0fd37de5d1b7e9a7b047ef7564dc2f7cff9a430e091afaf8b3bce80d96716079
-5cf16842c76f2b5ac32a37bb4cff4b1b691a1323b59db01adcf0569966746d91
-9cb673514123500c7f6f0c0c777d99813c6489832638c261bfaffb9cea01c30f
-23e3eb4e2c4ce36b484278c882a4ff77b8b73a0afcb42f9d4fb4bbd9da04b305
-51a3a18fe7339d97627c894d636a07503244f15f05a945f8ba0e326e53bac4fd
-61bc3ad6461da6f126e6191509e7964a34c8b9514a2c488462e9b2a465ddd541
-89c4921a2c858db86534e0924f5f64786dfcb193b95d98bb468eb2b4e401443c
-146ee0f6e0a42cdfa112a69780637f6a28120fdd56d129e3f697c68a01e6791b
-176b4fa0c65897c355aafff690bf7a97b419ecf9877b1d518b8574cf86b88971
-517bd77537b86937ec43778a171b027ed3200f9ba4405740343dc748a366103b
-540c32012f161afee2abab0ea62f9621612c99392d51bbb266c4e8953f8e3302
-976d1335e32ea78551c0b8ebf96cd626d5cdae78379a4e3b685672ff30911628
-····
+<h3 id="反代参数优化"><a href="#反代参数优化" class="headerlink" title="反代参数优化"></a>反代参数优化</h3><pre class=" language-bash"><code class="language-bash">    proxy_headers_hash_bucket_size 1024<span class="token punctuation">;</span>
+    proxy_headers_hash_max_size 512<span class="token punctuation">;</span>
+    proxy_connect_timeout 5<span class="token punctuation">;</span>
+    proxy_read_timeout 60<span class="token punctuation">;</span>
+    proxy_send_timeout 5<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#设置代理服务器（nginx）保存用户头信息的缓冲区大小</span>
+    proxy_buffer_size 16k<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#proxy_buffers缓冲区，网页平均在32k以下的设置</span>
+    proxy_buffers 4 64k<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#高负荷下缓冲大小（proxy_buffers*2）</span>
+    proxy_busy_buffers_size 128k<span class="token punctuation">;</span>
+    proxy_temp_file_write_size 128k<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#配置反代缓存临时目录</span>
+    proxy_temp_path /data/temp_dir<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">#配置反代缓存目录</span>
+    proxy_cache_path /data/cache levels<span class="token operator">=</span>1:2 keys_zone<span class="token operator">=</span>cache_one:200m inactive<span class="token operator">=</span>1d max_size<span class="token operator">=</span>30g<span class="token punctuation">;</span>
 </code></pre>
-<p>可以看到有很多没有挂载的磁盘</p>
-<p>可以使用这个命令清理</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker volume rm $(docker volume ls -qf dangling=true)</span>
-0d322472e941707dc9cdf72ae21647ace2e866d061781c1b3102f026454ff1bb
-0fd37de5d1b7e9a7b047ef7564dc2f7cff9a430e091afaf8b3bce80d96716079
-5cf16842c76f2b5ac32a37bb4cff4b1b691a1323b59db01adcf0569966746d91
-9cb673514123500c7f6f0c0c777d99813c6489832638c261bfaffb9cea01c30f
-23e3eb4e2c4ce36b484278c882a4ff77b8b73a0afcb42f9d4fb4bbd9da04b305
-51a3a18fe7339d97627c894d636a07503244f15f05a945f8ba0e326e53bac4fd
-61bc3ad6461da6f126e6191509e7964a34c8b9514a2c488462e9b2a465ddd541
+<h3 id="压缩配置"><a href="#压缩配置" class="headerlink" title="压缩配置"></a>压缩配置</h3><pre class=" language-bash"><code class="language-bash">    <span class="token function">gzip</span> on<span class="token punctuation">;</span>
+    gzip_min_length  1k<span class="token punctuation">;</span>
+    gzip_buffers     4 16k<span class="token punctuation">;</span>
+    gzip_http_version 1.0<span class="token punctuation">;</span>
+    gzip_comp_level 9<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#指定压缩类型</span>
+    gzip_types    text/plain application/x-javascript text/css application/xml<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#加vary头</span>
+    gzip_vary on<span class="token punctuation">;</span>
 </code></pre>
-<p>清理完成再次查看</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@node01 docker<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># docker system df </span>
-TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
-Images          46        46        14.44GB   435MB <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>
-Containers      121       108       1.359GB   3.478kB <span class="token punctuation">(</span>0%<span class="token punctuation">)</span>
-Local Volumes   2         2         0B        0B
-Build Cache     0         0         0B        0B
+<h3 id="指定referer"><a href="#指定referer" class="headerlink" title="指定referer"></a>指定referer</h3><pre class=" language-bash"><code class="language-bash">map <span class="token variable">$http_referer</span> <span class="token variable">$ref</span> <span class="token punctuation">{</span>
+                default <span class="token variable">$http_referer</span><span class="token punctuation">;</span>
+                ~<span class="token punctuation">(</span>https:\/\/aaa.com<span class="token punctuation">)</span><span class="token punctuation">(</span>.*<span class="token punctuation">)</span>  https://bbb.com<span class="token variable">$2</span><span class="token punctuation">;</span>
+                ~https://aaa.com  https://bbb.com<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 </code></pre>
-<p>当然也可以手动清理无tag的镜像</p>
-<pre class=" language-bash"><code class="language-bash">docker rmi <span class="token punctuation">$(</span>docker images <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"^&lt;none>"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">"{print <span class="token variable">$3</span>}"</span><span class="token punctuation">)</span>
+<p>通过map映射实现修改referer的目的</p>
+<h3 id="日志分割"><a href="#日志分割" class="headerlink" title="日志分割"></a>日志分割</h3><pre class=" language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+base_path<span class="token operator">=</span><span class="token string">'/data/nginx/logs'</span>               <span class="token comment" spellcheck="true"># 保存日志的目录</span>
+log_path<span class="token operator">=</span><span class="token punctuation">$(</span>date -d yesterday +<span class="token string">"%Y%m"</span><span class="token punctuation">)</span>           
+day<span class="token operator">=</span><span class="token punctuation">$(</span>date -d yesterday +<span class="token string">"%Y-%m-%d"</span><span class="token punctuation">)</span>                  <span class="token comment" spellcheck="true"># 日期作为日志的标识</span>
+<span class="token function">mkdir</span> -p <span class="token variable">$base_path</span>/<span class="token variable">$log_path</span>                   <span class="token comment" spellcheck="true"># 根据年月管理日志</span>
+<span class="token function">mv</span> <span class="token variable">$base_path</span>/access.log <span class="token variable">$base_path</span>/<span class="token variable">$log_path</span>/access_<span class="token variable">$day</span>.log
+<span class="token function">mv</span> <span class="token variable">$base_path</span>/error.log <span class="token variable">$base_path</span>/<span class="token variable">$log_path</span>/error_<span class="token variable">$day</span>.log
+<span class="token keyword">echo</span> <span class="token variable">$base_path</span>/<span class="token variable">$log_path</span>/access_<span class="token variable">$day</span>.log
+<span class="token function">kill</span> -USR1 <span class="token variable"><span class="token variable">`</span><span class="token function">cat</span> /usr/local/nginx/logs/nginx.pid<span class="token variable">`</span></span>   <span class="token comment" spellcheck="true"># 信号通知nginx重新开始记录日志</span>
 </code></pre>
-<p>手动清理关闭的容器</p>
-<pre class=" language-bash"><code class="language-bash">docker <span class="token function">ps</span> -a <span class="token operator">|</span> <span class="token function">grep</span> Exit <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">' '</span> -f 1 <span class="token operator">|</span> <span class="token function">xargs</span> docker <span class="token function">rm</span>
-</code></pre>
-<p>空间已经下来了 ::(酷)</p>
 
                 
             </div>
@@ -579,7 +574,7 @@ Build Cache     0         0         0B        0B
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://huhuhahei987.github.io/2d895da1/">https://huhuhahei987.github.io/2d895da1/</a>
+                    <a href="https://huhuhahei987.github.io/dfc58db0/">https://huhuhahei987.github.io/dfc58db0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -617,8 +612,12 @@ Build Cache     0         0         0B        0B
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
                                 </a>
                             
                         </div>
@@ -1066,17 +1065,18 @@ Build Cache     0         0         0B        0B
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/f619b970/">
+                <a href="/dfc58db0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="Ingress-nginx配置 https访问">
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="nginx日常调优">
                         
-                        <span class="card-title">Ingress-nginx配置 https访问</span>
+                        <span class="card-title">nginx日常调优</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1086,30 +1086,31 @@ Build Cache     0         0         0B        0B
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/K8s/" class="post-category">
-                                    K8s
+                            <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/k8s/">
-                        <span class="chip bg-color">k8s</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/Ingress/">
-                        <span class="chip bg-color">Ingress</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
@@ -1123,13 +1124,13 @@ Build Cache     0         0         0B        0B
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/undefined/">
+                <a href="/4702ce8d/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/51.jpg" class="responsive-img" alt="卡死导致K8sNode节点NotReady">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="ubuntu安装netstat网络工具">
                         
-                        <span class="card-title">卡死导致K8sNode节点NotReady</span>
+                        <span class="card-title">ubuntu安装netstat网络工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1140,14 +1141,14 @@ Build Cache     0         0         0B        0B
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Docker/" class="post-category">
-                                    Docker
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -1157,12 +1158,8 @@ Build Cache     0         0         0B        0B
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                    <a href="/tags/k8s/">
-                        <span class="chip bg-color">k8s</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
