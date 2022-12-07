@@ -467,14 +467,14 @@ OpenKruise 是一个基于 Kubernetes 的扩展套件，主要聚焦于云原生
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    755
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    3 分
                 </div>
                 
 
@@ -498,7 +498,7 @@ OpenKruise 是一个基于 Kubernetes 的扩展套件，主要聚焦于云原生
 <p>OpenKruise 是一个基于 Kubernetes 的扩展套件，主要聚焦于云原生应用的自动化，比如部署、发布、运维以及可用性防护。<br>OpenKruise 提供的绝大部分能力都是基于 CRD 扩展来定义，它们不存在于任何外部依赖，可以运行在任意纯净的 Kubernetes 集群中。</p>
 </blockquote>
 <h4 id="核心能力"><a href="#核心能力" class="headerlink" title="核心能力"></a>核心能力</h4><ul>
-<li><p>增强版本的 Workloads<br> OpenKruise 包含了一系列增强版本的 Workloads（工作负载），比如 CloneSet、Advanced StatefulSet、Advanced DaemonSet、BroadcastJob 等。<br> 它们不仅支持类似于 Kubernetes 原生 Workloads 的基础功能，还提供了如原地升级、可配置的扩缩容&#x2F;发布策略、并发操作等。<br> 其中，原地升级是一种升级应用容器镜像甚至环境变量的全新方式。它只会用新的镜像重建 Pod 中的特定容器，整个 Pod 以及其中的其他容器都不会被影响。因此它带来了更快的发布速度，以及避免了对其他 Scheduler、CNI、CSI 等组件的负面影响。</p>
+<li><p>增强版本的 Workloads<br> OpenKruise 包含了一系列增强版本的 Workloads（工作负载），比如 CloneSet、Advanced StatefulSet、Advanced DaemonSet、BroadcastJob 等。<br>  它们不仅支持类似于 Kubernetes 原生 Workloads 的基础功能，还提供了如原地升级、可配置的扩缩容&#x2F;发布策略、并发操作等。<br>  其中，原地升级是一种升级应用容器镜像甚至环境变量的全新方式。它只会用新的镜像重建 Pod 中的特定容器，整个 Pod 以及其中的其他容器都不会被影响。因此它带来了更快的发布速度，以及避免了对其他 Scheduler、CNI、CSI 等组件的负面影响。</p>
 </li>
 <li><p>应用的旁路管理<br>OpenKruise 提供了多种通过旁路管理应用 sidecar 容器、多区域部署的方式，“旁路” 意味着你可以不需要修改应用的 Workloads 来实现它们。<br>比如，SidecarSet 能帮助你在所有匹配的 Pod 创建的时候都注入特定的 sidecar 容器，甚至可以原地升级已经注入的 sidecar 容器镜像、并且对 Pod 中其他容器不造成影响。<br>而 WorkloadSpread 可以约束无状态 Workload 扩容出来 Pod 的区域分布，赋予单一 workload 的多区域和弹性部署的能力。</p>
 </li>
@@ -536,91 +536,6 @@ kruise-daemon-6nt54                          1/1     Running   0          117s
 kruise-daemon-78tnr                          1/1     Running   0          117s
 kruise-daemon-nvj9z                          1/1     Running   0          117s
 kruise-daemon-swj9t                          1/1     Running   0          117s
-</code></pre>
-<h3 id="OpenKruise功能简介"><a href="#OpenKruise功能简介" class="headerlink" title="OpenKruise功能简介"></a>OpenKruise功能简介</h3><h4 id="SidecarSet"><a href="#SidecarSet" class="headerlink" title="SidecarSet"></a>SidecarSet</h4><blockquote>
-<p>这个控制器支持通过 admission webhook 来自动为集群中创建的符合条件的 Pod 注入 sidecar 容器。 这个注入过程和 istio 的自动注入方式很类似。 除了在 Pod 创建时候注入外，SidecarSet 还提供了为运行时 Pod 原地升级其中已经注入的 sidecar 容器镜像的能力。<br>简单来说，SidecarSet 将 sidecar 容器的定义和生命周期与业务容器解耦。 它主要用于管理无状态的 sidecar 容器，比如监控、日志等 agent。</p>
-</blockquote>
-<p>范例</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps.kruise.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> SidecarSet
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>sidecarset
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">command</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> sleep
-    <span class="token punctuation">-</span> 999d
-    <span class="token key atrule">image</span><span class="token punctuation">:</span> centos<span class="token punctuation">:</span><span class="token number">6.7</span>
-    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> Always
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> tools
-    <span class="token key atrule">podInjectPolicy</span><span class="token punctuation">:</span> BeforeAppContainer
-    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
-      <span class="token key atrule">limits</span><span class="token punctuation">:</span>
-        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m
-        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 100Mi
-      <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m
-        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 100Mi
-    <span class="token key atrule">shareVolumePolicy</span><span class="token punctuation">:</span>
-      <span class="token key atrule">type</span><span class="token punctuation">:</span> enabled
-    <span class="token key atrule">terminationMessagePath</span><span class="token punctuation">:</span> /dev/termination<span class="token punctuation">-</span>log
-    <span class="token key atrule">terminationMessagePolicy</span><span class="token punctuation">:</span> File
-    <span class="token key atrule">upgradeStrategy</span><span class="token punctuation">:</span>
-      <span class="token key atrule">upgradeType</span><span class="token punctuation">:</span> ColdUpgrade
-  <span class="token key atrule">injectionStrategy</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
-  <span class="token key atrule">revisionHistoryLimit</span><span class="token punctuation">:</span> <span class="token number">10</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> app
-      <span class="token key atrule">operator</span><span class="token punctuation">:</span> Exists
-  <span class="token key atrule">updateStrategy</span><span class="token punctuation">:</span>
-    <span class="token key atrule">maxUnavailable</span><span class="token punctuation">:</span> <span class="token number">1</span>
-    <span class="token key atrule">partition</span><span class="token punctuation">:</span> 0%
-    <span class="token key atrule">paused</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">type</span><span class="token punctuation">:</span> RollingUpdate
-</code></pre>
-<ul>
-<li>spec.selector 通过label的方式选择需要注入、更新的pod，支持matchLabels、MatchExpressions两种方式，详情请参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</a></li>
-<li>spec.containers 定义需要注入、更新的pod.spec.containers容器，支持完整的k8s container字段，详情请参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/containers/">https://kubernetes.io/docs/concepts/containers/</a></li>
-<li>spec.initContainers 定义需要注入的pod.spec.initContainers容器，支持完整的k8s initContainer字段，详情请参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a><ul>
-<li>注入initContainers容器默认基于container name升级排序</li>
-<li>initContainers只支持注入，不支持pod原地升级</li>
-</ul>
-</li>
-<li>spec.updateStrategy sidecarSet更新策略，type表明升级方式：<ul>
-<li>NotUpdate 不更新，此模式下只会包含注入能力</li>
-<li>RollingUpdate 注入+滚动更新，包含了丰富的滚动更新策略，后面会详细介绍</li>
-</ul>
-</li>
-<li>spec.namespace sidecarset默认在k8s整个集群范围内生效，即对所有的命名空间生效（除了kube-system, kube-public），当设置该字段时，只对该namespace的pod生效</li>
-<li>podInjectPolicy 定义container注入到pod.spec.containers中的位置<ul>
-<li>BeforeAppContainer(默认) 注入到pod原containers的前面</li>
-<li>AfterAppContainer 注入到pod原containers的后面</li>
-</ul>
-</li>
-<li>数据卷共享<ul>
-<li>共享指定卷：通过 spec.volumes 来定义 sidecar 自身需要的 volume，详情请参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/">https://kubernetes.io/docs/concepts/storage/volumes/</a></li>
-<li>共享所有卷：通过 spec.containers[i].shareVolumePolicy.type &#x3D; enabled | disabled 来控制是否挂载pod应用容器的卷，常用于日志收集等 sidecar，配置为 enabled 后会把应用容器中所有挂载点注入 sidecar 同一路经下(sidecar中本身就有声明的数据卷和挂载点除外）</li>
-</ul>
-</li>
-<li>环境变量共享<br>可以通过 spec.containers[i].transferEnv 来从别的容器获取环境变量，会把名为 sourceContainerName 容器中名为 envName 的环境变量拷贝到本容器</li>
-</ul>
-<p>创建pod测试注入是否生效</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx <span class="token comment" spellcheck="true"># matches the SidecarSet's selector</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>pod
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> app
-    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.15.1
-</code></pre>
-<p>确认是否注入</p>
-<pre class=" language-yaml"><code class="language-yaml">kubectl get po <span class="token punctuation">|</span> grep test<span class="token punctuation">-</span>pod
-test<span class="token punctuation">-</span>pod                  2/2     Running   0          82s
 </code></pre>
 
                 
@@ -1139,18 +1054,17 @@ test<span class="token punctuation">-</span>pod                  2/2     Running
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/f4a1d35f/">
+                <a href="/235ecd58/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Openkruise安装">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="OpenKruise详解">
                         
-                        <span class="card-title">Openkruise安装</span>
+                        <span class="card-title">OpenKruise详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1160,31 +1074,30 @@ test<span class="token punctuation">-</span>pod                  2/2     Running
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-28
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/K8s/" class="post-category">
+                                    K8s
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                     <a href="/tags/K8s/">
                         <span class="chip bg-color">K8s</span>
+                    </a>
+                    
+                    <a href="/tags/Openkruise/">
+                        <span class="chip bg-color">Openkruise</span>
                     </a>
                     
                 </div>
@@ -1427,7 +1340,7 @@ test<span class="token punctuation">-</span>pod                  2/2     Running
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">84.4k</span>
+                        class="white-color">86k</span>
             
             
             
