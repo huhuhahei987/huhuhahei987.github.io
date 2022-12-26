@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Linux安装Dotnet SDk</title>
+      <link href="/d2ea5cad/"/>
+      <url>/d2ea5cad/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Linux安装Dotnet-SDk"><a href="#Linux安装Dotnet-SDk" class="headerlink" title="Linux安装Dotnet SDk"></a>Linux安装Dotnet SDk</h3><p>以dotnet5.0为例<br>1.下载linux内核对应的dotnet5.0 sdk文件<br>进入<a href="https://dotnet.microsoft.com/en-us/download/dotnet/5.0">https://dotnet.microsoft.com/en-us/download/dotnet/5.0</a></p><p>下载对应版本的tag包</p><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> -O <span class="token string">'dotnet-sdk-5.0.408-linux-x64.tar.gz'</span> <span class="token string">'http://kode.huhuhahei.cn/index.php?explorer/share/file&amp;hash=ec5enTgpEc6Hn2ajB82SGuL7Uv6NQVCwM4eHYUvqXjIwY98QrKmEEI8V4jIz6p7Jk7Z5'</span></code></pre><p>解压</p><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p <span class="token variable">$HOME</span>/dotnet <span class="token operator">&amp;&amp;</span> <span class="token function">tar</span> zxf dotnet-sdk-5.0.408-linux-x64.tar.gz -C <span class="token variable">$HOME</span>/dotnet</code></pre><p>配置优化</p><pre class=" language-bash"><code class="language-bash"><span class="token function">ln</span> -s /root/dotnet/dotnet /usr/sbin<span class="token function">cat</span> <span class="token operator">>></span> /etc/profile <span class="token operator">&lt;&lt;</span><span class="token string">EOFexport DOTNET_ROOT=<span class="token variable">$HOME</span>/dotnetPATH=<span class="token variable">$PATH</span>:<span class="token variable">$HOME</span>/dotnetEOF</span><span class="token function">source</span> /etc/profile</code></pre><h3 id="配置nuget默认拉取软件源"><a href="#配置nuget默认拉取软件源" class="headerlink" title="配置nuget默认拉取软件源"></a>配置nuget默认拉取软件源</h3><p>查看默认的源</p><pre class=" language-bash"><code class="language-bash">dotnet nuget list <span class="token function">source</span>Registered Sources:  1.  nuget.org <span class="token punctuation">[</span>Disabled<span class="token punctuation">]</span>      https://api.nuget.org/v3/index.json</code></pre><p>默认的源是国外的拉取速度比较慢</p><p>建议修改为国内</p><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#关闭国外的源</span>dotnet nuget disable <span class="token function">source</span> nuget.org<span class="token comment" spellcheck="true">#添加华为源</span>dotnet nuget add <span class="token function">source</span> --name <span class="token string">"test"</span> https://mirrors.huaweicloud.com/repository/nuget/v3/index.json <span class="token comment" spellcheck="true">#再次查看</span>dotnet nuget list <span class="token function">source</span>Registered Sources:  1.  nuget.org <span class="token punctuation">[</span>Disabled<span class="token punctuation">]</span>      https://api.nuget.org/v3/index.json  2.  <span class="token function">test</span> <span class="token punctuation">[</span>Enabled<span class="token punctuation">]</span>      https://mirrors.huaweicloud.com/repository/nuget/v3/index.json</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DevOps </tag>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>OpenKruise详解</title>
       <link href="/235ecd58/"/>
       <url>/235ecd58/</url>
