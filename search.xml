@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Mysql max_execution_time参数详解</title>
+      <link href="/cb90a2db/"/>
+      <url>/cb90a2db/</url>
+      
+        <content type="html"><![CDATA[<h3 id="一-参数解释"><a href="#一-参数解释" class="headerlink" title="一 参数解释"></a>一 参数解释</h3><p>参数<code>max_execution_time</code> 用来控制select语句的最大执行时间,单位是毫秒(ms),可以动态修改,默认参数为0,表示不设置限制</p><h3 id="二-使用示例"><a href="#二-使用示例" class="headerlink" title="二 使用示例"></a>二 使用示例</h3><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#未配置参数的时候直接访问可以正常查询结果</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test<span class="token punctuation">.</span>student<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">|</span>  <span class="token number">9996</span> <span class="token operator">|</span> 徐导   <span class="token operator">|</span>   <span class="token number">20</span> <span class="token operator">|</span> 男   <span class="token operator">|</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">01</span><span class="token operator">-</span><span class="token number">05</span> <span class="token number">14</span>:<span class="token number">34</span>:<span class="token number">42</span> <span class="token operator">|</span>     <span class="token number">1</span> <span class="token operator">|</span><span class="token operator">|</span>  <span class="token number">9997</span> <span class="token operator">|</span> 徐导   <span class="token operator">|</span>   <span class="token number">20</span> <span class="token operator">|</span> 男   <span class="token operator">|</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">01</span><span class="token operator">-</span><span class="token number">05</span> <span class="token number">14</span>:<span class="token number">34</span>:<span class="token number">42</span> <span class="token operator">|</span>     <span class="token number">1</span> <span class="token operator">|</span><span class="token operator">|</span>  <span class="token number">9998</span> <span class="token operator">|</span> 徐导   <span class="token operator">|</span>   <span class="token number">20</span> <span class="token operator">|</span> 男   <span class="token operator">|</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">01</span><span class="token operator">-</span><span class="token number">05</span> <span class="token number">14</span>:<span class="token number">34</span>:<span class="token number">42</span> <span class="token operator">|</span>     <span class="token number">1</span> <span class="token operator">|</span><span class="token operator">|</span>  <span class="token number">9999</span> <span class="token operator">|</span> 徐导   <span class="token operator">|</span>   <span class="token number">20</span> <span class="token operator">|</span> 男   <span class="token operator">|</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">01</span><span class="token operator">-</span><span class="token number">05</span> <span class="token number">14</span>:<span class="token number">34</span>:<span class="token number">42</span> <span class="token operator">|</span>     <span class="token number">1</span> <span class="token operator">|</span><span class="token operator">|</span> <span class="token number">10000</span> <span class="token operator">|</span> 徐导   <span class="token operator">|</span>   <span class="token number">20</span> <span class="token operator">|</span> 男   <span class="token operator">|</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">01</span><span class="token operator">-</span><span class="token number">05</span> <span class="token number">14</span>:<span class="token number">34</span>:<span class="token number">42</span> <span class="token operator">|</span>     <span class="token number">1</span> <span class="token operator">|</span><span class="token operator">+</span><span class="token comment" spellcheck="true">-------+--------+------+------+---------------------+-------+</span><span class="token number">10000</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#配置参数值为2ms</span><span class="token keyword">set</span> max_execution_time<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">#再次查询</span><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test<span class="token punctuation">.</span>student<span class="token punctuation">;</span>ERROR <span class="token number">3024</span> <span class="token punctuation">(</span>HY000<span class="token punctuation">)</span>: Query execution was interrupted<span class="token punctuation">,</span> maximum statement execution time exceeded</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux安装Dotnet SDk</title>
       <link href="/d2ea5cad/"/>
       <url>/d2ea5cad/</url>
