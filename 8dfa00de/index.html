@@ -463,7 +463,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    431
+                    433
                 </div>
                 
 
@@ -517,7 +517,7 @@ failed to run Kubelet: misconfiguration: kubelet cgroup driver: <span class="tok
 <span class="token comment" spellcheck="true">#重启服务</span>
 systemctl restart docker
 </code></pre>
-<p>再次查看日志,发现没有上面的报错了 但是有新的报错</p>
+<p>再次查看日志,发现没有上面的报错了 但是有新的报错 😭</p>
 <pre class=" language-bash"><code class="language-bash"> E0106 11:14:25.601363   21120 watcher.go:146<span class="token punctuation">]</span> Failed to <span class="token function">watch</span> directory <span class="token string">"/sys/fs/cgroup/pids/system.slice/containerd.service/kubepods-burstable-pod452d78e1_b236_4c8e_8874_a465705a42c3.slice"</span><span class="token keyword">:</span> inotify_add_watch /sys/fs/cgroup/pids/system.slice/containerd.service/kubepods-burstable-pod452d78e1_b236_4c8e_8874_a465705a42c3.slice: no space left on device
 </code></pre>
 <p>上网查询发现,应该是cgroup占满了 可以通过修改内核参数生效</p>
@@ -528,8 +528,7 @@ systemctl restart docker
 <span class="token comment" spellcheck="true">#将最大限制调整为1048576</span>
 <span class="token function">sudo</span> sysctl fs.inotify.max_user_watches<span class="token operator">=</span>1048576
 </code></pre>
-<p>再次重启<code>kubelet</code>发现终于变成<code>Ready</code></p>
-<p>😊</p>
+<p>再次重启<code>kubelet</code>发现终于变成好了😊</p>
 
                 
             </div>
