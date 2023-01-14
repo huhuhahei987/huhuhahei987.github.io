@@ -678,11 +678,11 @@ python3 manage<span class="token punctuation">.</span>py migrate
 admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_title <span class="token operator">=</span> <span class="token string">"管理后台"</span>
 </code></pre>
 <p><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=3e3fLfehkNWbJLBCgTQQYRbwiCWH6yoS1kjS6NbQKZLnf2-Xqb8iDON9_nzqn9jjaTmM&name=/20230114-143518-MY.png"></p>
-<h6 id="列表优化"><a href="#列表优化" class="headerlink" title="列表优化"></a>列表优化</h6><pre class=" language-python3"><code class="language-python3">class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("project_name","project_type","project_version")
+<h6 id="列表优化"><a href="#列表优化" class="headerlink" title="列表优化"></a>列表优化</h6><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ProjectAdmin</span><span class="token punctuation">(</span>admin<span class="token punctuation">.</span>ModelAdmin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    list_display <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">"project_name"</span><span class="token punctuation">,</span><span class="token string">"project_type"</span><span class="token punctuation">,</span><span class="token string">"project_version"</span><span class="token punctuation">)</span>
 
 
-admin.site.register(Project, ProjectAdmin)
+admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>register<span class="token punctuation">(</span>Project<span class="token punctuation">,</span> ProjectAdmin<span class="token punctuation">)</span>
 </code></pre>
 <p><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=dd64rxBvmVdPi8feZVdlGi93k9uodG56NStRhsSZN80i2g85kw_ZoJnWrmPPH3FuBbNV&name=/20230114-144004-fu.png"></p>
 <h6 id="导航栏优化"><a href="#导航栏优化" class="headerlink" title="导航栏优化"></a>导航栏优化</h6><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">HuhuhaheiConfig</span><span class="token punctuation">(</span>AppConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
