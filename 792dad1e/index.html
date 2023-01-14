@@ -470,7 +470,7 @@ Django 最初被设计用于具有快速开发需求的新闻类站点，目的�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    904
+                    900
                 </div>
                 
 
@@ -539,50 +539,50 @@ Quit the server <span class="token keyword">with</span> CONTROL<span class="toke
 <p>网页访问打开这样就证明启动成功了</p>
 <h5 id="配置后台页面"><a href="#配置后台页面" class="headerlink" title="配置后台页面"></a>配置后台页面</h5><p>访问后台页面</p>
 <p><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=494btNX1AWstTqOt7rWvY_o38UO46XVxum39dwP2_cGoRPS5aQZA3TedExZmSQqfaevy&name=/20230114-140306-O8.png"><br>访问报错找不到表 这里我们需要先初始化下数据库</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#初始化数据库</span>
-python3 manage<span class="token punctuation">.</span>py makemigrations 
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#初始化数据库</span>
+python3 manage.py makemigrations 
 No changes detected
 
 <span class="token comment" spellcheck="true">#创建库表</span>
-python3 manage<span class="token punctuation">.</span>py migrate 
-Operations to perform<span class="token punctuation">:</span>
-  Apply all migrations<span class="token punctuation">:</span> admin<span class="token punctuation">,</span> auth<span class="token punctuation">,</span> contenttypes<span class="token punctuation">,</span> sessions
-Running migrations<span class="token punctuation">:</span>
-  Applying contenttypes<span class="token punctuation">.</span>0001_initial<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0001_initial<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying admin<span class="token punctuation">.</span>0001_initial<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying admin<span class="token punctuation">.</span>0002_logentry_remove_auto_add<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying admin<span class="token punctuation">.</span>0003_logentry_add_action_flag_choices<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying contenttypes<span class="token punctuation">.</span>0002_remove_content_type_name<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0002_alter_permission_name_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0003_alter_user_email_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0004_alter_user_username_opts<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0005_alter_user_last_login_null<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0006_require_contenttypes_0002<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0007_alter_validators_add_error_messages<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0008_alter_user_username_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0009_alter_user_last_name_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0010_alter_group_name_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0011_update_proxy_permissions<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying auth<span class="token punctuation">.</span>0012_alter_user_first_name_max_length<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
-  Applying sessions<span class="token punctuation">.</span>0001_initial<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> OK
+python3 manage.py migrate 
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial<span class="token punctuation">..</span>. OK
+  Applying auth.0001_initial<span class="token punctuation">..</span>. OK
+  Applying admin.0001_initial<span class="token punctuation">..</span>. OK
+  Applying admin.0002_logentry_remove_auto_add<span class="token punctuation">..</span>. OK
+  Applying admin.0003_logentry_add_action_flag_choices<span class="token punctuation">..</span>. OK
+  Applying contenttypes.0002_remove_content_type_name<span class="token punctuation">..</span>. OK
+  Applying auth.0002_alter_permission_name_max_length<span class="token punctuation">..</span>. OK
+  Applying auth.0003_alter_user_email_max_length<span class="token punctuation">..</span>. OK
+  Applying auth.0004_alter_user_username_opts<span class="token punctuation">..</span>. OK
+  Applying auth.0005_alter_user_last_login_null<span class="token punctuation">..</span>. OK
+  Applying auth.0006_require_contenttypes_0002<span class="token punctuation">..</span>. OK
+  Applying auth.0007_alter_validators_add_error_messages<span class="token punctuation">..</span>. OK
+  Applying auth.0008_alter_user_username_max_length<span class="token punctuation">..</span>. OK
+  Applying auth.0009_alter_user_last_name_max_length<span class="token punctuation">..</span>. OK
+  Applying auth.0010_alter_group_name_max_length<span class="token punctuation">..</span>. OK
+  Applying auth.0011_update_proxy_permissions<span class="token punctuation">..</span>. OK
+  Applying auth.0012_alter_user_first_name_max_length<span class="token punctuation">..</span>. OK
+  Applying sessions.0001_initial<span class="token punctuation">..</span>. OK
   
 <span class="token comment" spellcheck="true">#创建admin用户</span>
-python3 manage<span class="token punctuation">.</span>py createsuperuser
-Username <span class="token punctuation">(</span>leave blank to use <span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> admin
-Email address<span class="token punctuation">:</span> admin
-Error<span class="token punctuation">:</span> Enter a valid email address<span class="token punctuation">.</span>
-Email address<span class="token punctuation">:</span> admin@<span class="token operator">^</span>C
-Operation cancelled<span class="token punctuation">.</span>
+python3 manage.py createsuperuser
+Username <span class="token punctuation">(</span>leave blank to use <span class="token string">'root'</span><span class="token punctuation">)</span>: admin
+Email address: admin
+Error: Enter a valid email address.
+Email address: admin@^C
+Operation cancelled.
 <span class="token punctuation">[</span>root@blog huhuhahei<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># python3 manage.py createsuperuser</span>
-Username <span class="token punctuation">(</span>leave blank to use <span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> admin
-Email address<span class="token punctuation">:</span> admin@qq<span class="token punctuation">.</span>com
-Password<span class="token punctuation">:</span> 
-Password <span class="token punctuation">(</span>again<span class="token punctuation">)</span><span class="token punctuation">:</span> 
-The password <span class="token keyword">is</span> too similar to the username<span class="token punctuation">.</span>
-This password <span class="token keyword">is</span> too short<span class="token punctuation">.</span> It must contain at least <span class="token number">8</span> characters<span class="token punctuation">.</span>
-This password <span class="token keyword">is</span> too common<span class="token punctuation">.</span>
-Bypass password validation <span class="token operator">and</span> create user anyway? <span class="token punctuation">[</span>y<span class="token operator">/</span>N<span class="token punctuation">]</span><span class="token punctuation">:</span> y
+Username <span class="token punctuation">(</span>leave blank to use <span class="token string">'root'</span><span class="token punctuation">)</span>: admin
+Email address: admin@qq.com
+Password: 
+Password <span class="token punctuation">(</span>again<span class="token punctuation">)</span>: 
+The password is too similar to the username.
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+Bypass password validation and create user anyway? <span class="token punctuation">[</span>y/N<span class="token punctuation">]</span>: y
 </code></pre>
 <p>再次访问<br><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=81bc3TekeDcIu9wTWsQt7LoOlchCnweJ--5MP5VDFFYF0eZ731TdoCYi2egBMZQESbyS&name=/20230114-140702-If.png"></p>
 <h5 id="创建一个应用"><a href="#创建一个应用" class="headerlink" title="创建一个应用"></a>创建一个应用</h5><pre class=" language-python"><code class="language-python">python3 manage<span class="token punctuation">.</span>py startapp app01
@@ -630,13 +630,13 @@ Bypass password validation <span class="token operator">and</span> create user a
     <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
 </code></pre>
 <p>配置url路由修改urls文件</p>
-<pre><code>#添加
-from app01 import views
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#添加</span>
+<span class="token keyword">from</span> app01 <span class="token keyword">import</span> views
 
-urlpatterns = [
-    path(&#39;admin/&#39;, admin.site.urls),
-    path(&#39;app01/&#39;, views.index),
-]
+urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+    path<span class="token punctuation">(</span><span class="token string">'admin/'</span><span class="token punctuation">,</span> admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>urls<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">(</span><span class="token string">'app01/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
 </code></pre>
 <p>访问 <a target="_blank" rel="noopener" href="http://106.14.172.136:8080/app01/">http://106.14.172.136:8080/app01/</a><br><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=857cPmQeCnlsueRLY5Pq3BnX13rxuQkFswjsOauMVLxtQAI5FddS7aO__JAOLsP8-pfn&name=/20230114-142157-4U.png"></p>
 <h5 id="配置模块"><a href="#配置模块" class="headerlink" title="配置模块"></a>配置模块</h5><p>models文件添加</p>
@@ -656,19 +656,19 @@ PROJECT_TYPE <span class="token operator">=</span> <span class="token punctuatio
     project_version <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span> blank<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>verbose_name<span class="token operator">=</span><span class="token string">"项目版本"</span><span class="token punctuation">)</span>
 </code></pre>
 <p>admin模块添加</p>
-<pre><code>from django.contrib import admin
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
 
-# Register your models here.
+<span class="token comment" spellcheck="true"># Register your models here.</span>
 
-from app01.models import Project
+<span class="token keyword">from</span> app01<span class="token punctuation">.</span>models <span class="token keyword">import</span> Project
 
-admin.site.register(Project)
+admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>register<span class="token punctuation">(</span>Project<span class="token punctuation">)</span>
 </code></pre>
-<pre><code>#初始化数据库
-python3 manage.py makemigrations 
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#初始化数据库</span>
+python3 manage<span class="token punctuation">.</span>py makemigrations 
 
-#创建库表
-python3 manage.py migrate 
+<span class="token comment" spellcheck="true">#创建库表</span>
+python3 manage<span class="token punctuation">.</span>py migrate 
 </code></pre>
 <p>访问后台页面<br><a target="_blank" rel="noopener" href="http://106.14.172.136:8080/admin/">http://106.14.172.136:8080/admin/</a></p>
 <p><img src="http://kode.huhuhahei.cn/index.php?explorer/share/file&hash=f162izr6MytNw1jHWzkJdxOPgWmV94T-8iiIUpuEv4d_gknKANuITvspfAr0TmqNTWAZ&name=/20230114-143201-Cz.png"></p>
