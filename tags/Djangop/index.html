@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="huhuhahei">
+    <meta name="keywords" content="标签: Djangop, huhuhahei">
     <meta name="description" content="huhuhahei">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +19,7 @@
 
     
 
-    <title>huhuhahei</title>
+    <title>标签: Djangop | huhuhahei</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -303,56 +303,9 @@
 
 </header>
 
-    
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color: rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item  white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
@@ -399,199 +352,369 @@
 </script>
 
 
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        </div>
     </div>
-
-    
 </div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-
-        function restartPlay() {
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
 
 <main class="content">
 
     
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-                        <div class="dream">
-    
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;我的梦想
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
-            不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/Ansible/" title="Ansible: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Ansible" style="background-color: #F9EBEA;">Ansible
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/DevOps/" title="DevOps: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="DevOps" style="background-color: #F5EEF8;">DevOps
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Linux/" title="Linux: 55">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Linux" style="background-color: #D5F5E3;">Linux
+                        <span class="tag-length">55</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Ceph/" title="Ceph: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Ceph" style="background-color: #E8F8F5;">Ceph
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Docker/" title="Docker: 6">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Docker" style="background-color: #FEF9E7;">Docker
+                        <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Prometheus/" title="Prometheus: 9">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Prometheus" style="background-color: #F8F9F9;">Prometheus
+                        <span class="tag-length">9</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" title="开源项目: 11">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="开源项目" style="background-color: #82E0AA;">开源项目
+                        <span class="tag-length">11</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/K8s/" title="K8s: 32">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="K8s" style="background-color: #D7BDE2;">K8s
+                        <span class="tag-length">32</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Go/" title="Go: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Go" style="background-color: #A3E4D7;">Go
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/k8s/" title="k8s: 18">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="k8s" style="background-color: #85C1E9;">k8s
+                        <span class="tag-length">18</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Ingress/" title="Ingress: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Ingress" style="background-color: #F8C471;">Ingress
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Istio/" title="Istio: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Istio" style="background-color: #F9E79F;">Istio
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/lnmp/" title="lnmp: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="lnmp" style="background-color: #D7BDE2;">lnmp
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/ELK/" title="ELK: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="ELK" style="background-color: #85C1E9;">ELK
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Databases/" title="Databases: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Databases" style="background-color: #FFF;">Databases
+                        <span class="tag-length">5</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/ingress/" title="ingress: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="ingress" style="background-color: #F8F9F9;">ingress
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/EFK/" title="EFK: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="EFK" style="background-color: #F8F9F9;">EFK
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/kubeadm/" title="kubeadm: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="kubeadm" style="background-color: #F5EEF8;">kubeadm
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Alertmanager/" title="Alertmanager: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Alertmanager" style="background-color: #FEF9E7;">Alertmanager
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Mongo/" title="Mongo: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Mongo" style="background-color: #FFF;">Mongo
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Mysql/" title="Mysql: 15">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Mysql" style="background-color: #FEF9E7;">Mysql
+                        <span class="tag-length">15</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Nginx/" title="Nginx: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Nginx" style="background-color: #F9E79F;">Nginx
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Operator/" title="Operator: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Operator" style="background-color: #F5EEF8;">Operator
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/ETCD/" title="ETCD: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="ETCD" style="background-color: #F9EBEA;">ETCD
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Pushgateway/" title="Pushgateway: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Pushgateway" style="background-color: #F9EBEA;">Pushgateway
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="中间件: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="中间件" style="background-color: #F5EEF8;">中间件
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/java/" title="java: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="java" style="background-color: #A3E4D7;">java
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Redis/" title="Redis: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Redis" style="background-color: #F9EBEA;">Redis
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Java/" title="Java: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Java" style="background-color: #FFF;">Java
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/redis/" title="redis: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="redis" style="background-color: #82E0AA;">redis
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Grafana/" title="Grafana: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Grafana" style="background-color: #D7BDE2;">Grafana
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="个人博客: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="个人博客" style="background-color: #FFF;">个人博客
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Nacos/" title="Nacos: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Nacos" style="background-color: #A3E4D7;">Nacos
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Openkruise/" title="Openkruise: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Openkruise" style="background-color: #85C1E9;">Openkruise
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/python/" title="python: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="python" style="background-color: #F8C471;">python
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Django/" title="Django: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Django" style="background-color: #85C1E9;">Django
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Djangop/" title="Djangop: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="Djangop" style="background-color: #FEF9E7;">Djangop
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+            </div>
         </div>
     </div>
 </div>
 
-                    
-
-                    
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
     
 
-    
-
-    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row article-row">
+        <div class="row tags-posts">
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/acd665c5/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Django创建注册页面">
-                            
-                            <span class="card-title">Django创建注册页面</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                创建数据库表from django.db import models
-
-# Create your models here.
-
-class UserInfo(models.Model):
-    uername = models.CharF
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-16
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/python/" class="post-category">
-                                    python
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/python/">
-                            <span class="chip bg-color">python</span>
-                        </a>
-                        
-                        <a href="/tags/Django/">
-                            <span class="chip bg-color">Django</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-tags="python, Djangop" data-aos="fade-up">
                 <div class="card">
                     <a href="/ad40988e/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Django调用腾讯云sms发送短信">
@@ -599,15 +722,7 @@ class UserInfo(models.Model):
                             <span class="card-title">Django调用腾讯云sms发送短信</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                前言由于项目在注册、登录、找回密码 时需要发送短信验证的功能，我们使用腾讯云短信做。
-所以需要准备腾讯云账号和sms需要的签名已经模板,这么就不在交代,可以自己去申请
-配置腾讯云sdk安装sdkpip3 install qcloudsms_
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-01-14
@@ -617,428 +732,19 @@ class UserInfo(models.Model):
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/python/" class="post-category">
-                                    python
+                                python
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/python/">
-                            <span class="chip bg-color">python</span>
-                        </a>
-                        
-                        <a href="/tags/Djangop/">
-                            <span class="chip bg-color">Djangop</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/792dad1e/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Django 详解">
-                            
-                            <span class="card-title">Django 详解</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                简介
-Django 最初被设计用于具有快速开发需求的新闻类站点，目的是要实现简单快捷的网站开发。
-
-设计模型Django 无需数据库就可以使用，它提供了 对象关系映射器 通过此技术，你可以使用 Python 代码来描述数据库结构。
-你可以使
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/python/" class="post-category">
-                                    python
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/python/">
-                            <span class="chip bg-color">python</span>
-                        </a>
-                        
-                        <a href="/tags/Django/">
-                            <span class="chip bg-color">Django</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/8dfa00de/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="kubelet重启失败分析">
-                            
-                            <span class="card-title">kubelet重启失败分析</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                前言某天上午看到告警发现测试环境有个节点NotReady 首先排查服务器状态,cpu 内存 磁盘 网络一切正常.那就把目光放到kubelet和docker上面
-查看kubelet日志先查看kubelet状态,发现服务已经挂了,那主要目标就是
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/k8s/" class="post-category">
-                                    k8s
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/k8s/">
-                            <span class="chip bg-color">k8s</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/cb90a2db/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Mysql max_execution_time参数详解">
-                            
-                            <span class="card-title">Mysql max_execution_time参数详解</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一 参数解释参数max_execution_time 用来控制select语句的最大执行时间,单位是毫秒(ms),可以动态修改,默认参数为0,表示不设置限制
-二 使用示例#未配置参数的时候直接访问可以正常查询结果
-select * from
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Mysql/">
-                            <span class="chip bg-color">Mysql</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/d2ea5cad/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Linux安装Dotnet SDk">
-                            
-                            <span class="card-title">Linux安装Dotnet SDk</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Linux安装Dotnet SDk以dotnet5.0为例1.下载linux内核对应的dotnet5.0 sdk文件进入https://dotnet.microsoft.com/en-us/download/dotnet/5.0
-下载对应版
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/DevOps/">
-                            <span class="chip bg-color">DevOps</span>
-                        </a>
-                        
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/235ecd58/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="OpenKruise详解">
-                            
-                            <span class="card-title">OpenKruise详解</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                SidecarSet
-这个控制器支持通过 admission webhook 来自动为集群中创建的符合条件的 Pod 注入 sidecar 容器。 这个注入过程和 istio 的自动注入方式很类似。 除了在 Pod 创建时候注入外，Side
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-07
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/K8s/" class="post-category">
-                                    K8s
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/K8s/">
-                            <span class="chip bg-color">K8s</span>
-                        </a>
-                        
-                        <a href="/tags/Openkruise/">
-                            <span class="chip bg-color">Openkruise</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/f4a1d35f/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Openkruise安装">
-                            
-                            <span class="card-title">Openkruise安装</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Openkruise简介
-OpenKruise 是一个基于 Kubernetes 的扩展套件，主要聚焦于云原生应用的自动化，比如部署、发布、运维以及可用性防护。OpenKruise 提供的绝大部分能力都是基于 CRD 扩展来定义，它们不存在
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Linux/">
-                            <span class="chip bg-color">Linux</span>
-                        </a>
-                        
-                        <a href="/tags/K8s/">
-                            <span class="chip bg-color">K8s</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/1ece2163/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="我和她的故事">
-                            
-                            <span class="card-title">我和她的故事</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                密码：123456
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E4%B8%AA%E4%BA%BA%E5%88%86%E4%BA%AB/" class="post-category">
-                                    个人分享
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-                            <span class="chip bg-color">个人博客</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
             
         </div>
     </article>
-
 </main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a class="left btn-floating btn-large disabled">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 14</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
-    </div>
-</div>
 
 
 
